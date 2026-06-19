@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,9 +48,9 @@
         /* Navigation Menu */
         nav {
             position: relative;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 60px auto;
-            padding-bottom: 35px;
+            padding-bottom: 60px; /* Extra room for the wide tracks */
         }
 
         .nav-links {
@@ -67,11 +68,11 @@
             flex-direction: column;
             align-items: center;
             padding: 10px;
-            width: 80px;
-            transition: transform 0.2s ease;
+            width: 120px;
+            text-align: center;
         }
 
-        /* Line Drawing Icons with Glow Capability */
+        /* Line Drawing Icons */
         .nav-item svg {
             width: 40px;
             height: 40px;
@@ -79,7 +80,7 @@
             stroke-width: 2;
             fill: none;
             margin-bottom: 8px;
-            transition: filter 0.3s ease, stroke 0.3s ease;
+            transition: filter 0.3s ease;
         }
 
         .nav-item span {
@@ -87,31 +88,30 @@
             font-weight: bold;
         }
 
-        /* Icon Glow Filter when selected or hovered */
+        /* Icon Glow Filter */
         .nav-item:hover svg, .nav-item.glowing svg {
-            filter: drop-shadow(0 0 10px #1976D2); /* Coastal blue glow effect */
-            stroke: #000000;
+            filter: drop-shadow(0 0 10px #1976D2); 
         }
 
-        /* Staggered Paw Print Container */
+        /* Wide Track Space */
         .paw-tracks {
             position: absolute;
-            bottom: 0;
+            bottom: -10px;
             left: 0;
             width: 100%;
-            height: 20px;
+            height: 50px;
             pointer-events: none;
         }
 
-        /* Individual Walking Paw Styles */
+        /* Individual Paw Styles */
         .paw {
             position: absolute;
             width: 20px;
             height: 20px;
             left: 0;
             opacity: 1;
-            /* Staggered fluid motion transition setup */
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.2s ease;
+            /* Slow, smooth fade so the lift and placement is highly visible */
+            transition: opacity 0.3s ease-in-out; 
         }
 
         .paw svg {
@@ -128,11 +128,13 @@
             text-align: center;
         }
 
-        /* Responsive adjustments for mobile screens */
-        @media (max-width: 400px) {
+        @media (max-width: 500px) {
             .nav-links {
                 flex-wrap: wrap;
-                gap: 20px;
+                gap: 15px;
+            }
+            .nav-item {
+                width: 40%;
             }
             .fixed-title {
                 position: static;
@@ -143,29 +145,32 @@
                 padding-top: 20px;
             }
             .paw-tracks {
-                display: none; /* Hides tracks on tiny mobile layouts to prevent overlapping wrap bugs */
+                display: none; 
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Fixed Corner Name -->
     <div class="fixed-title">Lyme Regis Dog</div>
 
     <header>
         <h1>Welcome to Lyme Regis Dog</h1>
-        <p>Discover the best dog-friendly walks, beaches, attractions, and local tips for dogs and their owners.</p>
+        <p>Discover the best dog-friendly walks, beaches, shops, cafes, and local tips for dogs and their owners.</p>
     </header>
 
-    <!-- Navigation Area -->
     <nav>
         <div class="nav-links">
             <a href="#walks" class="nav-item">
+                <!-- Labrador Walking Silhouette -->
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 22s4-4 4-10-4-10-4-10"></path>
-                    <path d="M12 22s4-4 4-10-4-10-4-10"></path>
-                    <path d="M20 22s4-4 4-10-4-10-4-10"></path>
+                    <path d="M10 5.5c1.5-1 3.5-1 5 0 1 .5 2 1.5 2.5 3 .5 1.5 1 2 2 2h1.5c.8 0 1.5.7 1.5 1.5v1c0 .8-.7 1.5-1.5 1.5H19l-1.5 3H9.5c-2.5 0-4.5-1.5-6-3.5L2 12c-1-1.5 0-3 1.5-3h1.5c1.5 0 3-1 4-2.5L10 5.5z"/>
+                    <path d="M16 10.5c-1 1-1.5 2.5-1 4"/>
+                    <path d="M7 17v4"/>
+                    <path d="M11 17v4"/>
+                    <path d="M15 17v4"/>
+                    <path d="M19 17v4"/>
+                    <circle cx="20" cy="11" r="0.5" fill="black"/>
                 </svg>
                 <span>Walks</span>
             </a>
@@ -179,12 +184,12 @@
                 <span>Beaches</span>
             </a>
 
-            <a href="#attractions" class="nav-item">
+            <a href="#shops-cafes" class="nav-item">
+                <!-- Shop/Cafe Icon -->
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
+                    <path d="M3 9l1-4h16l1 4M4 9v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M9 14h6v7H9zM3 9h18"/>
                 </svg>
-                <span>Attractions</span>
+                <span>Shops and Cafes</span>
             </a>
 
             <a href="#tips" class="nav-item">
@@ -195,12 +200,11 @@
             </a>
         </div>
 
-        <!-- The 4 Walking Paws Track Space -->
         <div class="paw-tracks">
-            <div class="paw" id="paw1"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
-            <div class="paw" id="paw2"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
-            <div class="paw" id="paw3"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
-            <div class="paw" id="paw4"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="back-left"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="front-left"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="back-right"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="front-right"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
         </div>
     </nav>
 
@@ -209,67 +213,94 @@
         <p>More details and photos will go here as we build out the site!</p>
     </main>
 
-    <!-- Walking Engine Script -->
+    <!-- Natural Walking Gait Engine -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const navItems = document.querySelectorAll(".nav-item");
             const navContainer = document.querySelector("nav");
-            const paws = document.querySelectorAll(".paw");
             
-            let lastX = 0; // Tracks directional movement context
+            const bLeft = document.getElementById("back-left");
+            const fLeft = document.getElementById("front-left");
+            const bRight = document.getElementById("back-right");
+            const fRight = document.getElementById("front-right");
+            
+            let lastX = 0;
+            let isMoving = false;
 
-            function movePaws(element) {
+            function animateGait(element) {
+                if (isMoving) return; 
+                
                 const elementRect = element.getBoundingClientRect();
                 const navRect = navContainer.getBoundingClientRect();
-                
-                // Establish center target for the group
                 const targetCenter = elementRect.left - navRect.left + (elementRect.width / 2);
                 
-                // Determine direction: true if walking right, false if left
-                const movingRight = targetCenter > lastX;
+                if (targetCenter === lastX) return;
+                isMoving = true;
+
+                const isMovingRight = targetCenter > lastX;
                 lastX = targetCenter;
 
-                // Adjust glowing menu classes
                 navItems.forEach(item => item.classList.remove('glowing'));
                 element.classList.add('glowing');
 
-                // Horizontal placement distribution for 4 paws
-                const offsets = [-24, -8, 8, 24];
-                const rotation = movingRight ? 90 : -90; // Face forward along heading orientation
+                const rotation = isMovingRight ? 90 : -90;
 
-                paws.forEach((paw, index) => {
-                    // Stagger calculation: if heading right, the right-most paw shifts first.
-                    const delay = movingRight ? (3 - index) * 0.06 : index * 0.06;
-                    paw.style.transitionDelay = `${delay}s`;
+                // Create a distinct 24-pixel vertical gap representing the body width
+                const topLaneY = 0;   
+                const bottomLaneY = 24; 
 
-                    // Dynamic lift/vanish sequence rule
-                    // Right direction drops rear paw (index 0). Left direction drops rear paw (index 3).
-                    if (paw.liftTimeout) clearTimeout(paw.liftTimeout);
-                    
-                    if ((movingRight && index === 0) || (!movingRight && index === 3)) {
-                        paw.style.opacity = '0'; // Lifts off the ground cleanly
-                        paw.liftTimeout = setTimeout(() => {
-                            paw.style.opacity = '1'; // Places foot down firmly upon arrival
-                        }, 450);
-                    } else {
-                        paw.style.opacity = '1';
-                    }
+                // Map the correct paws to the correct lanes based on the heading direction
+                const flY = isMovingRight ? topLaneY : bottomLaneY;
+                const blY = isMovingRight ? topLaneY : bottomLaneY;
+                const frY = isMovingRight ? bottomLaneY : topLaneY;
+                const brY = isMovingRight ? bottomLaneY : topLaneY;
 
-                    // Compute translation step
-                    const exactX = targetCenter + offsets[index] - 10; // Adjusts to exact element bounding center minus radius
-                    paw.style.transform = `translateX(${exactX}px) rotate(${rotation}deg)`;
-                });
+                // X-axis offsets to space out the front and back legs naturally
+                const leadX = isMovingRight ? 12 : -12;
+                const trailX = isMovingRight ? -16 : 16;
+
+                // Function to execute the Lift -> Move -> Place sequence
+                function takeStep(pawElement, targetX, targetY, delay) {
+                    setTimeout(() => {
+                        pawElement.style.opacity = "0"; // 1. Lift paw off page (fade out)
+                        
+                        setTimeout(() => {
+                            // 2. Instantly update coordinates while completely invisible
+                            pawElement.style.transform = `translateX(${targetX}px) translateY(${targetY}px) rotate(${rotation}deg)`;
+                            
+                            setTimeout(() => {
+                                pawElement.style.opacity = "1"; // 3. Place paw down (fade in)
+                            }, 50);
+                        }, 300); // Waits for the 0.3s CSS opacity transition to finish
+                    }, delay);
+                }
+
+                // Execute a staggered, natural 4-beat walk sequence
+                takeStep(bRight, targetCenter + trailX - 10, brY, 0);     // Back Right lifts first
+                takeStep(fRight, targetCenter + leadX - 10, frY, 200);    // Front Right follows
+                takeStep(bLeft, targetCenter + trailX - 10, blY, 400);    // Back Left goes next
+                takeStep(fLeft, targetCenter + leadX - 10, flY, 600);     // Front Left anchors it
+
+                // Unlock movement once the sequence finishes
+                setTimeout(() => { isMoving = false; }, 950);
             }
 
-            // Initialize position centered beneath first navigation node
+            // Set the initial wide stance under the first link
             if (navItems.length > 0) {
-                movePaws(navItems[0]);
+                const initialRect = navItems[0].getBoundingClientRect();
+                const navRect = navContainer.getBoundingClientRect();
+                const initialCenter = initialRect.left - navRect.left + (initialRect.width / 2);
+                lastX = initialCenter;
+                
+                bRight.style.transform = `translateX(${initialCenter - 26}px) translateY(24px) rotate(90deg)`;
+                fRight.style.transform = `translateX(${initialCenter + 2}px) translateY(24px) rotate(90deg)`;
+                bLeft.style.transform = `translateX(${initialCenter - 26}px) translateY(0px) rotate(90deg)`;
+                fLeft.style.transform = `translateX(${initialCenter + 2}px) translateY(0px) rotate(90deg)`;
             }
 
-            // Assign interactive hover and hardware touch event mappings
             navItems.forEach(item => {
-                item.addEventListener("mouseenter", function() { movePaws(this); });
-                item.addEventListener("touchstart", function() { movePaws(this); });
+                item.addEventListener("mouseenter", function() { animateGait(this); });
+                item.addEventListener("touchstart", function() { animateGait(this); });
             });
         });
     </script>

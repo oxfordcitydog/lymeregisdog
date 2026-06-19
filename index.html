@@ -1,1 +1,235 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyme Regis Dog</title>
+    <style>
+        /* Base Styling */
+        body {
+            background-color: #E3F2FD; /* Pale blue background */
+            color: #000000; /* Black text */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Fixed Top Right Name */
+        .fixed-title {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            z-index: 1000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Header and Intro */
+        header {
+            text-align: center;
+            padding: 80px 20px 40px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Navigation Menu */
+        nav {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 50px auto;
+            padding-bottom: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            width: 80px; /* Gives a good tap target size for phones */
+        }
+
+        /* Line Drawing Icons */
+        .nav-item svg {
+            width: 40px;
+            height: 40px;
+            stroke: black;
+            stroke-width: 2;
+            fill: none;
+            margin-bottom: 8px;
+        }
+
+        .nav-item span {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Sliding Paw Print Indicator */
+        .paw-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .paw-indicator svg {
+            width: 100%;
+            height: 100%;
+            fill: black;
+        }
+
+        /* Main Content Area */
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Responsive adjustments for very small screens */
+        @media (max-width: 400px) {
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .fixed-title {
+                position: static;
+                text-align: center;
+                margin-top: 10px;
+            }
+            header {
+                padding-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Corner Name -->
+    <div class="fixed-title">Lyme Regis Dog</div>
+
+    <header>
+        <h1>Welcome to Lyme Regis</h1>
+        <p>Discover the best dog-friendly walks, beaches, attractions, and local tips for dogs and their owners.</p>
+    </header>
+
+    <!-- Navigation Area -->
+    <nav>
+        <div class="nav-links">
+            <a href="#walks" class="nav-item">
+                <!-- Winding Path Icon -->
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 22s4-4 4-10-4-10-4-10"></path>
+                    <path d="M12 22s4-4 4-10-4-10-4-10"></path>
+                    <path d="M20 22s4-4 4-10-4-10-4-10"></path>
+                </svg>
+                <span>Walks</span>
+            </a>
+            
+            <a href="#beaches" class="nav-item">
+                <!-- Sun and Wave Icon -->
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 20h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01"></path>
+                    <path d="M2 16c2.67-2 5.33-2 8 0s5.33 2 8 0 5.33-2 8 0"></path>
+                    <circle cx="12" cy="8" r="4"></circle>
+                </svg>
+                <span>Beaches</span>
+            </a>
+
+            <a href="#attractions" class="nav-item">
+                <!-- Location/Attraction Icon -->
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>Attractions</span>
+            </a>
+
+            <a href="#tips" class="nav-item">
+                <!-- Info/Tip Bubble Icon -->
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+                <span>Local Tips</span>
+            </a>
+        </div>
+
+        <!-- The Sliding Paw Print -->
+        <div class="paw-indicator" id="paw-indicator">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"></path>
+            </svg>
+        </div>
+    </nav>
+
+    <main>
+        <h2>Select a category above to begin</h2>
+        <p>More details and photos will go here as we build out the site!</p>
+    </main>
+
+    <!-- JavaScript to move the footprint -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const indicator = document.getElementById("paw-indicator");
+            const navItems = document.querySelectorAll(".nav-item");
+            const navContainer = document.querySelector("nav");
+
+            // Function to calculate and move the paw print to the center of the selected link
+            function movePawTo(element) {
+                const elementRect = element.getBoundingClientRect();
+                const navRect = navContainer.getBoundingClientRect();
+                
+                // Calculate the left position relative to the navigation container
+                // elementRect.width / 2 finds the middle of the icon
+                // 12 is half the width of the paw print itself, so it centers perfectly
+                const leftPosition = elementRect.left - navRect.left + (elementRect.width / 2) - 12;
+                
+                // Move it using CSS transform
+                indicator.style.transform = `translateX(${leftPosition}px)`;
+            }
+
+            // Set the paw print under the first item when the page loads
+            if (navItems.length > 0) {
+                movePawTo(navItems[0]);
+            }
+
+            // Move the paw print whenever the mouse hovers over a new icon
+            navItems.forEach(item => {
+                item.addEventListener("mouseenter", function() {
+                    movePawTo(this);
+                });
+                
+                // For touchscreens (phones/tablets)
+                item.addEventListener("touchstart", function() {
+                    movePawTo(this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,8 +48,8 @@
         nav {
             position: relative;
             max-width: 600px;
-            margin: 0 auto 50px auto;
-            padding-bottom: 20px;
+            margin: 0 auto 60px auto;
+            padding-bottom: 35px;
         }
 
         .nav-links {
@@ -69,10 +67,11 @@
             flex-direction: column;
             align-items: center;
             padding: 10px;
-            width: 80px; /* Gives a good tap target size for phones */
+            width: 80px;
+            transition: transform 0.2s ease;
         }
 
-        /* Line Drawing Icons */
+        /* Line Drawing Icons with Glow Capability */
         .nav-item svg {
             width: 40px;
             height: 40px;
@@ -80,6 +79,7 @@
             stroke-width: 2;
             fill: none;
             margin-bottom: 8px;
+            transition: filter 0.3s ease, stroke 0.3s ease;
         }
 
         .nav-item span {
@@ -87,17 +87,34 @@
             font-weight: bold;
         }
 
-        /* Sliding Paw Print Indicator */
-        .paw-indicator {
+        /* Icon Glow Filter when selected or hovered */
+        .nav-item:hover svg, .nav-item.glowing svg {
+            filter: drop-shadow(0 0 10px #1976D2); /* Coastal blue glow effect */
+            stroke: #000000;
+        }
+
+        /* Staggered Paw Print Container */
+        .paw-tracks {
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 24px;
-            height: 24px;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            width: 100%;
+            height: 20px;
+            pointer-events: none;
         }
 
-        .paw-indicator svg {
+        /* Individual Walking Paw Styles */
+        .paw {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 0;
+            opacity: 1;
+            /* Staggered fluid motion transition setup */
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.2s ease;
+        }
+
+        .paw svg {
             width: 100%;
             height: 100%;
             fill: black;
@@ -111,7 +128,7 @@
             text-align: center;
         }
 
-        /* Responsive adjustments for very small screens */
+        /* Responsive adjustments for mobile screens */
         @media (max-width: 400px) {
             .nav-links {
                 flex-wrap: wrap;
@@ -125,6 +142,9 @@
             header {
                 padding-top: 20px;
             }
+            .paw-tracks {
+                display: none; /* Hides tracks on tiny mobile layouts to prevent overlapping wrap bugs */
+            }
         }
     </style>
 </head>
@@ -134,7 +154,7 @@
     <div class="fixed-title">Lyme Regis Dog</div>
 
     <header>
-        <h1>Welcome to Lyme Regis</h1>
+        <h1>Welcome to Lyme Regis Dog</h1>
         <p>Discover the best dog-friendly walks, beaches, attractions, and local tips for dogs and their owners.</p>
     </header>
 
@@ -142,7 +162,6 @@
     <nav>
         <div class="nav-links">
             <a href="#walks" class="nav-item">
-                <!-- Winding Path Icon -->
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 22s4-4 4-10-4-10-4-10"></path>
                     <path d="M12 22s4-4 4-10-4-10-4-10"></path>
@@ -152,7 +171,6 @@
             </a>
             
             <a href="#beaches" class="nav-item">
-                <!-- Sun and Wave Icon -->
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M2 20h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01"></path>
                     <path d="M2 16c2.67-2 5.33-2 8 0s5.33 2 8 0 5.33-2 8 0"></path>
@@ -162,7 +180,6 @@
             </a>
 
             <a href="#attractions" class="nav-item">
-                <!-- Location/Attraction Icon -->
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
@@ -171,7 +188,6 @@
             </a>
 
             <a href="#tips" class="nav-item">
-                <!-- Info/Tip Bubble Icon -->
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
                 </svg>
@@ -179,11 +195,12 @@
             </a>
         </div>
 
-        <!-- The Sliding Paw Print -->
-        <div class="paw-indicator" id="paw-indicator">
-            <svg viewBox="0 0 24 24">
-                <path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"></path>
-            </svg>
+        <!-- The 4 Walking Paws Track Space -->
+        <div class="paw-tracks">
+            <div class="paw" id="paw1"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="paw2"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="paw3"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="paw4"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
         </div>
     </nav>
 
@@ -192,42 +209,67 @@
         <p>More details and photos will go here as we build out the site!</p>
     </main>
 
-    <!-- JavaScript to move the footprint -->
+    <!-- Walking Engine Script -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const indicator = document.getElementById("paw-indicator");
             const navItems = document.querySelectorAll(".nav-item");
             const navContainer = document.querySelector("nav");
+            const paws = document.querySelectorAll(".paw");
+            
+            let lastX = 0; // Tracks directional movement context
 
-            // Function to calculate and move the paw print to the center of the selected link
-            function movePawTo(element) {
+            function movePaws(element) {
                 const elementRect = element.getBoundingClientRect();
                 const navRect = navContainer.getBoundingClientRect();
                 
-                // Calculate the left position relative to the navigation container
-                // elementRect.width / 2 finds the middle of the icon
-                // 12 is half the width of the paw print itself, so it centers perfectly
-                const leftPosition = elementRect.left - navRect.left + (elementRect.width / 2) - 12;
+                // Establish center target for the group
+                const targetCenter = elementRect.left - navRect.left + (elementRect.width / 2);
                 
-                // Move it using CSS transform
-                indicator.style.transform = `translateX(${leftPosition}px)`;
+                // Determine direction: true if walking right, false if left
+                const movingRight = targetCenter > lastX;
+                lastX = targetCenter;
+
+                // Adjust glowing menu classes
+                navItems.forEach(item => item.classList.remove('glowing'));
+                element.classList.add('glowing');
+
+                // Horizontal placement distribution for 4 paws
+                const offsets = [-24, -8, 8, 24];
+                const rotation = movingRight ? 90 : -90; // Face forward along heading orientation
+
+                paws.forEach((paw, index) => {
+                    // Stagger calculation: if heading right, the right-most paw shifts first.
+                    const delay = movingRight ? (3 - index) * 0.06 : index * 0.06;
+                    paw.style.transitionDelay = `${delay}s`;
+
+                    // Dynamic lift/vanish sequence rule
+                    // Right direction drops rear paw (index 0). Left direction drops rear paw (index 3).
+                    if (paw.liftTimeout) clearTimeout(paw.liftTimeout);
+                    
+                    if ((movingRight && index === 0) || (!movingRight && index === 3)) {
+                        paw.style.opacity = '0'; // Lifts off the ground cleanly
+                        paw.liftTimeout = setTimeout(() => {
+                            paw.style.opacity = '1'; // Places foot down firmly upon arrival
+                        }, 450);
+                    } else {
+                        paw.style.opacity = '1';
+                    }
+
+                    // Compute translation step
+                    const exactX = targetCenter + offsets[index] - 10; // Adjusts to exact element bounding center minus radius
+                    paw.style.transform = `translateX(${exactX}px) rotate(${rotation}deg)`;
+                });
             }
 
-            // Set the paw print under the first item when the page loads
+            // Initialize position centered beneath first navigation node
             if (navItems.length > 0) {
-                movePawTo(navItems[0]);
+                movePaws(navItems[0]);
             }
 
-            // Move the paw print whenever the mouse hovers over a new icon
+            // Assign interactive hover and hardware touch event mappings
             navItems.forEach(item => {
-                item.addEventListener("mouseenter", function() {
-                    movePawTo(this);
-                });
-                
-                // For touchscreens (phones/tablets)
-                item.addEventListener("touchstart", function() {
-                    movePawTo(this);
-                });
+                item.addEventListener("mouseenter", function() { movePaws(this); });
+                item.addEventListener("touchstart", function() { movePaws(this); });
             });
         });
     </script>

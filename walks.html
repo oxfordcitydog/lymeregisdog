@@ -1,1 +1,257 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Walks in the Lyme Regis Area</title>
+    <style>
+        /* Base Styling */
+        body {
+            background-color: #E3F2FD; /* Same pale blue background */
+            color: #000000; /* Black text */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Fixed Top Right Name */
+        .fixed-title {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            z-index: 1000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Breadcrumb Trail */
+        .breadcrumb-container {
+            max-width: 800px;
+            margin: 30px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        .breadcrumb {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .breadcrumb a {
+            color: #1976D2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header and Intro */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        header p {
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content Area */
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+        }
+
+        /* About Jane & Oak Context Box */
+        .intro-box {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+            border: 1px dashed rgba(0, 0, 0, 0.15);
+        }
+
+        /* Walk Review Sections */
+        .walk-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .walk-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .walk-card h3 {
+            margin-top: 0;
+            font-size: 1.6rem;
+            color: #1976D2;
+            border-bottom: 2px solid #E3F2FD;
+            padding-bottom: 10px;
+        }
+
+        .walk-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .meta-item {
+            font-size: 0.95rem;
+        }
+
+        .meta-label {
+            font-weight: bold;
+            display: block;
+            color: #555;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-coming-soon {
+            display: inline-block;
+            background-color: #ffe082;
+            color: #5d4037;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .walk-meta {
+                grid-template-columns: 1fr;
+            }
+            .fixed-title {
+                position: static;
+                text-align: center;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fixed-title">Lyme Regis Dog</div>
+
+    <!-- Breadcrumb Trail back to home page -->
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> &gt; Dog Walks
+        </div>
+    </div>
+
+    <header>
+        <h1>Dog Walks in the Lyme Regis Area</h1>
+        <p>This is the page for dog walks in the Lyme Regis area. Dog walks will be added when they have been recorded by Jane and Oak.</p>
+    </header>
+
+    <main>
+        <!-- About Jane & Oak Context Box -->
+        <div class="intro-box">
+            <h2>Our Walking Adventures</h2>
+            <p>Hi, I’m Jane, and this is my dog Oak. We recently moved from Oxford down to beautiful Lyme Regis! We are busy exploring every single path, cliff edge, and seaside lane to track down the absolute best routes for you and your dog.</p>
+            <p><strong>Note:</strong> Real path data, maps, and specific reviews are being compiled by us right now. They will pop up below the moment Oak and I finish field-testing them!</p>
+        </div>
+
+        <!-- Walk Review Layout Templates -->
+        <h2>Upcoming Reviews Blueprint</h2>
+        <p style="color: #444; margin-bottom: 20px;">Here is exactly how our ratings and terrain notes will look once we launch our reviews:</p>
+        
+        <div class="walk-grid">
+            
+            <!-- Walk Review Template 1 -->
+            <div class="walk-card">
+                <span class="badge-coming-soon">🐾 Oak's Next Mission</span>
+                <h3>Sample Review: The Monmouth Beach Coastal Path</h3>
+                <p>A beautiful seaside stroll heading west from the Cobb, perfect for catching sea breezes and hunting for fossils along the coast.</p>
+                
+                <div class="walk-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Overall Paw Rating</span>
+                        🐾🐾🐾🐾☆ (4/5 Paws)
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Older Dog Accessibility</span>
+                        Easy to Moderate. Flat stretches but includes loose shingle paths that require careful footing.
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Terrain Type</span>
+                        Rough Terrain (Loose pebbles, tidal rocks & large stones)
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Lead Requirements</span>
+                        Off-lead friendly, but watch the tide lines carefully!
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Oak's Ball-Throw Potential</span>
+                        High! Plenty of wide-open beach spaces when the tide is out.
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Human Refreshments</span>
+                        Great dog-friendly kiosks nearby along the Cobb.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Walk Review Template 2 -->
+            <div class="walk-card">
+                <span class="badge-coming-soon">🐾 Oak's Next Mission</span>
+                <h3>Sample Review: Limnhurst River Woodland Walk</h3>
+                <p>A shaded, sheltered valley path walking inland alongside the calm river waters. Ideal for hot summer afternoons.</p>
+                
+                <div class="walk-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Overall Paw Rating</span>
+                        🐾🐾🐾🐾🐾 (5/5 Paws)
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Older Dog Accessibility</span>
+                        Perfect for Older Dogs. Wide, completely flat paths with plenty of rest benches along the riverway.
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Terrain Type</span>
+                        Maintained Path (Smooth, level gravel walkways)
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Lead Requirements</span>
+                        Leads recommended near the deeper river bends.
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Oak's Ball-Throw Potential</span>
+                        Medium (watch out for the riverbanks if your dog loves swimming!).
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Human Refreshments</span>
+                        Water bowls outside local town cafes on the route back.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,3 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a Dog-Friendly Spot - Lyme Regis Dog</title>
+    <style>
+        /* Matching Base Styling */
+        body {
+            background-color: #E3F2FD; /* Pale blue background */
+            color: #000000; /* Black text */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
 
-<label for="w3w">🐾 what3words Location (e.g., filled.count.soap):</label>
-<input type="text" id="w3w" name="w3w" placeholder="word.word.word">
+        /* Fixed Top Right Name */
+        .fixed-title {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            z-index: 1000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Header Style */
+        header {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Clean Form Container Block */
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto 60px auto;
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Layout for individual Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        /* Uniform Styling for Inputs, Dropdowns, and Text Areas */
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #B0BEC5;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #1976D2; /* Glows blue when clicked */
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical; /* Allows height adjustment but prevents stretching sideways */
+        }
+
+        /* File Upload Styling */
+        input[type="file"] {
+            font-size: 0.95rem;
+            padding: 5px 0;
+        }
+
+        /* Friendly Submission Button */
+        .submit-btn {
+            background-color: #1976D2;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #1565C0;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98); /* Slight click feedback movement */
+        }
+
+        /* Responsive spacing for smaller mobile screens */
+        @media (max-width: 500px) {
+            .form-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            .fixed-title {
+                position: static;
+                text-align: center;
+                margin-top: 10px;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fixed-title">Lyme Regis Dog</div>
+
+    <div style="background-color: #1976D2; padding: 10px 20px;">
+        <a href="index.html" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem;">🐾 Home</a> 
+        <span style="color: #BBDEFB; margin: 0 10px;">&gt;</span> 
+        <span style="color: white; font-size: 0.9rem;">Submit a Spot</span>
+    </div>
+
+    <header>
+        <h1>Add a Dog-Friendly Spot</h1>
+        <p>Share your favorite local discoveries with our community of dog lovers!</p>
+    </header>
+
+    <div class="form-container">
+        <form action="#" method="POST" enctype="multipart/form-data" onsubmit="alert('Thank you for your submission! Once approved, your paw print will appear on the map.');">
+            
+            <div class="form-group">
+                <label for="userName">Your Name & Dog's Name:</label>
+                <input type="text" id="userName" name="userName" placeholder="e.g., Jane and Oak" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>-- Select a Category --</option>
+                    <option value="walks">🐾 Walk</option>
+                    <option value="beaches">🏖️ Beach</option>
+                    <option value="shops">🛍️ Shop</option>
+                    <option value="cafes">☕ Cafe</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="locationName">Location Name:</label>
+                <input type="text" id="locationName" name="locationName" placeholder="e.g., Monmouth Beach or The Cobb" required>
+            </div>
+
+            <div class="form-group">
+                <label for="w3w">what3words Location Address:</label>
+                <input type="text" id="w3w" name="w3w" placeholder="e.g., filled.count.soap" required>
+            </div>
+
+            <div class="form-group">
+                <label for="review">Your Review:</label>
+                <textarea id="review" name="review" rows="5" placeholder="Tell us what makes this spot great for dogs! Mention lead rules, water bowls, or terrain features..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="photo">Upload a Photo:</label>
+                <input type="file" id="photo" name="photo" accept="image/*">
+            </div>
+
+            <button type="submit" class="submit-btn">🐾 Submit to the Map</button>
+
+        </form>
+    </div>
+
+</body>
+</html>

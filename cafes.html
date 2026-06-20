@@ -1,23 +1,24 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog Friendly Cafes in the Lyme Regis Area</title>
+    <title>Dog-Friendly Cafes - Lyme Regis Dog</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
         /* Base Styling */
         body {
-            background-color: #E3F2FD; /* Same pale blue background */
-            color: #000000; /* Black text */
+            background-color: #E3F2FD; /* Pale blue background */
+            color: #000000;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             line-height: 1.6;
         }
 
-        /* Fixed Top Right Name */
         .fixed-title {
             position: fixed;
             top: 20px;
@@ -29,127 +30,55 @@
             letter-spacing: 1px;
         }
 
-        /* Breadcrumb Trail */
-        .breadcrumb-container {
-            max-width: 800px;
-            margin: 30px auto 0 auto;
-            padding: 0 20px;
-        }
-
-        .breadcrumb {
-            font-size: 0.95rem;
-            color: #555;
-        }
-
-        .breadcrumb a {
-            color: #1976D2;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-
-        /* Header and Intro */
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px 10px 20px;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+        /* Container for our Main Layout Panel */
+        .content-panel {
+            max-width: 900px;
+            margin: 20px auto 60px auto;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        header p {
-            max-width: 650px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-        }
-
-        /* Main Content Area */
-        main {
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto 60px auto;
-        }
-
-        /* About Jane & Oak Context Box */
-        .intro-box {
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 40px;
-            text-align: center;
-            border: 1px dashed rgba(0, 0, 0, 0.15);
-        }
-
-        /* Walk Review Sections */
-        .walk-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .walk-card {
-            background: #ffffff;
-            border-radius: 12px;
+        .section-content {
             padding: 30px;
-            text-align: left;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        .walk-card h3 {
-            margin-top: 0;
-            font-size: 1.6rem;
-            color: #1976D2;
+        /* The Map Canvas Element Box */
+        #map {
+            width: 100%;
+            height: 450px;
             border-bottom: 2px solid #E3F2FD;
-            padding-bottom: 10px;
+            z-index: 1;
+            background-color: #f0f0f0;
         }
 
-        .walk-meta {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .meta-item {
-            font-size: 0.95rem;
-        }
-
-        .meta-label {
-            font-weight: bold;
-            display: block;
-            color: #555;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-coming-soon {
+        /* Call-to-action Button Style */
+        .action-btn {
             display: inline-block;
-            background-color: #ffe082;
-            color: #5d4037;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            background-color: #1976D2;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
             font-weight: bold;
-            margin-bottom: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            transition: background-color 0.2s ease;
         }
 
-        @media (max-width: 600px) {
-            .walk-meta {
-                grid-template-columns: 1fr;
-            }
-            .fixed-title {
-                position: static;
-                text-align: center;
-                margin-top: 10px;
-            }
+        .action-btn:hover {
+            background-color: #1565C0;
+        }
+
+        @media (max-width: 500px) {
+            .content-panel { margin: 10px; }
+            #map { height: 300px; }
+            .fixed-title { position: static; text-align: center; margin-top: 10px; }
         }
     </style>
 </head>
@@ -157,102 +86,87 @@
 
     <div class="fixed-title">Lyme Regis Dog</div>
 
-    <!-- Breadcrumb Trail back to home page -->
-    <div class="breadcrumb-container">
-        <div class="breadcrumb">
-            <a href="index.html">Home</a> &gt; Dog Friendly Cafes
-        </div>
+    <div style="background-color: #1976D2; padding: 10px 20px;">
+        <a href="index.html" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem;">🐾 Home</a> 
+        <span style="color: #BBDEFB; margin: 0 10px;">&gt;</span> 
+        <span style="color: white; font-size: 0.9rem;">Cafes</span>
     </div>
 
     <header>
-        <h1>Dog Friendly Cafes in the Lyme Regis Area</h1>
-        <p>This is the page for dog walks in the Lyme Regis area. Dog walks will be added when they have been recorded by Jane and Oak.</p>
+        <h1>Dog-Friendly Cafes & Pubs</h1>
+        <p>Discover the best local spots to relax with a cuppa or a meal alongside your best furry friend.</p>
     </header>
 
-    <main>
-        <!-- About Jane & Oak Context Box -->
-        <div class="intro-box">
-            <h2>Our Walking Adventures</h2>
-            <p>Hi, I’m Jane, and this is my dog Oak. We recently moved from Oxford down to beautiful Lyme Regis! We are busy exploring every single path, cliff edge, and seaside lane to track down the absolute best routes for you and your dog.</p>
-            <p><strong>Note:</strong> Real path data, maps, and specific reviews are being compiled by us right now. They will pop up below the moment Oak and I finish field-testing them!</p>
-        </div>
-
-        <!-- Walk Review Layout Templates -->
-        <h2>Upcoming Reviews Blueprint</h2>
-        <p style="color: #444; margin-bottom: 20px;">Here is exactly how our ratings and terrain notes will look once we launch our reviews:</p>
+    <div class="content-panel">
         
-        <div class="walk-grid">
+        <div id="map"></div>
+
+        <div class="section-content">
+            <h2>Explore Local Eateries</h2>
+            <p>Click on any black paw print marker on the map above to view cafe reviews, see if they allow dogs indoors, and find their precise location.</p>
             
-            <!-- Walk Review Template 1 -->
-            <div class="walk-card">
-                <span class="badge-coming-soon">🐾 Oak's Next Mission</span>
-                <h3>Sample Review: The Monmouth Beach Coastal Path</h3>
-                <p>A beautiful seaside stroll heading west from the Cobb, perfect for catching sea breezes and hunting for fossils along the coast.</p>
-                
-                <div class="walk-meta">
-                    <div class="meta-item">
-                        <span class="meta-label">Overall Paw Rating</span>
-                        🐾🐾🐾🐾☆ (4/5 Paws)
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Older Dog Accessibility</span>
-                        Easy to Moderate. Flat stretches but includes loose shingle paths that require careful footing.
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Terrain Type</span>
-                        Rough Terrain (Loose pebbles, tidal rocks & large stones)
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Lead Requirements</span>
-                        Off-lead friendly, but watch the tide lines carefully!
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Oak's Ball-Throw Potential</span>
-                        High! Plenty of wide-open beach spaces when the tide is out.
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Human Refreshments</span>
-                        Great dog-friendly kiosks nearby along the Cobb.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Walk Review Template 2 -->
-            <div class="walk-card">
-                <span class="badge-coming-soon">🐾 Oak's Next Mission</span>
-                <h3>Sample Review: Limnhurst River Woodland Walk</h3>
-                <p>A shaded, sheltered valley path walking inland alongside the calm river waters. Ideal for hot summer afternoons.</p>
-                
-                <div class="walk-meta">
-                    <div class="meta-item">
-                        <span class="meta-label">Overall Paw Rating</span>
-                        🐾🐾🐾🐾🐾 (5/5 Paws)
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Older Dog Accessibility</span>
-                        Perfect for Older Dogs. Wide, completely flat paths with plenty of rest benches along the riverway.
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Terrain Type</span>
-                        Maintained Path (Smooth, level gravel walkways)
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Lead Requirements</span>
-                        Leads recommended near the deeper river bends.
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Oak's Ball-Throw Potential</span>
-                        Medium (watch out for the riverbanks if your dog loves swimming!).
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Human Refreshments</span>
-                        Water bowls outside local town cafes on the route back.
-                    </div>
-                </div>
-            </div>
-
+            <a href="submit.html" class="action-btn">☕ Found a Great Dog-Friendly Cafe? Add It Here!</a>
         </div>
-    </main>
+    </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // Create map centered near the Marine Parade / Seafront cafe strip
+            const map = L.map('map').setView([50.7240, -2.9335], 15);
+
+            // Load OpenStreetMap graphics tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Define our Custom Paw Print Pin Icon
+            const pawIcon = L.divIcon({
+                html: `<svg viewBox="0 0 24 24" style="width:30px; height:30px; fill:#000000; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.4));"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg>`,
+                className: 'custom-paw-icon',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15],
+                popupAnchor: [0, -10]
+            });
+
+            // Permanent built-in Example Marker (A lovely seafront tea room or pub)
+            const sampleCafeMarker = L.marker([50.7242, -2.9332], { icon: pawIcon }).addTo(map);
+            sampleCafeMarker.bindPopup(`
+                <div style="font-family: Arial, sans-serif; min-width: 180px;">
+                    <h3 style="margin: 0 0 5px 0; color:#1976D2;">☕ The Anchor Tea Rooms</h3>
+                    <p style="margin: 0 0 10px 0; font-size: 0.9rem;">Brilliant sea views and extremely welcoming to dogs inside and out. They even have doggy ice cream on the menu!</p>
+                    <a href="https://what3words.com/sands.barks.warm" target="_blank" style="color: #E11F26; font-weight: bold; text-decoration: none; font-size: 0.9rem;">
+                        ///sands.barks.warm
+                    </a>
+                </div>
+            `);
+
+            // THE JAVASCRIPT BRAINS: Check if anyone submitted a new cafe via our form
+            const submittedName = localStorage.getItem('last_submitted_name');
+            const submittedCategory = localStorage.getItem('last_submitted_category');
+            const submittedLocation = localStorage.getItem('last_submitted_location');
+            const submittedW3W = localStorage.getItem('last_submitted_w3w');
+            const submittedReview = localStorage.getItem('last_submitted_review');
+
+            // If a cafe entry is sitting in the notepad, display it live!
+            if (submittedCategory === 'cafes' && submittedLocation) {
+                // Drop the new marker down near the seafront walkway
+                const communityMarker = L.marker([50.7238, -2.9338], { icon: pawIcon }).addTo(map);
+                
+                let cleanW3W = submittedW3W.replace(/[^a-zA-Z0-9.]/g, "");
+
+                communityMarker.bindPopup(`
+                    <div style="font-family: Arial, sans-serif; min-width: 180px;">
+                        <h3 style="margin: 0 0 5px 0; color:#1976D2;">🐾 ${submittedLocation}</h3>
+                        <p style="margin: 0 0 5px 0; font-size: 0.9rem;">${submittedReview}</p>
+                        <p style="margin: 0 0 10px 0; font-size: 0.8rem; color: #555;">Submitted by: <b>${submittedName}</b></p>
+                        <a href="https://what3words.com/${cleanW3W}" target="_blank" style="color: #E11F26; font-weight: bold; text-decoration: none; font-size: 0.9rem;">
+                            ///${cleanW3W}
+                        </a>
+                    </div>
+                `).openPopup();
+            }
+        });
+    </script>
 </body>
 </html>

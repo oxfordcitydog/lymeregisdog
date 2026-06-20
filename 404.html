@@ -1,1 +1,119 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Off-Trail - Lyme Regis Dog</title>
+    <style>
+        /* Matching Base Styling */
+        body {
+            background-color: #E3F2FD; /* Matching pale blue background */
+            color: #000000;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-index: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .fixed-title {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Error Content Box */
+        .error-container {
+            max-width: 500px;
+            margin: 20px auto;
+            background-color: #FFFFFF;
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .error-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #1976D2; /* Theme Blue */
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #333333;
+        }
+
+        /* Rescue Return Button */
+        .home-btn {
+            display: inline-block;
+            background-color: #1976D2;
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .home-btn:hover {
+            background-color: #1565C0;
+        }
+
+        .home-btn:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 550px) {
+            .error-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            .fixed-title {
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fixed-title">Lyme Regis Dog</div>
+
+    <!-- MAIN ERROR PANEL -->
+    <div class="error-container">
+        
+        <!-- Animated or bold paw print graphic -->
+        <div class="error-icon">🐾🧭</div>
+        
+        <h1>Oops! This path went off-trail...</h1>
+        
+        <p>We couldn't find the page you were looking for. It looks like it may have wandered off into the undergrowth or hidden behind a boulder down at Monmouth Beach!</p>
+        
+        <!-- Safe link back to your home menu -->
+        <a href="index.html" class="home-btn">🐾 Back to Safe Grounds</a>
+        
+    </div>
+
+</body>
+</html>

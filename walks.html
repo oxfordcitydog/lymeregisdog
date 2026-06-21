@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dog-Friendly Walks - Lyme Regis Dog</title>
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <style>
         body {
@@ -23,7 +20,7 @@
             top: 20px;
             right: 30px;
             font-size: 1.25rem;
-            font-weight: bold;
+            font-weight: 600;
             z-index: 1000;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -47,21 +44,13 @@
             padding: 30px;
         }
 
-        #map {
-            width: 100%;
-            height: 450px;
-            border-bottom: 2px solid #E3F2FD;
-            z-index: 1;
-            background-color: #f0f0f0; /* Soft fallback background */
-        }
-
         .action-btn {
             display: inline-block;
             background-color: #1976D2;
             color: white;
             text-decoration: none;
             padding: 12px 20px;
-            font-weight: bold;
+            font-weight: 600;
             border-radius: 4px;
             margin-top: 15px;
             transition: background-color 0.2s ease;
@@ -73,7 +62,6 @@
 
         @media (max-width: 500px) {
             .content-panel { margin: 10px; }
-            #map { height: 300px; }
             .fixed-title { position: static; text-align: center; margin-top: 10px; }
         }
     </style>
@@ -83,7 +71,7 @@
     <div class="fixed-title">Lyme Regis Dog</div>
 
     <div style="background-color: #1976D2; padding: 10px 20px;">
-        <a href="index.html" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem;">🐾 Home</a> 
+        <a href="index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem;">🐾 Home</a> 
         <span style="color: #BBDEFB; margin: 0 10px;">&gt;</span> 
         <span style="color: white; font-size: 0.9rem;">Walks</span>
     </div>
@@ -94,69 +82,16 @@
     </header>
 
     <div class="content-panel">
-        <div id="map"></div>
+        
+        <!-- This is where the iframe window to your map goes -->
+        <iframe src="map.html" width="100%" height="600px" style="border:none;"></iframe>
+
         <div class="section-content">
             <h2>Explore Local Trails</h2>
-            <p>Click on any black paw print marker on the map above to view community reviews, safety details, and pinpoint location coordinates.</p>
+            <p>Click on any marker on the map above to view community reviews, safety details, and pinpoint location coordinates.</p>
             <a href="submit.html" class="action-btn">🐾 Found a New Walk? Add It Here!</a>
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Centers map securely over Lyme Regis
-            const map = L.map('map').setView([50.7244, -2.9356], 14);
-
-            // Loads secure tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
-
-            const pawIcon = L.divIcon({
-                html: `<svg viewBox="0 0 24 24" style="width:30px; height:30px; fill:#000000; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.4));"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg>`,
-                className: 'custom-paw-icon',
-                iconSize: [30, 30],
-                iconAnchor: [15, 15],
-                popupAnchor: [0, -10]
-            });
-
-            // Permanent what3words sample trail pin
-            const sampleWalkMarker = L.marker([50.7315, -2.9412], { icon: pawIcon }).addTo(map);
-            sampleWalkMarker.bindPopup(`
-                <div style="font-family: Arial, sans-serif; min-width: 180px;">
-                    <h3 style="margin: 0 0 5px 0; color:#1976D2;">🌲 Woodland Stream Trail</h3>
-                    <p style="margin: 0 0 10px 0; font-size: 0.9rem;">Shaded, brilliant stream for splashing on warm afternoons. Mostly off-lead!</p>
-                    <a href="https://what3words.com/filled.count.soap" target="_blank" style="color: #E11F26; font-weight: bold; text-decoration: none; font-size: 0.9rem;">
-                        ///filled.count.soap
-                    </a>
-                </div>
-            `);
-
-            // Read data submitted from the digital notepad form
-            const submittedName = localStorage.getItem('last_submitted_name');
-            const submittedCategory = localStorage.getItem('last_submitted_category');
-            const submittedLocation = localStorage.getItem('last_submitted_location');
-            const submittedW3W = localStorage.getItem('last_submitted_w3w');
-            const submittedReview = localStorage.getItem('last_submitted_review');
-
-            if (submittedCategory === 'walks' && submittedLocation) {
-                const communityMarker = L.marker([50.7250, -2.9340], { icon: pawIcon }).addTo(map);
-                
-                // Cleans out triple slashes if a user accidentally types them in the form field
-                let cleanW3W = submittedW3W.replace(/[^a-zA-Z0-9.]/g, "");
-
-                communityMarker.bindPopup(`
-                    <div style="font-family: Arial, sans-serif; min-width: 180px;">
-                        <h3 style="margin: 0 0 5px 0; color:#1976D2;">🐾 ${submittedLocation}</h3>
-                        <p style="margin: 0 0 5px 0; font-size: 0.9rem;">${submittedReview}</p>
-                        <p style="margin: 0 0 10px 0; font-size: 0.8rem; color: #555;">Submitted by: <b>${submittedName}</b></p>
-                        <a href="https://what3words.com/${cleanW3W}" target="_blank" style="color: #E11F26; font-weight: bold; text-decoration: none; font-size: 0.9rem;">
-                            ///${cleanW3W}
-                        </a>
-                    </div>
-                `).openPopup();
-            }
-        });
-    </script>
 </body>
 </html>

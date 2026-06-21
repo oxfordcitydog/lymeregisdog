@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog-Friendly Shops - Lyme Regis Dog</title>
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <title>Dog-Friendly Beaches - Lyme Regis Dog</title>
 
     <style>
         /* Base Styling */
@@ -49,15 +46,6 @@
             padding: 30px;
         }
 
-        /* The Map Canvas Element Box */
-        #map {
-            width: 100%;
-            height: 450px;
-            border-bottom: 2px solid #E3F2FD;
-            z-index: 1;
-            background-color: #f0f0f0;
-        }
-
         /* Call-to-action Button Style */
         .action-btn {
             display: inline-block;
@@ -77,7 +65,6 @@
 
         @media (max-width: 500px) {
             .content-panel { margin: 10px; }
-            #map { height: 300px; }
             .fixed-title { position: static; text-align: center; margin-top: 10px; }
         }
     </style>
@@ -89,84 +76,26 @@
     <div style="background-color: #1976D2; padding: 10px 20px;">
         <a href="index.html" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem;">🐾 Home</a> 
         <span style="color: #BBDEFB; margin: 0 10px;">&gt;</span> 
-        <span style="color: white; font-size: 0.9rem;">Shops</span>
+        <span style="color: white; font-size: 0.9rem;">Beaches</span>
     </div>
 
     <header>
-        <h1>Dog-Friendly Shops</h1>
-        <p>Browse local boutiques, bookshops, and sweet treat spots welcoming dogs with open arms.</p>
+        <h1>Dog-Friendly Beaches</h1>
+        <p>Find out where your dog can enjoy shopping.</p>
     </header>
 
     <div class="content-panel">
         
-        <div id="map"></div>
+        <!-- This is where the iframe window to your map goes -->
+        <iframe src="map.html" width="100%" height="600px" style="border:none;"></iframe>
 
         <div class="section-content">
-            <h2>Explore Local Businesses</h2>
-            <p>Click on any black paw print marker on the map above to see shop details, dog treat availability, and precise locations.</p>
+            <h2>Explore Local Shops </h2>
+            <p>Click on any marker on the map above to check seasonal lead restrictions, terrain features, and exact locations.</p>
             
-            <a href="submit.html" class="action-btn">🛍️ Know a Great Dog-Friendly Shop? Add It Here!</a>
+            <a href="submit.html" class="action-btn">🏖️ Know a Great Dog Beach Spot? Add It Here!</a>
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            
-            // Create map centered over Lyme Regis High Street/Town Center area
-            const map = L.map('map').setView([50.7255, -2.9348], 15);
-
-            // Load OpenStreetMap graphics tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
-
-            // Define our Custom Paw Print Pin Icon
-            const pawIcon = L.divIcon({
-                html: `<svg viewBox="0 0 24 24" style="width:30px; height:30px; fill:#000000; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.4));"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg>`,
-                className: 'custom-paw-icon',
-                iconSize: [30, 30],
-                iconAnchor: [15, 15],
-                popupAnchor: [0, -10]
-            });
-
-            // Permanent built-in Example Marker (e.g., A cute local bookstore or gift shop)
-            const sampleShopMarker = L.marker([50.7258, -2.9351], { icon: pawIcon }).addTo(map);
-            sampleShopMarker.bindPopup(`
-                <div style="font-family: Arial, sans-serif; min-width: 180px;">
-                    <h3 style="margin: 0 0 5px 0; color:#1976D2;">🛍️ Broad Street Bookshop</h3>
-                    <p style="margin: 0 0 10px 0; font-size: 0.9rem;">Very dog friendly! Water bowls at the entrance and counter biscuits available for well-behaved pups.</p>
-                    <a href="https://what3words.com/prices.scouts.scuba" target="_blank" style="color: #E11F26; font-weight: bold; text-decoration: none; font-size: 0.9rem;">
-                        ///prices.scouts.scuba
-                    </a>
-                </div>
-            `);
-
-            // THE JAVASCRIPT BRAINS: Check if anyone submitted a new shop via our form
-            const submittedName = localStorage.getItem('last_submitted_name');
-            const submittedCategory = localStorage.getItem('last_submitted_category');
-            const submittedLocation = localStorage.getItem('last_submitted_location');
-            const submittedW3W = localStorage.getItem('last_submitted_w3w');
-            const submittedReview = localStorage.getItem('last_submitted_review');
-
-            // If a shop entry is sitting in the notebook, display it live!
-            if (submittedCategory === 'shops' && submittedLocation) {
-                // Drop the new marker right into the High Street grid
-                const communityMarker = L.marker([50.7252, -2.9344], { icon: pawIcon }).addTo(map);
-                
-                let cleanW3W = submittedW3W.replace(/[^a-zA-Z0-9.]/g, "");
-
-                communityMarker.bindPopup(`
-                    <div style="font-family: Arial, sans-serif; min-width: 180px;">
-                        <h3 style="margin: 0 0 5px 0; color:#1976D2;">🐾 ${submittedLocation}</h3>
-                        <p style="margin: 0 0 5px 0; font-size: 0.9rem;">${submittedReview}</p>
-                        <p style="margin: 0 0 10px 0; font-size: 0.8rem; color: #555;">Submitted by: <b>${submittedName}</b></p>
-                        <a href="https://what3words.com/${cleanW3W}" target="_blank" style="color: #E11F26; font-weight: bold; text-decoration: none; font-size: 0.9rem;">
-                            ///${cleanW3W}
-                        </a>
-                    </div>
-                `).openPopup();
-            }
-        });
-    </script>
 </body>
 </html>

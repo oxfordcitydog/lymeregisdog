@@ -27,27 +27,7 @@
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        async function convertW3WToLatLng(words) {
-            const apiKey = "YOUR_W3W_API_KEY";
-
-            const response = await fetch(
-                `https://api.what3words.com/v3/convert-to-coordinates?words=${words}&key=${apiKey}`
-            );
-
-            const data = await response.json();
-
-            if (data.coordinates) {
-                return {
-                    lat: data.coordinates.lat,
-                    lng: data.coordinates.lng
-                };
-            } else {
-                console.error("W3W error:", data);
-                return null;
-            }
-        }
-
-        function addSpot(lat, lng, name, category, review) {
+        function addSpot(lat, lng, words, name, category, review) {
             let iconEmoji = '🐾';
             
             if (category === 'cafes') iconEmoji = '☕';
@@ -62,21 +42,13 @@
             });
 
             L.marker([lat, lng], {icon: customIcon}).addTo(map)
-             .bindPopup("<b>" + name + "</b><br>" + review);
+             .bindPopup("<b>" + name + "</b><br>" + review + "<br><small>/// " + words + "</small>");
         }
 
-        async function addSpotFromW3W(words, name, category, review) {
-            const coords = await convertW3WToLatLng(words);
-            if (coords) {
-                addSpot(coords.lat, coords.lng, name, category, review);
-            } else {
-                alert("Could not find the location: " + words);
-            }
-        }
-
-        // Add your spots here
-        // Example usage:
-        // addSpotFromW3W("filled.count.soap", "Pug & Puffin", "shops", "Great shop!");
+        // --- ADD YOUR SPOTS BELOW HERE ---
+        
+        // Example: Pug & Puffin
+        addSpot(50.7247, -2.9350, "photo.pulse.rectangular", "Pug & Puffin", "shops", "Had a brilliant visit to Pug & Puffin with my dog, Oak...");
 
     </script>
 </body>

@@ -1,1 +1,56 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dog-Friendly Map of Lyme Regis</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; width: 100%; }
+        body { margin: 0; font-family: Arial, sans-serif; }
+        .custom-icon { font-size: 24px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div style="padding: 10px; background: #1976D2; color: white;">
+        <a href="index.html" style="color: white; text-decoration: none;">&lt;- Back Home</a>
+        <h2 style="margin: 5px 0;">Dog-Friendly Spots in Lyme Regis</h2>
+    </div>
+    
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([50.7251, -2.9366], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        function addSpot(lat, lng, name, category, review) {
+            let iconEmoji = '🐾';
+            
+            if (category === 'cafes') iconEmoji = '☕';
+            if (category === 'shops') iconEmoji = '🛍️';
+            if (category === 'beaches') iconEmoji = '🏖️';
+            if (category === 'walks') iconEmoji = '🐾';
+
+            const customIcon = L.divIcon({
+                className: 'custom-icon',
+                html: iconEmoji,
+                iconSize: [30, 30]
+            });
+
+            L.marker([lat, lng], {icon: customIcon}).addTo(map)
+             .bindPopup("<b>" + name + "</b><br>" + review);
+        }
+
+        // Add your spots here
+        // The categories are: 'walks', 'beaches', 'shops', 'cafes'
+        
+        addSpot(50.7247, -2.9350, "Pug & Puffin", "shops", "Had a brilliant visit to Pug & Puffin with my dog, Oak...");
+
+    </script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +27,26 @@
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
+        async function convertW3WToLatLng(words) {
+            const apiKey = "YOUR_W3W_API_KEY";
+
+            const response = await fetch(
+                `https://api.what3words.com/v3/convert-to-coordinates?words=${words}&key=${apiKey}`
+            );
+
+            const data = await response.json();
+
+            if (data.coordinates) {
+                return {
+                    lat: data.coordinates.lat,
+                    lng: data.coordinates.lng
+                };
+            } else {
+                console.error("W3W error:", data);
+                return null;
+            }
+        }
+
         function addSpot(lat, lng, name, category, review) {
             let iconEmoji = '🐾';
             
@@ -46,10 +65,18 @@
              .bindPopup("<b>" + name + "</b><br>" + review);
         }
 
+        async function addSpotFromW3W(words, name, category, review) {
+            const coords = await convertW3WToLatLng(words);
+            if (coords) {
+                addSpot(coords.lat, coords.lng, name, category, review);
+            } else {
+                alert("Could not find the location: " + words);
+            }
+        }
+
         // Add your spots here
-        // The categories are: 'walks', 'beaches', 'shops', 'cafes'
-        
-        addSpot(50.7247, -2.9350, "Pug & Puffin", "shops", "Had a brilliant visit to Pug & Puffin with my dog, Oak...");
+        // Example usage:
+        // addSpotFromW3W("filled.count.soap", "Pug & Puffin", "shops", "Great shop!");
 
     </script>
 </body>

@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog-Friendly Beaches - Lyme Regis Dog</title>
+    <title>Dog-Friendly Cafes - Lyme Regis Dog</title>
 
     <style>
-        /* Base Styling */
         body {
-            background-color: #E3F2FD; /* Pale blue background */
+            background-color: #E3F2FD;
             color: #000000;
             font-family: Arial, sans-serif;
             margin: 0;
@@ -21,7 +20,7 @@
             top: 20px;
             right: 30px;
             font-size: 1.25rem;
-            font-weight: bold;
+            font-weight: 600;
             z-index: 1000;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -32,7 +31,6 @@
             padding: 30px 20px 10px 20px;
         }
 
-        /* Container for our Main Layout Panel */
         .content-panel {
             max-width: 900px;
             margin: 20px auto 60px auto;
@@ -46,14 +44,13 @@
             padding: 30px;
         }
 
-        /* Call-to-action Button Style */
         .action-btn {
             display: inline-block;
             background-color: #1976D2;
             color: white;
             text-decoration: none;
             padding: 12px 20px;
-            font-weight: bold;
+            font-weight: 600;
             border-radius: 4px;
             margin-top: 15px;
             transition: background-color 0.2s ease;
@@ -74,26 +71,25 @@
     <div class="fixed-title">Lyme Regis Dog</div>
 
     <div style="background-color: #1976D2; padding: 10px 20px;">
-        <a href="index.html" style="color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem;">🐾 Home</a> 
+        <a href="index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem;">🐾 Home</a> 
         <span style="color: #BBDEFB; margin: 0 10px;">&gt;</span> 
-        <span style="color: white; font-size: 0.9rem;">Beaches</span>
+        <span style="color: white; font-size: 0.9rem;">Cafes</span>
     </div>
 
     <header>
         <h1>Dog-Friendly Cafes</h1>
-        <p>Find out where your dog can have a dog freindly cafe experiance .</p>
+        <p>Relax and enjoy a treat with your dog at these welcoming local spots.</p>
     </header>
 
     <div class="content-panel">
         
-        <!-- This is where the iframe window to your map goes -->
-        <iframe src="map.html" width="100%" height="600px" style="border:none;"></iframe>
+        <!-- The updated iframe code to show only the Cafes category -->
+        <iframe src="map.html?cat=Cafes" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no"></iframe>
 
         <div class="section-content">
-            <h2>Explore Local Cafes</h2>
-            <p>Click on any marker on the map above to check seasonal lead restrictions, terrain features, and exact locations.</p>
-            
-            <a href="submit.html" class="action-btn">🏖️ Know a Great Dog Beach Spot? Add It Here!</a>
+            <h2>Find a Cozy Spot</h2>
+            <p>Click on any marker on the map above to view community reviews and location details.</p>
+            <a href="submit.html" class="action-btn">🐾 Found a New Cafe? Add It Here!</a>
         </div>
     </div>
 

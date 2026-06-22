@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-GB">
 <head>
+    <meta charset="UTF-8">
     <title>Lyme Regis Dog Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        body { margin: 0; padding: 0; overflow: hidden; }
-        #map { height: 100vh; width: 100%; }
+        * { box-sizing: border-box; }
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%; 
+            overflow: hidden !important; 
+        }
+        #map { 
+            height: 100vh; 
+            width: 100%; 
+            display: block; 
+        }
         .paw-icon { font-size: 24px; }
     </style>
 </head>
@@ -14,26 +26,21 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // 1. Initialize the map for Lyme Regis
         const map = L.map('map').setView([50.726, -2.936], 12); 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
 
-        // 2. Get category from URL (e.g., map.html?cat=Walks)
         const params = new URLSearchParams(window.location.search);
         const category = params.get('cat'); 
 
-        // 3. Fetch your CSV data
-        const csvUrl = 'YOUR_CSV_LINK_HERE'; // PASTE YOUR LINK HERE
+        const csvUrl = 'YOUR_CSV_LINK_HERE'; // PASTE YOUR PUBLISHED GOOGLE SHEET LINK HERE
 
         fetch(csvUrl)
             .then(res => res.text())
             .then(data => {
                 const rows = data.split('\n').slice(1);
                 rows.forEach(row => {
-                    // Mapping columns: Dog, Category, Name, Rating, W3W, Review, Lat, Lng
                     const [dog, cat, name, rating, w3w, review, lat, lng] = row.split(',');
                     
-                    // Only add the marker if the category matches the URL
                     if (cat && cat.trim() === category && lat && lng) {
                         const pawIcon = L.divIcon({ html: '🐾', className: 'paw-icon' });
                         L.marker([lat, lng], { icon: pawIcon }).addTo(map)

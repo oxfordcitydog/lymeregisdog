@@ -37,6 +37,24 @@
                     }
                 });
             });
+        // ... (keep the map initialization above this)
+
+        fetch(csvUrl)
+            .then(res => res.text())
+            .then(data => {
+                const rows = data.split('\n').slice(1);
+                rows.forEach(row => {
+                    // Updated order based on your image: Dog, Category, Name, Rating, W3W, Review, Lat, Lng
+                    const [dog, cat, name, rating, w3w, review, lat, lng] = row.split(',');
+                    
+                    // Only add the marker if the category matches the URL (?cat=Walks)
+                    if (cat && cat.trim() === category) {
+                        const pawIcon = L.divIcon({ html: '🐾', className: 'paw-icon' });
+                        L.marker([lat, lng], { icon: pawIcon }).addTo(map)
+                         .bindPopup(`<b>${name}</b><br>${review}<br>Rating: ${rating}`);
+                    }
+                });
+            });
     </script>
 </body>
 </html>

@@ -4,7 +4,8 @@
     <title>Lyme Regis Dog Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        #map { height: 600px; width: 100%; }
+        body { margin: 0; padding: 0; overflow: hidden; }
+        #map { height: 100vh; width: 100%; }
         .paw-icon { font-size: 24px; }
     </style>
 </head>
@@ -32,7 +33,7 @@
                     // Mapping columns: Dog, Category, Name, Rating, W3W, Review, Lat, Lng
                     const [dog, cat, name, rating, w3w, review, lat, lng] = row.split(',');
                     
-                    // Only add the marker if the category matches the URL (e.g., ?cat=Walks)
+                    // Only add the marker if the category matches the URL
                     if (cat && cat.trim() === category && lat && lng) {
                         const pawIcon = L.divIcon({ html: '🐾', className: 'paw-icon' });
                         L.marker([lat, lng], { icon: pawIcon }).addTo(map)

@@ -17,7 +17,7 @@
         const map = L.map('map').setView([50.726, -2.936], 12); 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
 
-        // 2. Get category from URL (e.g., map.html?cat=walks)
+        // 2. Get category from URL (e.g., map.html?cat=Walks)
         const params = new URLSearchParams(window.location.search);
         const category = params.get('cat'); 
 
@@ -27,31 +27,16 @@
         fetch(csvUrl)
             .then(res => res.text())
             .then(data => {
-                const rows = data.split('\n').slice(1); // Skip header row
-                rows.forEach(row => {
-                    const [dog, name, rating, w3w, review, lat, lng] = row.split(',');
-                    if (lat && lng) {
-                        const pawIcon = L.divIcon({ html: '🐾', className: 'paw-icon' });
-                        L.marker([lat, lng], { icon: pawIcon }).addTo(map)
-                         .bindPopup(`<b>${name}</b><br>${review}<br>Rating: ${rating}`);
-                    }
-                });
-            });
-        // ... (keep the map initialization above this)
-
-        fetch(csvUrl)
-            .then(res => res.text())
-            .then(data => {
                 const rows = data.split('\n').slice(1);
                 rows.forEach(row => {
-                    // Updated order based on your image: Dog, Category, Name, Rating, W3W, Review, Lat, Lng
+                    // Mapping columns: Dog, Category, Name, Rating, W3W, Review, Lat, Lng
                     const [dog, cat, name, rating, w3w, review, lat, lng] = row.split(',');
                     
-                    // Only add the marker if the category matches the URL (?cat=Walks)
-                    if (cat && cat.trim() === category) {
+                    // Only add the marker if the category matches the URL (e.g., ?cat=Walks)
+                    if (cat && cat.trim() === category && lat && lng) {
                         const pawIcon = L.divIcon({ html: '🐾', className: 'paw-icon' });
                         L.marker([lat, lng], { icon: pawIcon }).addTo(map)
-                         .bindPopup(`<b>${name}</b><br>${review}<br>Rating: ${rating}`);
+                         .bindPopup(`<b>${name}</b><br>${review}<br>Rating: ${rating}/5`);
                     }
                 });
             });

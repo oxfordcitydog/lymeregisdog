@@ -1,55 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Dog-Friendly Map of Lyme Regis</title>
+    <title>Lyme Regis Dog Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         #map { height: 600px; width: 100%; }
-        body { margin: 0; font-family: Arial, sans-serif; }
-        .custom-icon { font-size: 24px; text-align: center; }
+        .paw-icon { font-size: 24px; }
     </style>
 </head>
 <body>
-
-    <div style="padding: 10px; background: #1976D2; color: white;">
-        <a href="index.html" style="color: white; text-decoration: none;">&lt;- Back Home</a>
-        <h2 style="margin: 5px 0;">Dog-Friendly Spots in Lyme Regis</h2>
-    </div>
-    
     <div id="map"></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        const map = L.map('map').setView([50.7251, -2.9366], 15);
+        // 1. Initialize the map for Lyme Regis
+        const map = L.map('map').setView([50.726, -2.936], 12); 
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+        // 2. Get category from URL (e.g., map.html?cat=walks)
+        const params = new URLSearchParams(window.location.search);
+        const category = params.get('cat'); 
 
-        function addSpot(lat, lng, words, name, category, review) {
-            let iconEmoji = '🐾';
-            
-            if (category === 'cafes') iconEmoji = '☕';
-            if (category === 'shops') iconEmoji = '🛍️';
-            if (category === 'beaches') iconEmoji = '🏖️';
-            if (category === 'walks') iconEmoji = '🐾';
+        // 3. Fetch your CSV data
+        const csvUrl = 'YOUR_CSV_LINK_HERE'; // PASTE YOUR LINK HERE
 
-            const customIcon = L.divIcon({
-                className: 'custom-icon',
-                html: iconEmoji,
-                iconSize: [30, 30]
+        fetch(csvUrl)
+            .then(res => res.text())
+            .then(data => {
+                const rows = data.split('\n').slice(1); // Skip header row
+                rows.forEach(row => {
+                    const [dog, name, rating, w3w, review, lat, lng] = row.split(',');
+                    if (lat && lng) {
+                        const pawIcon = L.divIcon({ html: '🐾', className: 'paw-icon' });
+                        L.marker([lat, lng], { icon: pawIcon }).addTo(map)
+                         .bindPopup(`<b>${name}</b><br>${review}<br>Rating: ${rating}`);
+                    }
+                });
             });
-
-            L.marker([lat, lng], {icon: customIcon}).addTo(map)
-             .bindPopup("<b>" + name + "</b><br>" + review + "<br><small>/// " + words + "</small>");
-        }
-
-        // --- ADD YOUR SPOTS BELOW HERE ---
-        
-        // Example: Pug & Puffin
-        addSpot(50.7247, -2.9350, "photo.pulse.rectangular", "Pug & Puffin", "shops", "Had a brilliant visit to Pug & Puffin with my dog, Oak...");
-
     </script>
 </body>
 </html>

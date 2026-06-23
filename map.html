@@ -42,9 +42,8 @@
         // normalise category
         category = (category || '').trim().toLowerCase();
 
-        // ---------------- DATA SOURCE (SWITCHED TO TSV) ----------------
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1ozEE6DOGxnkMLz0N9kKwwzWguTWIiJ5CPjqM5ywPv_RzyHzEiSM14lENVG6ilhq18f-9iJd8LkNk/pub?output=tsv';
-
+      // ---------------- DATA SOURCE (SWITCHED TO TSV) ----------------
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1_-NajtwAbXLgtZZ_Os98aFK39NIFEu7mKdVmFyXFk2je23448Y71W8Uejz-1FNV38XOM3vueQpJ/pub?output=tsv';
         // ---------------- LOAD DATA ----------------
         fetch(csvUrl)
             .then(res => res.text())

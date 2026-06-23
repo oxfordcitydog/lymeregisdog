@@ -18,19 +18,11 @@
         const map = L.map('map').setView([50.726, -2.936], 13); 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
 
-        // This section automatically figures out the category based on your filename
         const params = new URLSearchParams(window.location.search);
-        let category = params.get('cat'); 
+        const category = params.get('cat'); 
 
-        if (!category) {
-            const pathName = window.location.pathname.toLowerCase();
-            if (pathName.includes('shop')) category = 'Shops';
-            else if (pathName.includes('walk')) category = 'Walks';
-            else if (pathName.includes('cafe')) category = 'Cafes';
-            else if (pathName.includes('beach')) category = 'Beaches';
-        }
-
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1ozEE6DOGxnkMLz0N9kKwwzWguTWliJ5CPjqM5ywPv_RzyHzEiSM14IENVG6ilhq18f-9iJd8LKnk/pub?output=csv';
+        // This is your exact, corrected live link
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1ozEE6DOGxnkMLz0N9kKwwzWguTWIiJ5CPjqM5ywPv_RzyHzEiSM14lENVG6ilhq18f-9iJd8LNk/pub?output=csv';
 
         fetch(csvUrl)
             .then(res => res.text())
@@ -43,9 +35,14 @@
                     const cat = cols[1] ? cols[1].trim() : "";
                     const name = cols[2] ? cols[2].trim() : "";
                     const rating = cols[3] ? cols[3].trim() : "";
-                    const review = cols[5] ? cols[5].trim() : "";
-                    const lat = parseFloat(cols[6]);
-                    const lng = parseFloat(cols[7]);
+                    
+                    // This safely grabs the coordinates from the absolute end of the row
+                    const lat = parseFloat(cols[cols.length - 2]);
+                    const lng = parseFloat(cols[cols.length - 1]);
+
+                    // This pieces the review text back together if an accidental comma is used
+                    const reviewParts = cols.slice(5, cols.length - 2);
+                    const review = reviewParts.join(',').trim();
 
                     if (cat === category && !isNaN(lat) && !isNaN(lng)) {
                         const pawIcon = L.divIcon({ html: '🐾', className: 'paw-icon' });

@@ -9,6 +9,10 @@
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; }
         #map { height: 100vh; width: 100%; }
         .paw-icon { font-size: 24px; }
+        .leaflet-div-icon {
+            background: transparent !important;
+            border: none !important;
+        }
     </style>
 </head>
 <body>
@@ -35,11 +39,11 @@
             else if (pathName.includes('beach')) category = 'Beaches';
         }
 
-        // normalise category (IMPORTANT FIX)
+        // normalise category
         category = (category || '').trim().toLowerCase();
 
-        // ---------------- DATA SOURCE ----------------
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1ozEE6DOGxnkMLz0N9kKwwzWguTWIiJ5CPjqM5ywPv_RzyHzEiSM14lENVG6ilhq18f-9iJd8LkNk/pub?output=csv';
+        // ---------------- DATA SOURCE (SWITCHED TO TSV) ----------------
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1ozEE6DOGxnkMLz0N9kKwwzWguTWIiJ5CPjqM5ywPv_RzyHzEiSM14lENVG6ilhq18f-9iJd8LkNk/pub?output=tsv';
 
         // ---------------- LOAD DATA ----------------
         fetch(csvUrl)
@@ -51,7 +55,7 @@
                 for (let i = 1; i < lines.length; i++) {
                     if (!lines[i].trim()) continue;
 
-                    // ✅ FIX: your sheet is TAB-separated, not comma-separated
+                    // Splitting by tab characters to match the TSV data format
                     const cols = lines[i].split('\t');
 
                     if (cols.length < 8) continue;

@@ -13,13 +13,19 @@
 </head>
 <body>
     <div id="map"></div>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        const map = L.map('map').setView([50.726, -2.936], 13); 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+        // ---------------- MAP SETUP ----------------
+        const map = L.map('map').setView([50.726, -2.936], 13);
 
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // ---------------- CATEGORY DETECTION ----------------
         const params = new URLSearchParams(window.location.search);
-        let category = params.get('cat'); 
+        let category = params.get('cat');
 
         if (!category) {
             const pathName = window.location.pathname.toLowerCase();
@@ -29,46 +35,48 @@
             else if (pathName.includes('beach')) category = 'Beaches';
         }
 
+        // normalise category (IMPORTANT FIX)
+        category = (category || '').trim().toLowerCase();
+
+        // ---------------- DATA SOURCE ----------------
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1ozEE6DOGxnkMLz0N9kKwwzWguTWIiJ5CPjqM5ywPv_RzyHzEiSM14lENVG6ilhq18f-9iJd8LkNk/pub?output=csv';
 
-        function parseRow(str) {
-            const arr = [];
-            let quote = false;
-            let col = '';
-            for (let i = 0; i < str.length; i++) {
-                let cc = str[i], nc = str[i+1];
-                if (cc === '"' && quote && nc === '"') { col += '"'; i++; continue; }
-                if (cc === '"') { quote = !quote; continue; }
-                if (cc === ',' && !quote) { arr.push(col.trim()); col = ''; continue; }
-                col += cc;
-            }
-            arr.push(col.trim());
-            return arr;
-        }
-
+        // ---------------- LOAD DATA ----------------
         fetch(csvUrl)
             .then(res => res.text())
             .then(data => {
+
                 const lines = data.split(/\r?\n/);
-                
+
                 for (let i = 1; i < lines.length; i++) {
                     if (!lines[i].trim()) continue;
-                    
-                    const cols = parseRow(lines[i]);
-                    
+
+                    // ✅ FIX: your sheet is TAB-separated, not comma-separated
+                    const cols = lines[i].split('\t');
+
                     if (cols.length < 8) continue;
-                    
-                    const cat = cols[1];
-                    const name = cols[2];
-                    const rating = cols[3];
-                    const review = cols[5];
+
+                    const cat = (cols[1] || '').trim().toLowerCase();
+                    const name = cols[2] || '';
+                    const rating = cols[3] || '';
+                    const review = cols[5] || '';
                     const lat = parseFloat(cols[6]);
                     const lng = parseFloat(cols[7]);
 
                     if (cat === category && !isNaN(lat) && !isNaN(lng)) {
-                        const pawIcon = L.divIcon({ html: '🐾', className: 'paw-icon' });
-                        L.marker([lat, lng], { icon: pawIcon }).addTo(map)
-                         .bindPopup(`${name}<br>${review}<br>Rating: ${rating}/5`);
+
+                        const pawIcon = L.divIcon({
+                            html: '🐾',
+                            className: 'paw-icon'
+                        });
+
+                        L.marker([lat, lng], { icon: pawIcon })
+                            .addTo(map)
+                            .bindPopup(`
+                                <strong>${name}</strong><br>
+                                ${review}<br>
+                                Rating: ${rating}/5
+                            `);
                     }
                 }
             })

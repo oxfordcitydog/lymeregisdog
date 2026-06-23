@@ -6,27 +6,16 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         * { box-sizing: border-box; }
-        body, html { 
-            margin: 0; 
-            padding: 0; 
-            height: 100%; 
-            width: 100%; 
-            overflow: hidden !important; 
-        }
-        #map { 
-            height: 100vh; 
-            width: 100%; 
-            display: block; 
-        }
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; }
+        #map { height: 100vh; width: 100%; }
         .paw-icon { font-size: 24px; }
     </style>
 </head>
 <body>
     <div id="map"></div>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        const map = L.map('map').setView([50.726, -2.936], 12); 
+        const map = L.map('map').setView([50.726, -2.936], 13); 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
 
         const params = new URLSearchParams(window.location.search);
@@ -39,9 +28,19 @@
             .then(data => {
                 const rows = data.split('\n').slice(1);
                 rows.forEach(row => {
-                    const [dog, cat, name, rating, w3w, review, lat, lng] = row.split(',');
-                    
-                    if (cat && cat.trim() === category && lat && lng) {
+                    // This uses a regex to handle commas inside quotes in your review text
+                    const regex = /(".*?"|[^",]+)(?=\s*,|\s*$)/g;
+                    const cols = row.match(regex);
+                    if (!cols || cols.length < 8) return;
+
+                    const cat = cols[1] ? cols[1].trim() : "";
+                    const name = cols[2];
+                    const rating = cols[3];
+                    const review = cols[5];
+                    const lat = parseFloat(cols[6]);
+                    const lng = parseFloat(cols[7]);
+
+                    if (cat === category && !isNaN(lat) && !isNaN(lng)) {
                         const pawIcon = L.divIcon({ html: '🐾', className: 'paw-icon' });
                         L.marker([lat, lng], { icon: pawIcon }).addTo(map)
                          .bindPopup(`${name}<br>${review}<br>Rating: ${rating}/5`);

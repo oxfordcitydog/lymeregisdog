@@ -32,7 +32,7 @@
         const params = new URLSearchParams(window.location.search);
         const category = params.get('cat'); 
 
-        const csvUrl = 'YOUR_CSV_LINK_HERE'; // PASTE YOUR PUBLISHED GOOGLE SHEET LINK HERE
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1ozEE6DOGxnkMLz0N9kKwwzWguTWliJ5CPjqM5ywPv_RzyHzEiSM14IENVG6ilhq18f-9iJd8LKnk/pub?output=csv';
 
         fetch(csvUrl)
             .then(res => res.text())
@@ -44,7 +44,7 @@
                     if (cat && cat.trim() === category && lat && lng) {
                         const pawIcon = L.divIcon({ html: '🐾', className: 'paw-icon' });
                         L.marker([lat, lng], { icon: pawIcon }).addTo(map)
-                         .bindPopup(`<b>${name}</b><br>${review}<br>Rating: ${rating}/5`);
+                         .bindPopup(`${name}<br>${review}<br>Rating: ${rating}/5`);
                     }
                 });
             });

@@ -42,8 +42,9 @@
         // normalise category
         category = (category || '').trim().toLowerCase();
 
-      // ---------------- DATA SOURCE (SWITCHED TO TSV) ----------------
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1_-NajtwAbXLgtZZ_Os98aFK39NIFEu7mKdVmFyXFk2je23448Y71W8Uejz-1FNV38XOM3vueQpJ/pub?output=tsv';
+        // ---------------- DATA SOURCE (SWITCHED TO TSV) ----------------
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1_-NajtwAbXLgtZZ_Os98aFK39NIFEu7mKdVmFyXFk2je23448Y71W8Uejz-1FNV38XOM3vueQpJ/pub?output=tsv';
+        
         // ---------------- LOAD DATA ----------------
         fetch(csvUrl)
             .then(res => res.text())
@@ -62,6 +63,7 @@ const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1_-NajtwAbXLg
                     const cat = (cols[1] || '').trim().toLowerCase();
                     const name = cols[2] || '';
                     const rating = cols[3] || '';
+                    const w3w = (cols[4] || '').trim();
                     const review = cols[5] || '';
                     const lat = parseFloat(cols[6]);
                     const lng = parseFloat(cols[7]);
@@ -73,13 +75,15 @@ const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1_-NajtwAbXLg
                             className: 'paw-icon'
                         });
 
+                        // Create a clean display link if What3Words info exists
+                        let w3wLine = '';
+                        if (w3w) {
+                            w3wLine = 'What3Words: <a href="https://what3words.com/' + w3w + '" target="_blank">///' + w3w + '</a><br>';
+                        }
+
                         L.marker([lat, lng], { icon: pawIcon })
                             .addTo(map)
-                            .bindPopup(`
-                                <strong>${name}</strong><br>
-                                ${review}<br>
-                                Rating: ${rating}/5
-                            `);
+                            .bindPopup('<strong>' + name + '</strong><br>' + w3wLine + review + '<br>Rating: ' + rating + '/5');
                     }
                 }
             })

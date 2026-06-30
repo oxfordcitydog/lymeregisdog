@@ -1,1 +1,352 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LymeRegisDog.Com</title>
+    <style> 
+        /* Base Styling */
+        body {
+            background-color: #E3F2FD; /* Pale blue background */
+            color: #000000; /* Black text */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+ 
+        /* Fixed Top Right Name */
+        .fixed-title {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 1.25rem;
+            font-weight: normal;
+            z-index: 1000;
+            text-transform: none;
+            letter-spacing: 1px;
+        }
+ 
+        /* Header and Intro */
+        header {
+            text-align: center;
+            padding: 80px 20px 40px 20px;
+        }
+ 
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+ 
+        header p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+ 
+        /* Navigation Menu Container */
+        nav {
+            position: relative;
+            max-width: 850px;
+            margin: 0 auto 40px auto;
+            padding-bottom: 60px; /* Essential space for the tracking paws */
+        }
+ 
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+ 
+        .nav-item {
+            text-decoration: none;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            width: 120px;
+            text-align: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+ 
+        /* SVG Line Drawing Icons */
+        .nav-item svg {
+            width: 40px;
+            height: 40px;
+            stroke: black;
+            stroke-width: 2;
+            fill: none;
+            margin-bottom: 8px;
+            transition: filter 0.3s ease, stroke 0.3s ease;
+        }
+ 
+        /* Glowing Blue Filter Effect on Hover */
+        .nav-item:hover svg, .nav-item.glowing svg {
+            filter: drop-shadow(0 0 10px #1976D2);
+            stroke: #1976D2;
+        }
+ 
+        .nav-item span {
+            font-size: 0.9rem;
+            font-weight: normal;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover span, .nav-item.glowing span {
+            color: #1976D2;
+        }
+ 
+        /* Wide Track Space for Paws */
+        .paw-tracks {
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            pointer-events: none;
+        }
+ 
+        /* Individual Walking Paw Styles */
+        .paw {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            left: 0;
+            opacity: 1;
+            transition: opacity 0.2s ease-in-out;
+        }
+ 
+        .paw svg {
+            width: 100%;
+            height: 100%;
+            fill: black;
+            stroke: none;
+        }
+ 
+        /* Main Panel Styles */
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            text-align: center;
+        }
+ 
+        @media (max-width: 500px) {
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .nav-item {
+                width: 40%;
+            }
+            .fixed-title {
+                position: static;
+                text-align: center;
+                margin-top: 10px;
+            }
+            header {
+                padding-top: 20px;
+            }
+            .paw-tracks {
+                display: none; 
+            }
+        }
+    </style>
+</head>
+<body>
+ 
+    <div class="fixed-title">LymeRegisDog.Com</div>
+ 
+    <header id="home">
+        <h1>Welcome to Lyme Regis Dog</h1>
+        <p>Discover the best community reviewed dog-friendly walks, beaches, shops, cafes and services for dogs in the Lyme Regis Area.</p>
+    </header>
+ 
+    <nav>
+        <div class="nav-links">
+            
+            <a href="walks.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <g>
+                        <path d="M 6,5 C 4.5,5 4,8 4.5,12 C 5,14.5 6,15 5.5,17 C 5,19 7.5,19 7.5,17 C 7,15 8,14.5 8.5,12 C 9,8 8.5,5 7,5 Z" />
+                        <line x1="5" y1="7" x2="8" y2="7" />
+                        <line x1="4.6" y1="9" x2="8.4" y2="9" />
+                        <line x1="4.6" y1="11" x2="8.4" y2="11" />
+                        <line x1="5.1" y1="13" x2="7.9" y2="13" />
+                        <line x1="5.8" y1="16" x2="7.2" y2="16" />
+                        <line x1="5.6" y1="17.5" x2="6.9" y2="17.5" />
+                    </g>
+                    <g transform="translate(10, 3)">
+                        <path d="M 6,5 C 4.5,5 4,8 4.5,12 C 5,14.5 6,15 5.5,17 C 5,19 7.5,19 7.5,17 C 7,15 8,14.5 8.5,12 C 9,8 8.5,5 7,5 Z" />
+                        <line x1="5" y1="7" x2="8" y2="7" />
+                        <line x1="4.6" y1="9" x2="8.4" y2="9" />
+                        <line x1="4.6" y1="11" x2="8.4" y2="11" />
+                        <line x1="5.1" y1="13" x2="7.9" y2="13" />
+                        <line x1="5.8" y1="16" x2="7.2" y2="16" />
+                        <line x1="5.6" y1="17.5" x2="6.9" y2="17.5" />
+                    </g>
+                </svg>
+                <span>Walks</span>
+            </a>
+            
+            <a href="beaches.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 20h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01"></path>
+                    <path d="M2 16c2.67-2 5.33-2 8 0s5.33 2 8 0 5.33-2 8 0"></path>
+                    <circle cx="12" cy="8" r="4"></circle>
+                </svg>
+                <span>Beaches</span>
+            </a>
+ 
+            <a href="shops.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l1-4h16l1 4M4 9v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M9 14h6v7H9zM3 9h18"/>
+                </svg>
+                <span>Shops</span>
+            </a>
+ 
+            <a href="cafes.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
+                    <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" />
+                    <line x1="6" y1="2" x2="6" y2="4" />
+                    <line x1="10" y1="2" x2="10" y2="4" />
+                    <line x1="14" y1="2" x2="14" y2="4" />
+                </svg>
+                <span>Cafes</span>
+            </a>
+
+            <a href="accommodation.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 21h18"></path>
+                    <path d="M12 3l-9 18"></path>
+                    <path d="M12 3l9 18"></path>
+                    <path d="M12 14l-4 7"></path>
+                    <path d="M12 14l4 7"></path>
+                </svg>
+                <span>Accommodation</span>
+            </a>
+        </div>
+        
+      <a href="services.html" class="nav-item">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="8"></circle>
+        <line x1="12" y1="8" x2="12" y2="16"></line>
+        <line x1="8" y1="12" x2="16" y2="12"></line>
+    </svg>
+    <span>Services</span>
+</a>
+        </div>
+ 
+        <div class="paw-tracks">
+            <div class="paw" id="back-left"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="front-left"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="back-right"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="front-right"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+        </div>
+    </nav>
+ 
+    <main>
+        <h2>Select a category above to begin</h2>
+        <p>Explore our brand new, community-reviewed interactive maps! Select a category above to locate community favorites, read local feedback, 
+            or securely submit your own recommendations. Zoom in or out to find more reviews. Multiple reviews are allowed for the same place</p>
+   <p style="font-size: 0.85rem; color: #555555; margin-top: 30px; line-height: 1.5;">
+    Please Note: <p style="font-size: 0.85rem; color: #555555; margin-top: 30px; line-height: 1.5;">
+    Legal Disclaimer & Safety Notice: Lyme Regis Dog was created by Jane Yates and Gemini as a community-sharing project. Jane Yates takes no responsibility or liability for any misinformation, personal injury, or damages arising from the use of this website. All reviews, opinions, and location details are submitted directly by the public. Jane Yates explicitly disclaims any liability for harmful, defamatory, or negative reviews posted by community members regarding local businesses; these views belong solely to the submitting user. Jane Yates will remove any potentially harmful information or negative reviews when they are spotted or upon request. Local terrain, cliff edges, coastal tides, and business rules can change rapidly. Please always obey local signage, keep your dog safe, and use this guide entirely at your own risk.
+</p>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const navItems = document.querySelectorAll(".nav-item");
+            const navContainer = document.querySelector("nav");
+            
+            const bLeft = document.getElementById("back-left");
+            const fLeft = document.getElementById("front-left");
+            const bRight = document.getElementById("back-right");
+            const fRight = document.getElementById("front-right");
+            
+            let lastX = 0;
+            let isMoving = false;
+ 
+            function animateGait(element) {
+                if (isMoving) return; 
+                
+                const elementRect = element.getBoundingClientRect();
+                const navRect = navContainer.getBoundingClientRect();
+                const targetCenter = elementRect.left - navRect.left + (elementRect.width / 2);
+                
+                if (targetCenter === lastX) return;
+                isMoving = true;
+ 
+                const isMovingRight = targetCenter > lastX;
+                lastX = targetCenter;
+ 
+                navItems.forEach(item => item.classList.remove('glowing'));
+                element.classList.add('glowing');
+ 
+                const rotation = isMovingRight ? 95 : -85;
+                const topLaneY = 0;   
+                const bottomLaneY = 20; 
+ 
+                const flY = isMovingRight ? topLaneY : bottomLaneY;
+                const blY = isMovingRight ? topLaneY : bottomLaneY;
+                const frY = isMovingRight ? bottomLaneY : topLaneY;
+                const brY = isMovingRight ? bottomLaneY : topLaneY;
+ 
+                const leadX = isMovingRight ? 15 : -15;
+                const trailX = isMovingRight ? -15 : 15;
+ 
+                function takeStep(pawElement, targetX, targetY, delay) {
+                    setTimeout(() => {
+                        pawElement.style.opacity = "0"; 
+                        
+                        setTimeout(() => {
+                            pawElement.style.transform = `translateX(${targetX}px) translateY(${targetY}px) rotate(${rotation}deg)`;
+                            
+                            setTimeout(() => {
+                                pawElement.style.opacity = "1"; 
+                            }, 40);
+                        }, 200); 
+                    }, delay);
+                }
+ 
+                // Natural walking gait order (BR -> FR -> BL -> FL)
+                takeStep(bRight, targetCenter + trailX - 12, brY, 0);     
+                takeStep(fRight, targetCenter + leadX - 12, frY, 150);    
+                takeStep(bLeft, targetCenter + trailX - 12, blY, 300);    
+                takeStep(fLeft, targetCenter + leadX - 12, flY, 450);     
+ 
+                setTimeout(() => { isMoving = false; }, 750);
+            }
+ 
+            if (navItems.length > 0) {
+                const initialRect = navItems[0].getBoundingClientRect();
+                const navRect = navContainer.getBoundingClientRect();
+                const initialCenter = initialRect.left - navRect.left + (initialRect.width / 2);
+                lastX = initialCenter;
+                
+                bRight.style.transform = `translateX(${initialCenter - 24}px) translateY(20px) rotate(95deg)`;
+                fRight.style.transform = `translateX(${initialCenter + 4}px) translateY(20px) rotate(95deg)`;
+                bLeft.style.transform = `translateX(${initialCenter - 24}px) translateY(0px) rotate(95deg)`;
+                fLeft.style.transform = `translateX(${initialCenter + 4}px) translateY(0px) rotate(95deg)`;
+            }
+ 
+            navItems.forEach(item => {
+                item.addEventListener("mouseenter", function() { animateGait(this); });
+                item.addEventListener("touchstart", function() { animateGait(this); });
+            });
+        });
+    </script>
+</body>
+</html>

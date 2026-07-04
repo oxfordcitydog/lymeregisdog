@@ -9,7 +9,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LymeRegisDog.Com</title>
-    <style> 
+    <meta name="description" content="Community-reviewed dog-friendly walks, beaches, shops, cafes, accommodation and services in the Lyme Regis area, mapped with what3words locations.">
+    <meta property="og:title" content="Lyme Regis Dog">
+    <meta property="og:description" content="Community-reviewed dog-friendly walks, beaches, shops, cafes, accommodation and services in the Lyme Regis area, mapped with what3words locations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lymeregisdog.com/">
+    <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
+    <meta name="twitter:card" content="summary">
+    <style>
         /* Base Styling */
         body {
             background-color: #E3F2FD;
@@ -159,8 +166,15 @@
             header { padding-top: 20px; }
             .paw-tracks { display: none; }
         }
-        
-}
+
+        /* Recently Added Section */
+        .recent-section { max-width: 900px; margin: 0 auto 40px auto; padding: 0 20px; }
+        .recent-section h3 { margin-bottom: 15px; }
+        .recent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+        .recent-card { background: #FFFFFF; border-radius: 8px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: left; }
+        .recent-card .recent-name { font-weight: bold; }
+        .recent-card .recent-category { font-size: 0.8rem; color: #1976D2; text-transform: uppercase; letter-spacing: 0.5px; }
+        .recent-card .recent-review { font-size: 0.9rem; color: #333; margin: 8px 0 0 0; }
     </style>
 </head>
 <body>
@@ -223,18 +237,26 @@
     <section class="social-container">
         <h3>Follow us on social media</h3>
         <div class="social-links">
-            <a href="https://www.youtube.com/@Lymeregisdog" target="_blank" class="social-item"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><polygon points="10 9 15 12 10 15"/></svg><span>YouTube</span></a>
-            <a href="https://www.tiktok.com/@lymeregisdog" target="_blank" class="social-item"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg><span>TikTok</span></a>
-            <a href="https://www.facebook.com/Lymeregisdog" target="_blank" class="social-item"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><span>Facebook</span></a>
-            <a href="https://www.instagram.com/lymeregisdog" target="_blank" class="social-item"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg><span>Instagram</span></a>
-            <a href="https://uk.pinterest.com/lymeRegisdog/" target="_blank" class="social-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 10a4 4 0 1 1 4 4c-1.5 0-3-1-3-3"/></svg><span>Pinterest</span></a>
-            <a href="https://x.com/lymeregisdog" target="_blank" class="social-item"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg><span>X</span></a>
+            <a href="https://www.youtube.com/@Lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><polygon points="10 9 15 12 10 15"/></svg><span>YouTube</span></a>
+            <a href="https://www.tiktok.com/@lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg><span>TikTok</span></a>
+            <a href="https://www.facebook.com/Lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><span>Facebook</span></a>
+            <a href="https://www.instagram.com/lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg><span>Instagram</span></a>
+            <a href="https://uk.pinterest.com/lymeRegisdog/" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 10a4 4 0 1 1 4 4c-1.5 0-3-1-3-3"/></svg><span>Pinterest</span></a>
+            <a href="https://x.com/lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg><span>X</span></a>
         </div>
     </section>
 
     <main>
         <h2>Select a category above to begin</h2>
         <p>Explore our brand new, community-reviewed interactive maps! Select a category above to locate community favorites, read local feedback, or securely submit your own recommendations. Zoom in or out to find more reviews. Multiple reviews are allowed for the same place.</p>
+
+        <section class="recent-section">
+            <h3>🐾 Recently Added</h3>
+            <div class="recent-grid" id="recent-list">
+                <p>Loading latest reviews&hellip;</p>
+            </div>
+        </section>
+
         <p style="font-size: 0.85rem; color: #555555; margin-top: 30px; line-height: 1.5;">
             <strong>Please Note:</strong> Legal Disclaimer & Safety Notice: Lyme Regis Dog was created by Jane Yates and Gemini as a community-sharing project. Jane Yates takes no responsibility or liability for any misinformation, personal injury, or damages arising from the use of this website. All reviews, opinions, and location details are submitted directly by the public. Jane Yates explicitly disclaims any liability for harmful, defamatory, or negative reviews posted by community members regarding local businesses; these views belong solely to the submitting user. Jane Yates will remove any potentially harmful information or negative reviews when they are spotted or upon request. Local terrain, cliff edges, coastal tides, and business rules can change rapidly. Please always obey local signage, keep your dog safe, and use this guide entirely at your own risk.
         </p>
@@ -304,6 +326,55 @@
                 item.addEventListener("touchstart", function() { animateGait(this); });
             });
         });
+
+        // ---------------- RECENTLY ADDED ----------------
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        const categoryPages = {
+            walks: 'walks.html', beaches: 'beaches.html', shops: 'shops.html',
+            cafes: 'cafes.html', accommodation: 'accommodation.html', services: 'services.html'
+        };
+
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1_-NajtwAbXLgtZZ_Os98aFK39NIFEu7mKdVmFyXFk2je23448Y71W8Uejz-1FNV38XOM3vueQpJ/pub?output=tsv';
+
+        fetch(csvUrl)
+            .then(res => res.text())
+            .then(data => {
+                const lines = data.split(/\r?\n/).filter(l => l.trim());
+                const rows = lines.slice(1).map(line => line.split('\t')).filter(cols => cols.length >= 8);
+                const latest = rows.slice(-3).reverse();
+
+                const list = document.getElementById('recent-list');
+                if (latest.length === 0) {
+                    list.innerHTML = '<p>No reviews yet &mdash; be the first to add one!</p>';
+                    return;
+                }
+
+                list.innerHTML = latest.map(cols => {
+                    const category = (cols[1] || '').trim().toLowerCase();
+                    const name = cols[2] || '';
+                    const rating = cols[3] || '';
+                    const review = cols[5] || '';
+                    const page = categoryPages[category] || 'index.html';
+                    return '<a class="recent-card" href="' + page + '" style="text-decoration:none; color:inherit; display:block;">' +
+                        '<div class="recent-category">' + escapeHtml(category) + '</div>' +
+                        '<div class="recent-name">' + escapeHtml(name) + '</div>' +
+                        '<p class="recent-review">' + escapeHtml(review) + '</p>' +
+                        '<div>' + escapeHtml(rating) + '/5 🐾</div>' +
+                        '</a>';
+                }).join('');
+            })
+            .catch(err => {
+                console.error("Error loading recent reviews:", err);
+                document.getElementById('recent-list').innerHTML = '<p>Couldn\'t load recent reviews right now.</p>';
+            });
     </script>
 </body>
 </html>

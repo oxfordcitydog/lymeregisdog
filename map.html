@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Lyme Regis Dog Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
     <style>
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; }
@@ -13,12 +15,29 @@
             background: transparent !important;
             border: none !important;
         }
+        .locate-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: #FFFFFF;
+            border: 2px solid rgba(0,0,0,0.2);
+            border-radius: 4px;
+            padding: 8px 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .locate-btn:hover { background: #f4f4f4; }
+        .you-are-here-icon { font-size: 22px; }
     </style>
 </head>
 <body>
     <div id="map"></div>
+    <button class="locate-btn" id="locate-btn" title="Find places near me">📍 Near Me</button>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
     <script>
         // ---------------- MAP SETUP ----------------
         const map = L.map('map').setView([50.726, -2.936], 13);
@@ -26,6 +45,21 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap'
         }).addTo(map);
+
+        const markers = L.markerClusterGroup({ maxClusterRadius: 45 });
+        map.addLayer(markers);
+
+        // ---------------- ESCAPE HELPER ----------------
+        // Review text/names come from a public spreadsheet, so escape before
+        // inserting into popup HTML to avoid injecting markup/scripts.
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
 
         // ---------------- CATEGORY DETECTION ----------------
         const params = new URLSearchParams(window.location.search);
@@ -46,7 +80,7 @@
 
         // ---------------- DATA SOURCE (SWITCHED TO TSV) ----------------
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1_-NajtwAbXLgtZZ_Os98aFK39NIFEu7mKdVmFyXFk2je23448Y71W8Uejz-1FNV38XOM3vueQpJ/pub?output=tsv';
-        
+
         // ---------------- LOAD DATA ----------------
         fetch(csvUrl)
             .then(res => res.text())
@@ -80,16 +114,39 @@
                         // Create a clean display link if What3Words info exists
                         let w3wLine = '';
                         if (w3w) {
-                            w3wLine = 'What3Words: <a href="https://what3words.com/' + w3w + '" target="_blank">///' + w3w + '</a><br>';
+                            w3wLine = 'What3Words: <a href="https://what3words.com/' + encodeURIComponent(w3w) + '" target="_blank" rel="noopener">///' + escapeHtml(w3w) + '</a><br>';
                         }
 
-                        L.marker([lat, lng], { icon: pawIcon })
-                            .addTo(map)
-                            .bindPopup('<strong>' + name + '</strong><br>' + w3wLine + review + '<br>Rating: ' + rating + '/5');
+                        const marker = L.marker([lat, lng], { icon: pawIcon })
+                            .bindPopup('<strong>' + escapeHtml(name) + '</strong><br>' + w3wLine + escapeHtml(review) + '<br>Rating: ' + escapeHtml(rating) + '/5');
+
+                        markers.addLayer(marker);
                     }
                 }
             })
             .catch(err => console.error("Error loading map data:", err));
+
+        // ---------------- NEAR ME ----------------
+        let youAreHereMarker = null;
+        document.getElementById('locate-btn').addEventListener('click', () => {
+            if (!navigator.geolocation) {
+                alert('Your browser does not support geolocation.');
+                return;
+            }
+            navigator.geolocation.getCurrentPosition((pos) => {
+                const { latitude, longitude } = pos.coords;
+                if (youAreHereMarker) {
+                    map.removeLayer(youAreHereMarker);
+                }
+                const hereIcon = L.divIcon({ html: '📍', className: 'you-are-here-icon' });
+                youAreHereMarker = L.marker([latitude, longitude], { icon: hereIcon })
+                    .addTo(map)
+                    .bindPopup('You are here').openPopup();
+                map.setView([latitude, longitude], 15);
+            }, () => {
+                alert('Could not get your location. Please check your browser/location permissions.');
+            });
+        });
     </script>
 </body>
 </html>

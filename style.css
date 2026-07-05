@@ -96,6 +96,31 @@ header {
     color: #1976D2;
 }
 
+.listing-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.listing-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.listing-list li:last-child {
+    border-bottom: none;
+}
+
+.listing-list a {
+    color: #1976D2;
+}
+
+.listing-list p {
+    margin: 6px 0 0 0;
+    color: #333333;
+}
+
 @media (max-width: 500px) {
     .content-panel { margin: 10px; }
     .fixed-title { position: static; text-align: center; margin-top: 10px; }

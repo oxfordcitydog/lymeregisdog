@@ -176,6 +176,16 @@
         .recent-card .recent-name { font-weight: bold; }
         .recent-card .recent-category { font-size: 0.8rem; color: #1976D2; text-transform: uppercase; letter-spacing: 0.5px; }
         .recent-card .recent-review { font-size: 0.9rem; color: #333; margin: 8px 0 0 0; }
+        .recent-card .recent-reviewer { font-size: 0.8rem; color: #1976D2; margin-top: 6px; }
+
+        /* Review count + Leaderboard */
+        .review-count { font-size: 1.1rem; font-weight: bold; color: #1976D2; margin-bottom: 20px; }
+        .leaderboard-list { text-align: left; max-width: 400px; margin: 0 auto; padding-left: 0; list-style: none; }
+        .leaderboard-list li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #E0E0E0; font-size: 1.05rem; }
+        .leaderboard-list li:last-child { border-bottom: none; }
+        .leaderboard-rank { font-weight: bold; color: #1976D2; width: 24px; }
+        .leaderboard-avatar { font-size: 1.4rem; }
+        .leaderboard-count { margin-left: auto; color: #666; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -226,6 +236,12 @@
                 </svg>
                 <span>Services</span>
             </a>
+            <a href="about.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 21s-7-4.35-9.5-8.5C1 9 2.5 5.5 6 5c2-.3 3.5.7 6 3.5C14.5 5.7 16 4.7 18 5c3.5.5 5 4 3.5 7.5C19 16.65 12 21 12 21z"></path>
+                </svg>
+                <span>About</span>
+            </a>
         </div>
         <div class="paw-tracks">
             <div class="paw" id="back-left"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
@@ -251,11 +267,21 @@
         <h2>Select a category above to begin</h2>
         <p>Explore our brand new, community-reviewed interactive maps! Select a category above to locate community favorites, read local feedback, or securely submit your own recommendations. Zoom in or out to find more reviews. Multiple reviews are allowed for the same place.</p>
 
+        <p class="review-count" id="review-count-line"></p>
+
         <section class="recent-section">
             <h3>🐾 Recently Added</h3>
             <div class="recent-grid" id="recent-list">
                 <p>Loading latest reviews&hellip;</p>
             </div>
+        </section>
+
+        <section class="recent-section">
+            <h3>🏆 Top Tail-Waggers</h3>
+            <p>The dogs who've left the most reviews so far.</p>
+            <ol class="leaderboard-list" id="leaderboard-list">
+                <li>Loading&hellip;</li>
+            </ol>
         </section>
 
         <p style="font-size: 0.85rem; color: #555555; margin-top: 30px; line-height: 1.5;">
@@ -350,31 +376,68 @@
             .then(data => {
                 const lines = data.split(/\r?\n/).filter(l => l.trim());
                 const rows = lines.slice(1).map(line => line.split('\t')).filter(cols => cols.length >= 8);
+
+                document.getElementById('review-count-line').textContent =
+                    '🐾 ' + rows.length + ' community review' + (rows.length === 1 ? '' : 's') + ' and counting!';
+
                 const latest = rows.slice(-3).reverse();
 
                 const list = document.getElementById('recent-list');
                 if (latest.length === 0) {
                     list.innerHTML = '<p>No reviews yet &mdash; be the first to add one!</p>';
-                    return;
+                } else {
+                    list.innerHTML = latest.map(cols => {
+                        const dogName = cols[0] || '';
+                        const category = (cols[1] || '').trim().toLowerCase();
+                        const name = cols[2] || '';
+                        const rating = cols[3] || '';
+                        const review = cols[5] || '';
+                        const avatar = (cols[8] || '').trim() || '🐾';
+                        const page = categoryPages[category] || 'index.html';
+                        const reviewerLine = dogName
+                            ? '<div class="recent-reviewer">Reviewed by ' + escapeHtml(avatar) + ' ' + escapeHtml(dogName) + '</div>'
+                            : '';
+                        return '<a class="recent-card" href="' + page + '" style="text-decoration:none; color:inherit; display:block;">' +
+                            '<div class="recent-category">' + escapeHtml(category) + '</div>' +
+                            '<div class="recent-name">' + escapeHtml(name) + '</div>' +
+                            '<p class="recent-review">' + escapeHtml(review) + '</p>' +
+                            '<div>' + escapeHtml(rating) + '/5 🐾</div>' +
+                            reviewerLine +
+                            '</a>';
+                    }).join('');
                 }
 
-                list.innerHTML = latest.map(cols => {
-                    const category = (cols[1] || '').trim().toLowerCase();
-                    const name = cols[2] || '';
-                    const rating = cols[3] || '';
-                    const review = cols[5] || '';
-                    const page = categoryPages[category] || 'index.html';
-                    return '<a class="recent-card" href="' + page + '" style="text-decoration:none; color:inherit; display:block;">' +
-                        '<div class="recent-category">' + escapeHtml(category) + '</div>' +
-                        '<div class="recent-name">' + escapeHtml(name) + '</div>' +
-                        '<p class="recent-review">' + escapeHtml(review) + '</p>' +
-                        '<div>' + escapeHtml(rating) + '/5 🐾</div>' +
-                        '</a>';
-                }).join('');
+                const tally = {};
+                rows.forEach(cols => {
+                    const dog = (cols[0] || '').trim();
+                    if (!dog) return;
+                    if (!tally[dog]) tally[dog] = { count: 0, avatar: '🐾' };
+                    tally[dog].count++;
+                    const avatar = (cols[8] || '').trim();
+                    if (avatar) tally[dog].avatar = avatar;
+                });
+
+                const leaderboard = Object.entries(tally)
+                    .sort((a, b) => b[1].count - a[1].count)
+                    .slice(0, 5);
+
+                const leaderboardList = document.getElementById('leaderboard-list');
+                if (leaderboard.length === 0) {
+                    leaderboardList.innerHTML = '<li>No reviews yet &mdash; be the first!</li>';
+                } else {
+                    leaderboardList.innerHTML = leaderboard.map((entry, i) => {
+                        const [dog, info] = entry;
+                        return '<li><span class="leaderboard-rank">' + (i + 1) + '.</span>' +
+                            '<span class="leaderboard-avatar">' + escapeHtml(info.avatar) + '</span>' +
+                            '<span>' + escapeHtml(dog) + '</span>' +
+                            '<span class="leaderboard-count">' + info.count + ' review' + (info.count === 1 ? '' : 's') + '</span></li>';
+                    }).join('');
+                }
             })
             .catch(err => {
                 console.error("Error loading recent reviews:", err);
                 document.getElementById('recent-list').innerHTML = '<p>Couldn\'t load recent reviews right now.</p>';
+                document.getElementById('leaderboard-list').innerHTML = '<li>Couldn\'t load leaderboard right now.</li>';
             });
     </script>
 </body>

@@ -96,6 +96,7 @@
 
                     if (cols.length < 8) continue;
 
+                    const dogName = cols[0] || '';
                     const cat = (cols[1] || '').trim().toLowerCase();
                     const name = cols[2] || '';
                     const rating = cols[3] || '';
@@ -103,6 +104,7 @@
                     const review = cols[5] || '';
                     const lat = parseFloat(cols[6]);
                     const lng = parseFloat(cols[7]);
+                    const avatar = (cols[8] || '').trim() || '🐾';
 
                     if (cat === category && !isNaN(lat) && !isNaN(lng)) {
 
@@ -117,8 +119,10 @@
                             w3wLine = 'What3Words: <a href="https://what3words.com/' + encodeURIComponent(w3w) + '" target="_blank" rel="noopener">///' + escapeHtml(w3w) + '</a><br>';
                         }
 
+                        const dogLine = dogName ? ('Reviewed by ' + escapeHtml(avatar) + ' ' + escapeHtml(dogName) + '<br>') : '';
+
                         const marker = L.marker([lat, lng], { icon: pawIcon })
-                            .bindPopup('<strong>' + escapeHtml(name) + '</strong><br>' + w3wLine + escapeHtml(review) + '<br>Rating: ' + escapeHtml(rating) + '/5');
+                            .bindPopup('<strong>' + escapeHtml(name) + '</strong><br>' + dogLine + w3wLine + escapeHtml(review) + '<br>Rating: ' + escapeHtml(rating) + '/5');
 
                         markers.addLayer(marker);
                     }

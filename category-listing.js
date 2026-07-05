@@ -28,15 +28,46 @@
             }
 
             container.innerHTML = '<ul class="listing-list">' + matches.map(cols => {
+                const dogName = cols[0] || '';
                 const name = cols[2] || '';
                 const rating = cols[3] || '';
                 const w3w = (cols[4] || '').trim();
                 const review = cols[5] || '';
+                const avatar = (cols[8] || '').trim() || '🐾';
                 const w3wLink = w3w
                     ? ' &mdash; <a href="https://what3words.com/' + encodeURIComponent(w3w) + '" target="_blank" rel="noopener">///' + escapeHtml(w3w) + '</a>'
                     : '';
-                return '<li><strong>' + escapeHtml(name) + '</strong> (' + escapeHtml(rating) + '/5)' + w3wLink + '<p>' + escapeHtml(review) + '</p></li>';
+                const dogLine = dogName
+                    ? '<div class="listing-reviewer">Reviewed by ' + escapeHtml(avatar) + ' ' + escapeHtml(dogName) + '</div>'
+                    : '';
+                return '<li><strong>' + escapeHtml(name) + '</strong> (' + escapeHtml(rating) + '/5)' + w3wLink + dogLine + '<p>' + escapeHtml(review) + '</p></li>';
             }).join('') + '</ul>';
+
+            // Structured data so Google can consider these as rich-snippet-eligible reviews.
+            const jsonLd = {
+                '@context': 'https://schema.org',
+                '@type': 'ItemList',
+                'itemListElement': matches.map((cols, i) => {
+                    const rating = parseInt(cols[3], 10);
+                    const entry = {
+                        '@type': 'Review',
+                        'position': i + 1,
+                        'itemReviewed': { '@type': 'Place', 'name': cols[2] || '' },
+                        'reviewBody': cols[5] || ''
+                    };
+                    if (cols[0]) {
+                        entry.author = { '@type': 'Person', 'name': cols[0] };
+                    }
+                    if (!isNaN(rating)) {
+                        entry.reviewRating = { '@type': 'Rating', 'ratingValue': rating, 'bestRating': 5, 'worstRating': 1 };
+                    }
+                    return entry;
+                })
+            };
+            const ldScript = document.createElement('script');
+            ldScript.type = 'application/ld+json';
+            ldScript.textContent = JSON.stringify(jsonLd);
+            document.head.appendChild(ldScript);
         })
         .catch(err => {
             console.error('Error loading listing:', err);

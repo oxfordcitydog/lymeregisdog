@@ -116,6 +116,12 @@ header {
     color: #1976D2;
 }
 
+.listing-reviewer {
+    font-size: 0.85rem;
+    color: #1976D2;
+    margin-top: 4px;
+}
+
 .listing-list p {
     margin: 6px 0 0 0;
     color: #333333;

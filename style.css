@@ -9,17 +9,6 @@ body {
     line-height: 1.6;
 }
 
-.fixed-title {
-    position: fixed;
-    top: 20px;
-    right: 30px;
-    font-size: 1.25rem;
-    font-weight: 600;
-    z-index: 1000;
-    text-transform: none;
-    letter-spacing: 1px;
-}
-
 .breadcrumb-bar {
     background-color: #1976D2;
     padding: 10px 20px;
@@ -129,6 +118,5 @@ header {
 
 @media (max-width: 500px) {
     .content-panel { margin: 10px; }
-    .fixed-title { position: static; text-align: center; margin-top: 10px; }
     .season-banner { margin: 0 10px 15px 10px; }
 }

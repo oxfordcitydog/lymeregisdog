@@ -28,10 +28,6 @@
         .hint { font-size: 0.8rem; color: #666; margin-top: 4px; }
         .submit-btn { background-color: #1976D2; color: white; border: none; padding: 14px 20px; font-size: 1.1rem; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; }
         .submit-btn:hover { background-color: #1565C0; }
-        .avatar-picker { display: flex; flex-wrap: wrap; gap: 10px; }
-        .avatar-option input { position: absolute; opacity: 0; width: 0; height: 0; }
-        .avatar-option span { display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; font-size: 1.8rem; border: 2px solid #B0BEC5; border-radius: 8px; cursor: pointer; transition: border-color 0.2s ease, background-color 0.2s ease; }
-        .avatar-option input:checked + span { border-color: #1976D2; background-color: #E3F2FD; }
         @media (max-width: 500px) { .form-container { margin: 10px; padding: 20px; } }
     </style>
 </head>
@@ -56,23 +52,6 @@
             <div class="form-group">
                 <label> Dog's Name:</label>
                 <input type="text" name="userName" required placeholder="e.g., Oak">
-            </div>
-
-            <div class="form-group">
-                <label>Pick an avatar for your dog:</label>
-                <div class="avatar-picker">
-                    <label class="avatar-option"><input type="radio" name="avatar" value="🐶" checked><span>🐶</span></label>
-                    <label class="avatar-option"><input type="radio" name="avatar" value="🐕"><span>🐕</span></label>
-                    <label class="avatar-option"><input type="radio" name="avatar" value="🐩"><span>🐩</span></label>
-                    <label class="avatar-option"><input type="radio" name="avatar" value="🦮"><span>🦮</span></label>
-                    <label class="avatar-option"><input type="radio" name="avatar" value="🐕‍🦺"><span>🐕‍🦺</span></label>
-                    <label class="avatar-option"><input type="radio" name="avatar" value="🐾"><span>🐾</span></label>
-                    <label class="avatar-option"><input type="radio" name="avatar" value="⚫"><span>⚫</span></label>
-                    <label class="avatar-option"><input type="radio" name="avatar" value="🟤"><span>🟤</span></label>
-                    <label class="avatar-option"><input type="radio" name="avatar" value="🟡"><span>🟡</span></label>
-                    <label class="avatar-option"><input type="radio" name="avatar" value="⚪"><span>⚪</span></label>
-                </div>
-                <span class="hint">No black Labrador emoji exists (yet!) &mdash; pick whichever shape or colour is closest to your dog.</span>
             </div>
 
             <div class="form-group">

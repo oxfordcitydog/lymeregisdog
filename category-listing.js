@@ -33,12 +33,11 @@
                 const rating = cols[3] || '';
                 const w3w = (cols[4] || '').trim();
                 const review = cols[5] || '';
-                const avatar = (cols[8] || '').trim() || '🐾';
                 const w3wLink = w3w
                     ? ' &mdash; <a href="https://what3words.com/' + encodeURIComponent(w3w) + '" target="_blank" rel="noopener">///' + escapeHtml(w3w) + '</a>'
                     : '';
                 const dogLine = dogName
-                    ? '<div class="listing-reviewer">Reviewed by ' + escapeHtml(avatar) + ' ' + escapeHtml(dogName) + '</div>'
+                    ? '<div class="listing-reviewer">Reviewed by ' + escapeHtml(dogName) + '</div>'
                     : '';
                 return '<li><strong>' + escapeHtml(name) + '</strong> (' + escapeHtml(rating) + '/5)' + w3wLink + dogLine + '<p>' + escapeHtml(review) + '</p></li>';
             }).join('') + '</ul>';

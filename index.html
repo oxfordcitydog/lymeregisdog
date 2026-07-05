@@ -197,7 +197,6 @@
         .leaderboard-list li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #E0E0E0; font-size: 1.05rem; }
         .leaderboard-list li:last-child { border-bottom: none; }
         .leaderboard-rank { font-weight: bold; color: #1976D2; width: 24px; }
-        .leaderboard-avatar { font-size: 1.4rem; }
         .leaderboard-count { margin-left: auto; color: #666; font-size: 0.9rem; }
     </style>
 </head>
@@ -405,10 +404,9 @@
                         const name = cols[2] || '';
                         const rating = cols[3] || '';
                         const review = cols[5] || '';
-                        const avatar = (cols[8] || '').trim() || '🐾';
                         const page = categoryPages[category] || 'index.html';
                         const reviewerLine = dogName
-                            ? '<div class="recent-reviewer">Reviewed by ' + escapeHtml(avatar) + ' ' + escapeHtml(dogName) + '</div>'
+                            ? '<div class="recent-reviewer">Reviewed by ' + escapeHtml(dogName) + '</div>'
                             : '';
                         return '<a class="recent-card" href="' + page + '" style="text-decoration:none; color:inherit; display:block;">' +
                             '<div class="recent-category">' + escapeHtml(category) + '</div>' +
@@ -424,10 +422,8 @@
                 rows.forEach(cols => {
                     const dog = (cols[0] || '').trim();
                     if (!dog) return;
-                    if (!tally[dog]) tally[dog] = { count: 0, avatar: '🐾' };
+                    if (!tally[dog]) tally[dog] = { count: 0 };
                     tally[dog].count++;
-                    const avatar = (cols[8] || '').trim();
-                    if (avatar) tally[dog].avatar = avatar;
                 });
 
                 const leaderboard = Object.entries(tally)
@@ -441,7 +437,6 @@
                     leaderboardList.innerHTML = leaderboard.map((entry, i) => {
                         const [dog, info] = entry;
                         return '<li><span class="leaderboard-rank">' + (i + 1) + '.</span>' +
-                            '<span class="leaderboard-avatar">' + escapeHtml(info.avatar) + '</span>' +
                             '<span>' + escapeHtml(dog) + '</span>' +
                             '<span class="leaderboard-count">' + info.count + ' review' + (info.count === 1 ? '' : 's') + '</span></li>';
                     }).join('');

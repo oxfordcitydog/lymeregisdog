@@ -116,6 +116,14 @@ header {
     color: #333333;
 }
 
+.social-container { text-align: center; max-width: 700px; margin: 0 auto; padding: 25px 15px; }
+.social-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+.social-item { text-decoration: none; color: black; display: flex; flex-direction: column; align-items: center; width: 70px; }
+.social-item svg { width: 30px; height: 30px; stroke: black; fill: none; margin-bottom: 5px; transition: 0.3s; }
+.social-item:hover svg { filter: drop-shadow(0 0 8px #1976D2); stroke: #1976D2; }
+.social-item span { font-size: 0.8rem; transition: 0.3s; }
+.social-item:hover span { color: #1976D2; }
+
 @media (max-width: 500px) {
     .content-panel { margin: 10px; }
     .season-banner { margin: 0 10px 15px 10px; }

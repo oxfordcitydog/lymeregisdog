@@ -258,9 +258,10 @@ function drawHalo(hx, topY, w, t) {
   const ry = w * 0.14;
   let glow, rimBack, rimFront, spark;
   if (style === 'devil') {
-    glow = 'rgba(255, 50, 20, 1)';
-    rimBack = 'rgba(25, 4, 8, 0.95)';
-    rimFront = 'rgba(150, 20, 12, 0.95)';
+    // a fallen angel's halo: black ring, fiery red glow, drifting embers
+    glow = 'rgba(255, 45, 15, 1)';
+    rimBack = 'rgba(10, 2, 4, 0.95)';
+    rimFront = 'rgba(22, 6, 8, 0.98)';
     spark = 'rgba(255, 90, 40, ';
   } else {
     glow = 'rgba(255, 215, 100, 1)';

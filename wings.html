@@ -184,7 +184,7 @@ async function loop() {
     smoothBoxes(dogs);
     ctx.clearRect(0, 0, paint.width, paint.height);
     const t = performance.now();
-    for (const box of smoothDogs) drawDogHalo(box.now, t);
+    for (const s of smoothDogs) drawDogHalo(s, t);
   }
   requestAnimationFrame(loop);
 }
@@ -240,12 +240,76 @@ function dogMeasure(box) {
   return Math.min(m, paint.width * 0.11, paint.height * 0.11);
 }
 
-// one lovely halo hovering above the whole dog - gold for angels,
-// fiery red for the ones who rolled in something
-function drawDogHalo(box, t) {
+// one lovely halo hovering above the dog - over the head when we can
+// find it, over the middle when we can't. gold for angels, black fire
+// for the ones who rolled in something
+function drawDogHalo(s, t) {
+  const box = s.now;
   const m = dogMeasure(box);
   if (m < 12) return;
-  drawHalo(box[0] + box[2] / 2, box[1], m * 1.5, t);
+  let hx = box[0] + box[2] / 2;
+  let hy = box[1];
+  const head = findHead(box, cam);
+  if (head) { hx = head.x; hy = head.y; }
+  // glide the halo towards the head so it floats rather than jumps
+  if (s.hx === undefined) { s.hx = hx; s.hy = hy; }
+  s.hx += (hx - s.hx) * 0.2;
+  s.hy += (hy - s.hy) * 0.2;
+  drawHalo(s.hx, s.hy, m * 1.5, t);
+}
+
+// Jane's rule: the highest part of a dog is its head, and tails don't
+// count because tails are long and thin. we learn the dog's fur colour
+// from the middle of its box, find how high the fur reaches in each
+// column, then pick the highest BROAD region - a narrow spike (a tail,
+// an ear of grass) gets averaged away by its lower neighbours.
+const peek = document.createElement('canvas');
+const pctx = peek.getContext('2d', { willReadFrequently: true });
+function findHead(box, source) {
+  try {
+    const W = 64, H = 48;
+    peek.width = W; peek.height = H;
+    pctx.drawImage(source, box[0], box[1], box[2], box[3], 0, 0, W, H);
+    const d = pctx.getImageData(0, 0, W, H).data;
+    const at = (x, y) => { const i = (y * W + x) * 4; return [d[i], d[i + 1], d[i + 2]]; };
+    // learn a few fur colours from inside the dog (middle-ish patches,
+    // more than one in case the dog wears a bandana)
+    const refs = [];
+    for (const [px, py] of [[32, 24], [32, 16], [21, 24], [43, 24], [32, 33]]) {
+      let r = 0, g = 0, b = 0;
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        const c = at(px + dx, py + dy); r += c[0]; g += c[1]; b += c[2];
+      }
+      refs.push([r / 9, g / 9, b / 9]);
+    }
+    const isFur = (x, y) => {
+      const c = at(x, y);
+      return refs.some(f =>
+        Math.abs(c[0] - f[0]) + Math.abs(c[1] - f[1]) + Math.abs(c[2] - f[2]) < 120);
+    };
+    // how high the fur reaches in every column
+    const tops = new Array(W).fill(H);
+    for (let x = 0; x < W; x++) {
+      for (let y = 0; y < H * 0.8; y++) {
+        if (isFur(x, y)) { tops[x] = y; break; }
+      }
+    }
+    // average each column with its neighbours, so thin tails lose
+    const span = 6;
+    let bestX = -1, bestVal = H;
+    for (let x = span; x < W - span; x++) {
+      let sum = 0;
+      for (let k = -span; k <= span; k++) sum += tops[x + k];
+      const avg = sum / (span * 2 + 1);
+      if (avg < bestVal) { bestVal = avg; bestX = x; }
+    }
+    // no confident broad high point found - let the caller use the middle
+    if (bestX < 0 || bestVal > H * 0.6) return null;
+    return {
+      x: box[0] + (bestX / W) * box[2],
+      y: box[1] + (bestVal / H) * box[3]
+    };
+  } catch (e) { return null; }
 }
 
 // a proper halo: a glowing ring seen at a tilt, with a bright front rim
@@ -272,19 +336,20 @@ function drawHalo(hx, topY, w, t) {
   ctx.save();
   ctx.shadowColor = glow;
   ctx.shadowBlur = w * 0.4;
-  ctx.lineCap = 'round';
-  // the far rim of the ring, a little darker and thinner
-  ctx.strokeStyle = rimBack;
-  ctx.lineWidth = Math.max(2, w * 0.08);
-  ctx.beginPath();
-  ctx.ellipse(hx, cy, rx, ry, 0, Math.PI, Math.PI * 2);
-  ctx.stroke();
-  // the near rim, brighter and thicker, so the ring looks real
-  ctx.strokeStyle = rimFront;
-  ctx.lineWidth = Math.max(3, w * 0.12);
-  ctx.beginPath();
-  ctx.ellipse(hx, cy, rx, ry, 0, 0, Math.PI);
-  ctx.stroke();
+  // like the rings of Saturn: complete concentric bands, every part
+  // of every ring visible at the same time, tilted as one
+  const bands = [
+    { r: 1.0, width: 0.05, colour: rimFront },
+    { r: 0.86, width: 0.07, colour: rimBack },
+    { r: 0.7, width: 0.04, colour: rimFront }
+  ];
+  for (const band of bands) {
+    ctx.strokeStyle = band.colour;
+    ctx.lineWidth = Math.max(2, w * band.width);
+    ctx.beginPath();
+    ctx.ellipse(hx, cy, rx * band.r, ry * band.r, 0, 0, Math.PI * 2);
+    ctx.stroke();
+  }
   // sparkles (or embers) twinkling around and drifting under the ring
   ctx.shadowBlur = w * 0.15;
   for (let i = 0; i < 14; i++) {

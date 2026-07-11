@@ -72,13 +72,11 @@
 <div id="welcome">
   <h1>Angel Dogs</h1>
   <p class="site">from lymeregisdog.com</p>
-  <p>Point your camera at a dog and they get angel wings and a halo.
+  <p>Point your camera at a dog and a halo appears above them.
      Works on up to six dogs at once.
      Nothing is recorded and nothing leaves your phone.</p>
-  <p>The Style button swaps between angel and devil,
-     for the dogs who rolled in something.
-     The Show button picks wings, halo, or both -
-     halo only is the steadiest for filming.
+  <p>The Style button swaps between a golden angel halo
+     and a fiery devil one, for the dogs who rolled in something.
      Approved by Oak of Lyme Regis, who is of course an angel.</p>
   <button id="startBtn">Start the angel dogs</button>
 </div>
@@ -87,7 +85,6 @@
 <div id="controls">
   <button id="flipBtn">Flip camera</button>
   <button id="styleBtn">Style: angel</button>
-  <button id="showBtn">Show: both</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4/dist/tf.min.js"></script>
@@ -100,10 +97,8 @@ const statusBox = document.getElementById('status');
 const controls = document.getElementById('controls');
 const flipBtn = document.getElementById('flipBtn');
 const styleBtn = document.getElementById('styleBtn');
-const showBtn = document.getElementById('showBtn');
 
 let style = 'angel';          // 'angel' or 'devil' - the style button swaps
-let show = 'both';            // 'both', 'halo' or 'wings' - the show button cycles
 let detector = null;
 let facing = 'environment';   // back camera first; flip button swaps
 let stream = null;
@@ -171,13 +166,6 @@ styleBtn.addEventListener('click', () => {
   styleBtn.textContent = 'Style: ' + style;
 });
 
-showBtn.addEventListener('click', () => {
-  if (show === 'both') show = 'halo';
-  else if (show === 'halo') show = 'wings';
-  else show = 'both';
-  showBtn.textContent = 'Show: ' + (show === 'halo' ? 'halo only' : (show === 'wings' ? 'wings only' : 'both'));
-});
-
 async function loop() {
   if (detector && cam.readyState >= 2) {
     let found = [];
@@ -196,10 +184,7 @@ async function loop() {
     smoothBoxes(dogs);
     ctx.clearRect(0, 0, paint.width, paint.height);
     const t = performance.now();
-    for (const box of smoothDogs) drawDogBack(box.now, t);
-    // rub the wings out over each dog's body, so wings sit behind the dog
-    for (const box of smoothDogs) eraseDog(box.now);
-    for (const box of smoothDogs) drawDogFront(box.now, t);
+    for (const box of smoothDogs) drawDogHalo(box.now, t);
   }
   requestAnimationFrame(loop);
 }
@@ -255,121 +240,61 @@ function dogMeasure(box) {
   return Math.min(m, paint.width * 0.11, paint.height * 0.11);
 }
 
-function drawDogBack(box, t) {
-  if (show === 'halo') return;
+// one lovely halo hovering above the whole dog - gold for angels,
+// fiery red for the ones who rolled in something
+function drawDogHalo(box, t) {
   const m = dogMeasure(box);
   if (m < 12) return;
-  const cx = box[0] + box[2] / 2;
-  // perch the little wings right at the top of the dog's back, high
-  // enough that the body cut-out below cannot swallow them
-  const cy = box[1] + box[3] * 0.12 + m * 0.3;
-  const flap = Math.sin(t / 700 + cx / 60) * 0.08;
-  drawWing(cx, cy, m, -1, flap);
-  drawWing(cx, cy, m, 1, flap);
+  drawHalo(box[0] + box[2] / 2, box[1], m * 1.5, t);
 }
 
-function drawDogFront(box, t) {
-  if (show === 'wings') return;
-  const m = dogMeasure(box);
-  if (m < 12) return;
-  const cx = box[0] + box[2] / 2;
-  const topY = box[1];
-  // on its own the halo hovers over the whole dog, bigger and prouder
-  const size = (show === 'halo') ? m * 1.5 : m;
-  if (style === 'angel') drawHalo(cx, topY, size, t);
-  else drawHorns(cx, topY, size, t);
-}
-
-// rub the wings out over the dog's body shape
-function eraseDog(box) {
-  ctx.save();
-  ctx.globalCompositeOperation = 'destination-out';
-  ctx.fillStyle = 'rgba(0,0,0,1)';
-  ctx.beginPath();
-  ctx.ellipse(box[0] + box[2] / 2, box[1] + box[3] * 0.55,
-              box[2] * 0.48, box[3] * 0.46, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
-
-// small round butterfly-style wings, like Heimlich's in A Bug's Life -
-// a big rounded lobe on top and a little one underneath, gently fluttering
-function drawWing(cx, cy, w, side, flap) {
-  ctx.save();
-  if (style === 'devil') {
-    ctx.shadowColor = 'rgba(255, 60, 40, 0.85)';
-  } else {
-    ctx.shadowColor = 'rgba(255, 230, 150, 0.9)';
-  }
-  ctx.shadowBlur = w * 0.3;
-
-  const tilt = side * (0.5 + flap * 3);
-
-  // big top lobe
-  const bx = cx + side * w * 0.55;
-  const by = cy - w * 0.5;
-  const gradTop = ctx.createLinearGradient(bx, by - w, bx, by + w);
-  if (style === 'devil') {
-    gradTop.addColorStop(0, 'rgba(80, 10, 18, 0.95)');
-    gradTop.addColorStop(1, 'rgba(150, 30, 35, 0.55)');
-  } else {
-    gradTop.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-    gradTop.addColorStop(1, 'rgba(255, 244, 215, 0.55)');
-  }
-  ctx.fillStyle = gradTop;
-  ctx.beginPath();
-  ctx.ellipse(bx, by, w * 0.5, w * 0.8, tilt, 0, Math.PI * 2);
-  ctx.fill();
-
-  // little bottom lobe
-  const sx = cx + side * w * 0.42;
-  const sy = cy + w * 0.28;
-  ctx.beginPath();
-  ctx.ellipse(sx, sy, w * 0.32, w * 0.45, side * 0.95, 0, Math.PI * 2);
-  ctx.fill();
-
-  // two soft vein lines on the big lobe
-  ctx.strokeStyle = (style === 'devil') ? 'rgba(255, 90, 70, 0.4)' : 'rgba(255, 255, 255, 0.6)';
-  ctx.lineWidth = Math.max(1, w * 0.03);
-  for (const f of [0.35, 0.7]) {
-    ctx.beginPath();
-    ctx.moveTo(cx + side * w * 0.15, cy - w * 0.05);
-    ctx.quadraticCurveTo(
-      bx + side * w * 0.05, by - w * 0.4 * f,
-      bx + side * w * 0.42 * f, by - w * (0.75 - 0.35 * f)
-    );
-    ctx.stroke();
-  }
-  ctx.restore();
-}
-
+// a proper halo: a glowing ring seen at a tilt, with a bright front rim
+// and little sparkles twinkling around it. gold for angels; for devils,
+// a black ring with a fiery red glow and drifting embers
 function drawHalo(hx, topY, w, t) {
   const bob = Math.sin(t / 900 + hx / 80) * w * 0.04;
+  const cy = topY - w * 0.35 + bob;
+  const rx = w * 0.45;
+  const ry = w * 0.14;
+  let glow, rimBack, rimFront, spark;
+  if (style === 'devil') {
+    glow = 'rgba(255, 50, 20, 1)';
+    rimBack = 'rgba(25, 4, 8, 0.95)';
+    rimFront = 'rgba(150, 20, 12, 0.95)';
+    spark = 'rgba(255, 90, 40, ';
+  } else {
+    glow = 'rgba(255, 215, 100, 1)';
+    rimBack = 'rgba(212, 160, 50, 0.95)';
+    rimFront = 'rgba(255, 246, 205, 0.95)';
+    spark = 'rgba(255, 225, 130, ';
+  }
   ctx.save();
-  ctx.shadowColor = 'rgba(255, 220, 120, 1)';
-  ctx.shadowBlur = w * 0.3;
-  ctx.strokeStyle = 'rgba(255, 235, 170, 0.95)';
-  ctx.lineWidth = Math.max(2, w * 0.06);
+  ctx.shadowColor = glow;
+  ctx.shadowBlur = w * 0.4;
+  ctx.lineCap = 'round';
+  // the far rim of the ring, a little darker and thinner
+  ctx.strokeStyle = rimBack;
+  ctx.lineWidth = Math.max(2, w * 0.08);
   ctx.beginPath();
-  ctx.ellipse(hx, topY - w * 0.35 + bob, w * 0.42, w * 0.13, 0, 0, Math.PI * 2);
+  ctx.ellipse(hx, cy, rx, ry, 0, Math.PI, Math.PI * 2);
   ctx.stroke();
-  ctx.restore();
-}
-
-function drawHorns(hx, topY, w, t) {
-  const bob = Math.sin(t / 900 + hx / 80) * w * 0.04;
-  const baseY = topY - w * 0.25 + bob;
-  ctx.save();
-  ctx.shadowColor = 'rgba(255, 60, 40, 0.9)';
-  ctx.shadowBlur = w * 0.25;
-  ctx.fillStyle = 'rgba(150, 20, 25, 0.95)';
-  for (const side of [-1, 1]) {
-    const bx = hx + side * w * 0.3;
+  // the near rim, brighter and thicker, so the ring looks real
+  ctx.strokeStyle = rimFront;
+  ctx.lineWidth = Math.max(3, w * 0.12);
+  ctx.beginPath();
+  ctx.ellipse(hx, cy, rx, ry, 0, 0, Math.PI);
+  ctx.stroke();
+  // sparkles (or embers) twinkling around and drifting under the ring
+  ctx.shadowBlur = w * 0.15;
+  for (let i = 0; i < 14; i++) {
+    const a = i * 2.4 + hx * 0.01;
+    const tw = 0.5 + 0.5 * Math.sin(t / 300 + i * 1.7);
+    const sx = hx + Math.cos(a) * rx * (0.8 + ((i * 37) % 10) / 14);
+    const sy = cy + Math.sin(a) * ry * 1.5 + ((i * 53) % 10) / 10 * w * 0.4;
+    const r = w * (0.012 + 0.004 * ((i * 29) % 3)) + w * 0.008 * tw;
+    ctx.fillStyle = spark + (0.25 + 0.6 * tw).toFixed(2) + ')';
     ctx.beginPath();
-    ctx.moveTo(bx - side * w * 0.12, baseY);
-    ctx.quadraticCurveTo(bx + side * w * 0.05, baseY - w * 0.2, bx + side * w * 0.22, baseY - w * 0.45);
-    ctx.quadraticCurveTo(bx + side * w * 0.1, baseY - w * 0.15, bx + side * w * 0.12, baseY);
-    ctx.closePath();
+    ctx.arc(sx, sy, Math.max(1, r), 0, Math.PI * 2);
     ctx.fill();
   }
   ctx.restore();

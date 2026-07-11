@@ -1,1 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Angel Dogs - lymeregisdog.com</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: #000; overflow: hidden;
+    font-family: Verdana, sans-serif;
+  }
+  #cam, #paint {
+    position: fixed; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .mirrored #cam, .mirrored #paint { transform: scaleX(-1); }
+  #welcome {
+    position: fixed; inset: 0;
+    background: linear-gradient(#1a1a2e, #0f0f1a);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 24px; z-index: 10;
+  }
+  #welcome h1 {
+    color: #ffe9a8; font-size: 28px; font-weight: normal;
+    margin: 0 0 18px 0;
+  }
+  #welcome p {
+    color: #c8c8dc; font-size: 17px; line-height: 1.6;
+    max-width: 420px; margin: 0 0 22px 0;
+  }
+  #startBtn {
+    font-family: Verdana, sans-serif; font-size: 22px;
+    padding: 18px 40px; border: none; border-radius: 40px;
+    background: #ffe9a8; color: #1a1a2e; cursor: pointer;
+  }
+  #status {
+    position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%);
+    background: rgba(20, 20, 40, 0.85); color: #ffe9a8;
+    font-size: 16px; padding: 10px 22px; border-radius: 20px;
+    z-index: 5; max-width: 85%; text-align: center;
+  }
+  #controls {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+    display: none; gap: 10px; z-index: 5;
+  }
+  #controls button {
+    font-family: Verdana, sans-serif; font-size: 16px;
+    padding: 12px 26px; border: none; border-radius: 30px;
+    background: rgba(255, 233, 168, 0.9); color: #1a1a2e;
+    cursor: pointer; white-space: nowrap;
+  }
+  #brand {
+    position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+    background: rgba(20, 20, 40, 0.6); color: #ffe9a8;
+    font-size: 15px; padding: 7px 18px; border-radius: 18px;
+    z-index: 5; letter-spacing: 0.5px;
+  }
+  #welcome .site { color: #ffe9a8; font-size: 15px; margin: 0 0 8px 0; }
+</style>
+</head>
+<body>
 
+<video id="cam" autoplay muted playsinline></video>
+<canvas id="paint"></canvas>
+
+<div id="brand">lymeregisdog.com</div>
+
+<div id="welcome">
+  <h1>Angel Dogs</h1>
+  <p class="site">from lymeregisdog.com</p>
+  <p>Point your camera at a dog and they get angel wings and a halo.
+     Works on up to six dogs at once.
+     Nothing is recorded and nothing leaves your phone.</p>
+  <p>The Style button swaps between angel and devil,
+     for the dogs who rolled in something.
+     Approved by Oak of Lyme Regis, who is of course an angel.</p>
+  <button id="startBtn">Start the angel dogs</button>
+</div>
+
+<div id="status" style="display:none"></div>
+<div id="controls">
+  <button id="flipBtn">Flip camera</button>
+  <button id="styleBtn">Style: angel</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2/dist/coco-ssd.min.js"></script>
+<script>
+const cam = document.getElementById('cam');
+const paint = document.getElementById('paint');
+const ctx = paint.getContext('2d');
+const statusBox = document.getElementById('status');
+const controls = document.getElementById('controls');
+const flipBtn = document.getElementById('flipBtn');
+const styleBtn = document.getElementById('styleBtn');
+
+let style = 'angel';          // 'angel' or 'devil' - the style button swaps
+let detector = null;
+let facing = 'environment';   // back camera first; flip button swaps
+let stream = null;
+let smoothDogs = [];          // remembered dog positions so the wings glide, not jitter
+const FURRY = new Set(['dog', 'cat', 'horse', 'sheep', 'cow', 'bear', 'teddy bear']);
+
+function say(msg) {
+  statusBox.style.display = msg ? 'block' : 'none';
+  statusBox.textContent = msg;
+}
+
+async function openCamera() {
+  if (stream) stream.getTracks().forEach(t => t.stop());
+  cam.srcObject = null;
+  try {
+    // firmly ask for the chosen camera - phones can ignore a gentle request
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { exact: facing }, width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false
+    });
+  } catch (e) {
+    // no such camera on this device (like a laptop) - take whatever there is
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: facing, width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false
+    });
+  }
+  cam.srcObject = stream;
+  await new Promise(res => { cam.onloadedmetadata = res; });
+  await cam.play();
+  paint.width = cam.videoWidth;
+  paint.height = cam.videoHeight;
+  document.body.classList.toggle('mirrored', facing === 'user');
+}
+
+async function start() {
+  document.getElementById('welcome').remove();
+  try {
+    say('asking for the camera...');
+    await openCamera();
+    controls.style.display = 'flex';
+  } catch (err) {
+    say('the camera said no. check camera permission for this page and reload.');
+    return;
+  }
+  try {
+    say('loading the dog-spotting magic... this takes a few seconds the first time');
+    detector = await cocoSsd.load({ base: 'lite_mobilenet_v2' });
+  } catch (err) {
+    say('the magic could not load. is the internet connected? ' + err.message);
+    return;
+  }
+  say('point the camera at a dog');
+  setTimeout(() => say(''), 6000);
+  loop();
+}
+
+flipBtn.addEventListener('click', async () => {
+  facing = (facing === 'environment') ? 'user' : 'environment';
+  try { await openCamera(); } catch (e) { say('could not flip the camera'); }
+});
+
+styleBtn.addEventListener('click', () => {
+  style = (style === 'angel') ? 'devil' : 'angel';
+  styleBtn.textContent = 'Style: ' + style;
+});
+
+async function loop() {
+  if (detector && cam.readyState >= 2) {
+    let found = [];
+    try { found = await detector.detect(cam, 10, 0.4); } catch (e) {}
+    // the spotter sometimes calls a dog a cat or a sheep, so any
+    // four-legged friend counts - never people, they have their own page
+    const dogs = found.filter(d => FURRY.has(d.class))
+                      .sort((a, b) => b.score - a.score)
+                      .slice(0, 6)
+                      .map(d => d.bbox);   // [x, y, width, height]
+    smoothBoxes(dogs);
+    ctx.clearRect(0, 0, paint.width, paint.height);
+    const t = performance.now();
+    for (const box of smoothDogs) drawDogBack(box.now, t);
+    // rub the wings out over each dog's body, so wings sit behind the dog
+    for (const box of smoothDogs) eraseDog(box.now);
+    for (const box of smoothDogs) drawDogFront(box.now, t);
+  }
+  requestAnimationFrame(loop);
+}
+
+// glide each dog's remembered box toward its newest position, so the
+// wings follow the dog smoothly instead of twitching frame to frame
+function smoothBoxes(fresh) {
+  const used = new Set();
+  const next = [];
+  for (const old of smoothDogs) {
+    let best = -1, bestDist = 1e18;
+    for (let i = 0; i < fresh.length; i++) {
+      if (used.has(i)) continue;
+      const dx = (fresh[i][0] + fresh[i][2] / 2) - (old.now[0] + old.now[2] / 2);
+      const dy = (fresh[i][1] + fresh[i][3] / 2) - (old.now[1] + old.now[3] / 2);
+      const dist = dx * dx + dy * dy;
+      if (dist < bestDist) { bestDist = dist; best = i; }
+    }
+    if (best >= 0 && bestDist < (paint.width * 0.25) ** 2) {
+      used.add(best);
+      const f = fresh[best];
+      old.now = old.now.map((v, k) => v + (f[k] - v) * 0.35);
+      old.missing = 0;
+      next.push(old);
+    } else if (old.missing < 8) {
+      old.missing++;
+      next.push(old);   // keep a briefly-lost dog for a few frames
+    }
+  }
+  for (let i = 0; i < fresh.length; i++) {
+    if (!used.has(i)) next.push({ now: fresh[i].slice(), missing: 0 });
+  }
+  smoothDogs = next.slice(0, 6);
+}
+
+function dogMeasure(box) {
+  // one handy size number for a dog, however big it looks on screen,
+  // capped so a close-up dog does not get wings bigger than the screen.
+  // kept small on purpose - little wings are cuter
+  const m = Math.min(box[2], box[3]) * 0.38;
+  return Math.min(m, paint.width * 0.11, paint.height * 0.11);
+}
+
+function drawDogBack(box, t) {
+  const m = dogMeasure(box);
+  if (m < 12) return;
+  const cx = box[0] + box[2] / 2;
+  // perch the little wings right at the top of the dog's back, high
+  // enough that the body cut-out below cannot swallow them
+  const cy = box[1] + box[3] * 0.12 + m * 0.3;
+  const flap = Math.sin(t / 700 + cx / 60) * 0.08;
+  drawWing(cx, cy, m, -1, flap);
+  drawWing(cx, cy, m, 1, flap);
+}
+
+function drawDogFront(box, t) {
+  const m = dogMeasure(box);
+  if (m < 12) return;
+  const cx = box[0] + box[2] / 2;
+  const topY = box[1];
+  if (style === 'angel') drawHalo(cx, topY, m, t);
+  else drawHorns(cx, topY, m, t);
+}
+
+// rub the wings out over the dog's body shape
+function eraseDog(box) {
+  ctx.save();
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.fillStyle = 'rgba(0,0,0,1)';
+  ctx.beginPath();
+  ctx.ellipse(box[0] + box[2] / 2, box[1] + box[3] * 0.55,
+              box[2] * 0.48, box[3] * 0.46, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+// small round butterfly-style wings, like Heimlich's in A Bug's Life -
+// a big rounded lobe on top and a little one underneath, gently fluttering
+function drawWing(cx, cy, w, side, flap) {
+  ctx.save();
+  if (style === 'devil') {
+    ctx.shadowColor = 'rgba(255, 60, 40, 0.85)';
+  } else {
+    ctx.shadowColor = 'rgba(255, 230, 150, 0.9)';
+  }
+  ctx.shadowBlur = w * 0.3;
+
+  const tilt = side * (0.5 + flap * 3);
+
+  // big top lobe
+  const bx = cx + side * w * 0.55;
+  const by = cy - w * 0.5;
+  const gradTop = ctx.createLinearGradient(bx, by - w, bx, by + w);
+  if (style === 'devil') {
+    gradTop.addColorStop(0, 'rgba(80, 10, 18, 0.95)');
+    gradTop.addColorStop(1, 'rgba(150, 30, 35, 0.55)');
+  } else {
+    gradTop.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+    gradTop.addColorStop(1, 'rgba(255, 244, 215, 0.55)');
+  }
+  ctx.fillStyle = gradTop;
+  ctx.beginPath();
+  ctx.ellipse(bx, by, w * 0.5, w * 0.8, tilt, 0, Math.PI * 2);
+  ctx.fill();
+
+  // little bottom lobe
+  const sx = cx + side * w * 0.42;
+  const sy = cy + w * 0.28;
+  ctx.beginPath();
+  ctx.ellipse(sx, sy, w * 0.32, w * 0.45, side * 0.95, 0, Math.PI * 2);
+  ctx.fill();
+
+  // two soft vein lines on the big lobe
+  ctx.strokeStyle = (style === 'devil') ? 'rgba(255, 90, 70, 0.4)' : 'rgba(255, 255, 255, 0.6)';
+  ctx.lineWidth = Math.max(1, w * 0.03);
+  for (const f of [0.35, 0.7]) {
+    ctx.beginPath();
+    ctx.moveTo(cx + side * w * 0.15, cy - w * 0.05);
+    ctx.quadraticCurveTo(
+      bx + side * w * 0.05, by - w * 0.4 * f,
+      bx + side * w * 0.42 * f, by - w * (0.75 - 0.35 * f)
+    );
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawHalo(hx, topY, w, t) {
+  const bob = Math.sin(t / 900 + hx / 80) * w * 0.04;
+  ctx.save();
+  ctx.shadowColor = 'rgba(255, 220, 120, 1)';
+  ctx.shadowBlur = w * 0.3;
+  ctx.strokeStyle = 'rgba(255, 235, 170, 0.95)';
+  ctx.lineWidth = Math.max(2, w * 0.06);
+  ctx.beginPath();
+  ctx.ellipse(hx, topY - w * 0.35 + bob, w * 0.42, w * 0.13, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawHorns(hx, topY, w, t) {
+  const bob = Math.sin(t / 900 + hx / 80) * w * 0.04;
+  const baseY = topY - w * 0.25 + bob;
+  ctx.save();
+  ctx.shadowColor = 'rgba(255, 60, 40, 0.9)';
+  ctx.shadowBlur = w * 0.25;
+  ctx.fillStyle = 'rgba(150, 20, 25, 0.95)';
+  for (const side of [-1, 1]) {
+    const bx = hx + side * w * 0.3;
+    ctx.beginPath();
+    ctx.moveTo(bx - side * w * 0.12, baseY);
+    ctx.quadraticCurveTo(bx + side * w * 0.05, baseY - w * 0.2, bx + side * w * 0.22, baseY - w * 0.45);
+    ctx.quadraticCurveTo(bx + side * w * 0.1, baseY - w * 0.15, bx + side * w * 0.12, baseY);
+    ctx.closePath();
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+document.getElementById('startBtn').addEventListener('click', start);
+</script>
+
+</body>
+</html>

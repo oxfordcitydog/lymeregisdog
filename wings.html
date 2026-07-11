@@ -44,11 +44,12 @@
   }
   #controls {
     position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
-    display: none; gap: 10px; z-index: 5;
+    display: none; gap: 8px; z-index: 5;
+    flex-wrap: wrap; justify-content: center; max-width: 95vw;
   }
   #controls button {
-    font-family: Verdana, sans-serif; font-size: 16px;
-    padding: 12px 26px; border: none; border-radius: 30px;
+    font-family: Verdana, sans-serif; font-size: 14px;
+    padding: 10px 16px; border: none; border-radius: 30px;
     background: rgba(255, 233, 168, 0.9); color: #1a1a2e;
     cursor: pointer; white-space: nowrap;
   }
@@ -76,6 +77,8 @@
      Nothing is recorded and nothing leaves your phone.</p>
   <p>The Style button swaps between angel and devil,
      for the dogs who rolled in something.
+     The Show button picks wings, halo, or both -
+     halo only is the steadiest for filming.
      Approved by Oak of Lyme Regis, who is of course an angel.</p>
   <button id="startBtn">Start the angel dogs</button>
 </div>
@@ -84,6 +87,7 @@
 <div id="controls">
   <button id="flipBtn">Flip camera</button>
   <button id="styleBtn">Style: angel</button>
+  <button id="showBtn">Show: both</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4/dist/tf.min.js"></script>
@@ -96,8 +100,10 @@ const statusBox = document.getElementById('status');
 const controls = document.getElementById('controls');
 const flipBtn = document.getElementById('flipBtn');
 const styleBtn = document.getElementById('styleBtn');
+const showBtn = document.getElementById('showBtn');
 
 let style = 'angel';          // 'angel' or 'devil' - the style button swaps
+let show = 'both';            // 'both', 'halo' or 'wings' - the show button cycles
 let detector = null;
 let facing = 'environment';   // back camera first; flip button swaps
 let stream = null;
@@ -165,16 +171,28 @@ styleBtn.addEventListener('click', () => {
   styleBtn.textContent = 'Style: ' + style;
 });
 
+showBtn.addEventListener('click', () => {
+  if (show === 'both') show = 'halo';
+  else if (show === 'halo') show = 'wings';
+  else show = 'both';
+  showBtn.textContent = 'Show: ' + (show === 'halo' ? 'halo only' : (show === 'wings' ? 'wings only' : 'both'));
+});
+
 async function loop() {
   if (detector && cam.readyState >= 2) {
     let found = [];
     try { found = await detector.detect(cam, 10, 0.4); } catch (e) {}
     // the spotter sometimes calls a dog a cat or a sheep, so any
-    // four-legged friend counts - never people, they have their own page
-    const dogs = found.filter(d => FURRY.has(d.class))
-                      .sort((a, b) => b.score - a.score)
-                      .slice(0, 6)
-                      .map(d => d.bbox);   // [x, y, width, height]
+    // four-legged friend counts - never people, they have their own page.
+    // it also sometimes sees the same dog twice (once as dog, once as cat),
+    // so overlapping sightings are merged and only the best one kept
+    const seen = found.filter(d => FURRY.has(d.class))
+                      .sort((a, b) => b.score - a.score);
+    const dogs = [];
+    for (const d of seen) {
+      if (dogs.length >= 6) break;
+      if (dogs.every(k => overlap(k, d.bbox) < 0.4)) dogs.push(d.bbox);
+    }
     smoothBoxes(dogs);
     ctx.clearRect(0, 0, paint.width, paint.height);
     const t = performance.now();
@@ -217,6 +235,18 @@ function smoothBoxes(fresh) {
   smoothDogs = next.slice(0, 6);
 }
 
+// how much two boxes overlap, as a share of the smaller one (0 to 1)
+function overlap(a, b) {
+  const x1 = Math.max(a[0], b[0]);
+  const y1 = Math.max(a[1], b[1]);
+  const x2 = Math.min(a[0] + a[2], b[0] + b[2]);
+  const y2 = Math.min(a[1] + a[3], b[1] + b[3]);
+  if (x2 <= x1 || y2 <= y1) return 0;
+  const inter = (x2 - x1) * (y2 - y1);
+  const smaller = Math.min(a[2] * a[3], b[2] * b[3]);
+  return inter / smaller;
+}
+
 function dogMeasure(box) {
   // one handy size number for a dog, however big it looks on screen,
   // capped so a close-up dog does not get wings bigger than the screen.
@@ -226,6 +256,7 @@ function dogMeasure(box) {
 }
 
 function drawDogBack(box, t) {
+  if (show === 'halo') return;
   const m = dogMeasure(box);
   if (m < 12) return;
   const cx = box[0] + box[2] / 2;
@@ -238,12 +269,15 @@ function drawDogBack(box, t) {
 }
 
 function drawDogFront(box, t) {
+  if (show === 'wings') return;
   const m = dogMeasure(box);
   if (m < 12) return;
   const cx = box[0] + box[2] / 2;
   const topY = box[1];
-  if (style === 'angel') drawHalo(cx, topY, m, t);
-  else drawHorns(cx, topY, m, t);
+  // on its own the halo hovers over the whole dog, bigger and prouder
+  const size = (show === 'halo') ? m * 1.5 : m;
+  if (style === 'angel') drawHalo(cx, topY, size, t);
+  else drawHorns(cx, topY, size, t);
 }
 
 // rub the wings out over the dog's body shape

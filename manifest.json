@@ -1,20 +1,15 @@
 {
-  "short_name": "LimeRegisDog",
-  "name": "Lime Regis Dog",
-  "icons": [
-    {
-      "src": "icon-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "icon-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": "./index.html",
-  "background_color": "#0056b3",
+  "name": "Lyme Regis Dog",
+  "short_name": "LymeRegisDog",
+  "description": "Dog-friendly walks, beaches, shops, cafes, accommodation and services in Lyme Regis",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "theme_color": "#0056b3"
+  "background_color": "#E3F2FD",
+  "theme_color": "#1976D2",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
 }

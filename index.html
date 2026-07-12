@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -16,15 +16,14 @@
     <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
     <meta name="twitter:card" content="summary">
     <meta name="google-site-verification" content="oVwqASm1i4WZ7QEkwgLtLoRWa3gey-be8YsA3aNMHjI" />
-
     <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1976D2">
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js')
           .then(() => console.log('Service Worker Registered'));
       }
-    </script> 
-
+    </script>
     <style>
         /* Base Styling */
         body {
@@ -36,7 +35,6 @@
             line-height: 1.6;
             text-align: center;
         }
-
         /* Fixed Top Right Name */
         .fixed-title {
             position: fixed;
@@ -48,39 +46,33 @@
             text-transform: none;
             letter-spacing: 1px;
         }
-
         /* Header and Intro */
         header {
             text-align: center;
             padding: 80px 20px 40px 20px;
         }
-
         header h1 {
             font-size: clamp(2rem, 6vw, 3.2rem);
             max-width: 500px;
             margin: auto;
             line-height: 1.15;
         }
-
         header p {
             max-width: 400px;
             margin: 0 auto;
             font-size: 1.1rem;
         }
-
         /* Keep intro text and disclaimer at a readable width on wide screens */
         main {
             max-width: 900px;
             margin: 0 auto;
             padding: 0 20px;
         }
-
         main > h2, main > p {
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
-
         /* Navigation Menu Container */
         nav {
             position: relative;
@@ -88,7 +80,6 @@
             margin: 0 auto 40px auto;
             padding-bottom: 60px;
         }
-
         .nav-links {
             display: flex;
             justify-content: space-around;
@@ -96,7 +87,6 @@
             padding: 0;
             margin: 0;
         }
-
         .nav-item {
             text-decoration: none;
             color: black;
@@ -109,7 +99,6 @@
             cursor: pointer;
             z-index: 10;
         }
-
         /* SVG Line Drawing Icons */
         .nav-item svg {
             width: 40px;
@@ -120,22 +109,18 @@
             margin-bottom: 8px;
             transition: filter 0.3s ease, stroke 0.3s ease;
         }
-
         .nav-item:hover svg, .nav-item.glowing svg {
             filter: drop-shadow(0 0 10px #1976D2);
             stroke: #1976D2;
         }
-
         .nav-item span {
             font-size: 0.9rem;
             font-weight: normal;
             transition: color 0.3s ease;
         }
-
         .nav-item:hover span, .nav-item.glowing span {
             color: #1976D2;
         }
-
         /* Wide Track Space for Paws */
         .paw-tracks {
             position: absolute;
@@ -145,7 +130,6 @@
             height: 40px;
             pointer-events: none;
         }
-
         .paw {
             position: absolute;
             width: 24px;
@@ -154,41 +138,12 @@
             opacity: 1;
             transition: opacity 0.2s ease-in-out;
         }
-
         .paw svg {
             width: 100%;
             height: 100%;
             fill: black;
             stroke: none;
         }
-        <div style="margin: 50px auto 30px auto; text-align: center;">
-        <button id="installApp" style="display: none; padding: 12px 28px; background-color: #1976D2; color: white; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.3s; font-size: 1rem;">
-          Download Mobile App
-        </button>
-    </div>
-
-    <script>
-      let deferredPrompt;
-      const installBtn = document.getElementById('installApp');
-
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = 'inline-block';
-      });
-
-      installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') {
-            installBtn.style.display = 'none';
-          }
-          deferredPrompt = null;
-        }
-      });
-    </script>
-
         /* Social Section Styles */
         .social-container { text-align: center; max-width: 700px; margin: 0 auto 40px auto; padding: 25px 15px; }
         .social-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
@@ -197,7 +152,6 @@
         .social-item:hover svg { filter: drop-shadow(0 0 8px #1976D2); stroke: #1976D2; }
         .social-item span { font-size: 0.8rem; transition: 0.3s; }
         .social-item:hover span { color: #1976D2; }
-
         /* Mobile Adjustments */
         @media (max-width: 700px) {
             .nav-links{ display:grid; grid-template-columns:repeat(2,1fr); gap:30px 20px; justify-items:center; }
@@ -207,7 +161,6 @@
             header p{ font-size:1.2rem; }
             .paw-tracks{ height:50px; }
         }
-
         @media (max-width: 500px) {
             .nav-links { flex-wrap: wrap; gap: 15px; }
             .nav-item { width: 40%; }
@@ -215,7 +168,6 @@
             header { padding-top: 20px; }
             .paw-tracks { display: none; }
         }
-
         /* Recently Added Section */
         .recent-section { max-width: 900px; margin: 0 auto 40px auto; padding: 0 20px; }
         .recent-section h3 { margin-bottom: 15px; }
@@ -225,7 +177,6 @@
         .recent-card .recent-category { font-size: 0.8rem; color: #1976D2; text-transform: uppercase; letter-spacing: 0.5px; }
         .recent-card .recent-review { font-size: 0.9rem; color: #333; margin: 8px 0 0 0; }
         .recent-card .recent-reviewer { font-size: 0.8rem; color: #1976D2; margin-top: 6px; }
-
         /* Review count + Leaderboard */
         .review-count { font-size: 1.1rem; font-weight: bold; color: #1976D2; margin-bottom: 20px; }
         .leaderboard-list { text-align: left; max-width: 400px; margin: 0 auto; padding-left: 0; list-style: none; }
@@ -236,19 +187,12 @@
     </style>
 </head>
 <body>
-    
-  
-
-
-    
 
     <div class="fixed-title">LymeRegisDog.Com</div>
-
     <header id="home">
         <h1>Welcome to Lyme Regis Dog</h1>
         <p>Discover the best community reviewed dog-friendly walks, beaches, shops, cafes and services for dogs in the Lyme Regis Area.</p>
     </header>
-
     <nav>
         <div class="nav-links">
             <a href="walks.html" class="nav-item">
@@ -310,62 +254,56 @@
             <div class="paw" id="front-right"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
         </div>
     </nav>
-    <!-- LYME REGIS DOG - install button section.
-     Paste this into index.html on the line straight after </nav>
-     and before <section class="social-container">. -->
 
+    <!-- ============ GET THE APP ============ -->
+    <div id="install-area" style="text-align:center; margin: 20px auto;">
+      <button id="install-btn" style="display:none; background:#1976D2; color:#ffffff;
+          border:none; border-radius:24px; padding:12px 26px; font-size:1rem;
+          font-family:Arial, sans-serif; cursor:pointer;">
+        &#128241; Get the free Lyme Regis Dog app
+      </button>
+      <p id="ios-tip" style="display:none; max-width:400px; margin:10px auto; font-size:0.95rem;">
+        &#128241; To get the free app on your iPhone or iPad: tap the
+        <strong>Share</strong> button <span style="font-size:1.1rem;">&#x2B06;&#xFE0F;</span>
+        at the bottom of Safari, then choose <strong>&quot;Add to Home Screen&quot;</strong>.
+      </p>
+    </div>
+    <script>
+      (function () {
+        var installBtn = document.getElementById('install-btn');
+        var iosTip = document.getElementById('ios-tip');
+        var deferredPrompt = null;
 
-  (function () {
-    var installBtn = document.getElementById('install-btn');
-    var iosTip = document.getElementById('ios-tip');
-    var deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', function (e) {
+          e.preventDefault();
+          deferredPrompt = e;
+          installBtn.style.display = 'inline-block';
+        });
 
-    // Android / laptop Chrome & Edge: show the real install button
-    window.addEventListener('beforeinstallprompt', function (e) {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtn.style.display = 'inline-block';
-    });
+        installBtn.addEventListener('click', function () {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function () {
+            deferredPrompt = null;
+            installBtn.style.display = 'none';
+          });
+        });
 
-    installBtn.addEventListener('click', function () {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(function () {
-        deferredPrompt = null;
-        installBtn.style.display = 'none';
-      });
-    });
+        window.addEventListener('appinstalled', function () {
+          installBtn.style.display = 'none';
+          iosTip.style.display = 'none';
+        });
 
-    // Hide everything once installed
-    window.addEventListener('appinstalled', function () {
-      installBtn.style.display = 'none';
-      iosTip.style.display = 'none';
-    });
+        var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        var isStandalone = window.matchMedia('(display-mode: standalone)').matches
+                           || window.navigator.standalone === true;
+        if (isIOS && !isStandalone) {
+          iosTip.style.display = 'block';
+        }
+      })();
+    </script>
+    <!-- ============ END GET THE APP ============ -->
 
-    // iPhone/iPad: Apple doesn't allow install buttons, so show
-    // instructions instead - unless already running as the app
-    var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    var isStandalone = window.matchMedia('(display-mode: standalone)').matches
-                       || window.navigator.standalone === true;
-    if (isIOS && !isStandalone) {
-      iosTip.style.display = 'block';
-    }
-  })();
-</script>
-<div id="install-area" style="text-align:center; margin: 20px auto;">
-  <button id="install-btn" style="display:none; background:#1976D2; color:#ffffff;
-      border:none; border-radius:24px; padding:12px 26px; font-size:1rem;
-      font-family:Arial, sans-serif; cursor:pointer;">
-    &#128241; Get the free Lyme Regis Dog app
-  </button>
-  <p id="ios-tip" style="display:none; max-width:400px; margin:10px auto; font-size:0.95rem;">
-    &#128241; To get the free app on your iPhone or iPad: tap the
-    <strong>Share</strong> button <span style="font-size:1.1rem;">&#x2B06;&#xFE0F;</span>
-    at the bottom of Safari, then choose <strong>&quot;Add to Home Screen&quot;</strong>.
-  </p>
-</div>
-
-<script>
     <section class="social-container">
         <h3>Follow us on social media</h3>
         <div class="social-links">
@@ -377,20 +315,16 @@
             <a href="https://x.com/lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg><span>X</span></a>
         </div>
     </section>
-
     <main>
         <h2>Select a category above to begin</h2>
         <p>Explore our brand new, community-reviewed interactive maps! Select a category above to locate community favorites, read local feedback, or securely submit your own recommendations. Zoom in or out to find more reviews. Multiple reviews are allowed for the same place.</p>
-
         <p class="review-count" id="review-count-line"></p>
-
         <section class="recent-section">
             <h3>🐾 Recently Added</h3>
             <div class="recent-grid" id="recent-list">
                 <p>Loading latest reviews&hellip;</p>
             </div>
         </section>
-
         <section class="recent-section">
             <h3>🏆 Top Tail-Waggers</h3>
             <p>The dogs who've left the most reviews so far.</p>
@@ -398,19 +332,17 @@
                 <li>Loading&hellip;</li>
             </ol>
         </section>
-
         <p style="font-size: 0.85rem; color: #555555; margin-top: 30px; line-height: 1.5;">
             <strong>Please Note:</strong> Legal Disclaimer & Safety Notice: Lyme Regis Dog was created by Jane Yates as a community-sharing project.
             Jane Yates takes no responsibility or liability for any misinformation, personal injury, or damages arising from the use of this website.
             All reviews, opinions, and location details are submitted directly by the public.
-            Jane Yates explicitly disclaims any liability for harmful, defamatory, or negative reviews posted by community members regarding local businesses; 
-            these views belong solely to the submitting user. 
-            Jane Yates will remove any potentially harmful information or negative reviews when they are spotted or upon request. 
-            Local terrain, cliff edges, coastal tides, and business rules can change rapidly. Please always obey local signage, keep your dog safe, 
+            Jane Yates explicitly disclaims any liability for harmful, defamatory, or negative reviews posted by community members regarding local businesses;
+            these views belong solely to the submitting user.
+            Jane Yates will remove any potentially harmful information or negative reviews when they are spotted or upon request.
+            Local terrain, cliff edges, coastal tides, and business rules can change rapidly. Please always obey local signage, keep your dog safe,
             and use this guide entirely at your own risk.
         </p>
     </main>
-
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const navItems = document.querySelectorAll(".nav-item");
@@ -421,9 +353,8 @@
             const fRight = document.getElementById("front-right");
             let lastX = 0;
             let isMoving = false;
-
             function animateGait(element) {
-                if (isMoving) return; 
+                if (isMoving) return;
                 const elementRect = element.getBoundingClientRect();
                 const navRect = navContainer.getBoundingClientRect();
                 const targetCenter = elementRect.left - navRect.left + (elementRect.width / 2);
@@ -434,31 +365,29 @@
                 navItems.forEach(item => item.classList.remove('glowing'));
                 element.classList.add('glowing');
                 const rotation = isMovingRight ? 95 : -85;
-                const topLaneY = 0;   
-                const bottomLaneY = 20; 
+                const topLaneY = 0;
+                const bottomLaneY = 20;
                 const flY = isMovingRight ? topLaneY : bottomLaneY;
                 const blY = isMovingRight ? topLaneY : bottomLaneY;
                 const frY = isMovingRight ? bottomLaneY : topLaneY;
                 const brY = isMovingRight ? bottomLaneY : topLaneY;
                 const leadX = isMovingRight ? 15 : -15;
                 const trailX = isMovingRight ? -15 : 15;
-
                 function takeStep(pawElement, targetX, targetY, delay) {
                     setTimeout(() => {
-                        pawElement.style.opacity = "0"; 
+                        pawElement.style.opacity = "0";
                         setTimeout(() => {
                             pawElement.style.transform = `translateX(${targetX}px) translateY(${targetY}px) rotate(${rotation}deg)`;
                             setTimeout(() => { pawElement.style.opacity = "1"; }, 40);
-                        }, 200); 
+                        }, 200);
                     }, delay);
                 }
-                takeStep(bRight, targetCenter + trailX - 12, brY, 0);    
-                takeStep(fRight, targetCenter + leadX - 12, frY, 150);   
-                takeStep(bLeft, targetCenter + trailX - 12, blY, 300);   
-                takeStep(fLeft, targetCenter + leadX - 12, flY, 450);    
+                takeStep(bRight, targetCenter + trailX - 12, brY, 0);
+                takeStep(fRight, targetCenter + leadX - 12, frY, 150);
+                takeStep(bLeft, targetCenter + trailX - 12, blY, 300);
+                takeStep(fLeft, targetCenter + leadX - 12, flY, 450);
                 setTimeout(() => { isMoving = false; }, 750);
             }
-
             if (navItems.length > 0) {
                 const initialRect = navItems[0].getBoundingClientRect();
                 const navRect = navContainer.getBoundingClientRect();
@@ -469,13 +398,11 @@
                 bLeft.style.transform = `translateX(${initialCenter - 24}px) translateY(0px) rotate(95deg)`;
                 fLeft.style.transform = `translateX(${initialCenter + 4}px) translateY(0px) rotate(95deg)`;
             }
-
             navItems.forEach(item => {
                 item.addEventListener("mouseenter", function() { animateGait(this); });
                 item.addEventListener("touchstart", function() { animateGait(this); });
             });
         });
-
         // ---------------- RECENTLY ADDED ----------------
         function escapeHtml(str) {
             return String(str)
@@ -485,25 +412,19 @@
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#39;');
         }
-
         const categoryPages = {
             walks: 'walks.html', beaches: 'beaches.html', shops: 'shops.html',
             cafes: 'cafes.html', accommodation: 'accommodation.html', services: 'services.html'
         };
-
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1_-NajtwAbXLgtZZ_Os98aFK39NIFEu7mKdVmFyXFk2je23448Y71W8Uejz-1FNV38XOM3vueQpJ/pub?output=tsv';
-
         fetch(csvUrl)
             .then(res => res.text())
             .then(data => {
                 const lines = data.split(/\r?\n/).filter(l => l.trim());
                 const rows = lines.slice(1).map(line => line.split('\t')).filter(cols => cols.length >= 8);
-
                 document.getElementById('review-count-line').textContent =
                     '🐾 ' + rows.length + ' community review' + (rows.length === 1 ? '' : 's') + ' and counting!';
-
                 const latest = rows.slice(-3).reverse();
-
                 const list = document.getElementById('recent-list');
                 if (latest.length === 0) {
                     list.innerHTML = '<p>No reviews yet &mdash; be the first to add one!</p>';
@@ -527,7 +448,6 @@
                             '</a>';
                     }).join('');
                 }
-
                 const tally = {};
                 rows.forEach(cols => {
                     const dog = (cols[0] || '').trim();
@@ -535,11 +455,9 @@
                     if (!tally[dog]) tally[dog] = { count: 0 };
                     tally[dog].count++;
                 });
-
                 const leaderboard = Object.entries(tally)
                     .sort((a, b) => b[1].count - a[1].count)
                     .slice(0, 5);
-
                 const leaderboardList = document.getElementById('leaderboard-list');
                 if (leaderboard.length === 0) {
                     leaderboardList.innerHTML = '<li>No reviews yet &mdash; be the first!</li>';

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get the Free App - LymeRegisDog.Com</title>
+    <meta name="description" content="Add the free Lyme Regis Dog app to your phone - dog-friendly walks, beaches, shops, cafes and services in Lyme Regis, straight from your home screen.">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1976D2">
+    <style>
+        body {
+            background-color: #E3F2FD;
+            color: #000000;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            text-align: center;
+        }
+        .fixed-title {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 1.25rem;
+            z-index: 1000;
+            letter-spacing: 1px;
+        }
+        header { padding: 80px 20px 10px 20px; }
+        header h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin: 0 0 10px 0; line-height: 1.2; }
+        header p { max-width: 440px; margin: 0 auto; font-size: 1.05rem; }
+        .card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            max-width: 440px;
+            margin: 25px auto;
+            padding: 25px 25px 30px 25px;
+            text-align: left;
+        }
+        .card h2 { text-align: center; font-size: 1.2rem; }
+        .steps { padding-left: 0; list-style: none; counter-reset: step; }
+        .steps li {
+            counter-increment: step;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 1rem;
+        }
+        .steps li::before {
+            content: counter(step);
+            flex: none;
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            background: #1976D2;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        #big-install-btn {
+            display: none;
+            background: #1976D2;
+            color: #ffffff;
+            border: none;
+            border-radius: 28px;
+            padding: 15px 32px;
+            font-size: 1.15rem;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            margin: 10px auto;
+        }
+        .home-link { display: inline-block; margin: 20px auto 50px auto; color: #1976D2; font-size: 1rem; }
+        .note { font-size: 0.9rem; color: #555; max-width: 400px; margin: 0 auto; }
+        #already { display: none; font-size: 1.1rem; }
+        .share-icon { color: #1976D2; font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+    <div class="fixed-title">LymeRegisDog.Com</div>
+    <header>
+        <h1>&#128054; Get the free app</h1>
+        <p>Pop Lyme Regis Dog on your home screen and it opens like a real app &mdash; free, no app store, no sign-up, walkies information one tap away.</p>
+    </header>
+
+    <p id="already">&#127881; You already have the app on this device &mdash; look for the paw on your home screen!</p>
+
+    <div id="android-card" class="card" style="display:none;">
+        <h2>On this device</h2>
+        <div style="text-align:center;">
+            <button id="big-install-btn">&#128241; Install the app now</button>
+            <p class="note" id="android-fallback">If no button appears above: open the browser menu (&#8942; three dots, top right) and tap <strong>"Add to Home screen"</strong> or <strong>"Install app"</strong>.</p>
+        </div>
+    </div>
+
+    <div id="ios-card" class="card" style="display:none;">
+        <h2>On your iPhone or iPad</h2>
+        <ol class="steps">
+            <li>Open <strong>lymeregisdog.com</strong> in <strong>Safari</strong> (you're probably there now!)</li>
+            <li>Tap the <strong>Share</strong> button <span class="share-icon">&#x2B06;&#xFE0F;</span> &mdash; the square with the arrow at the bottom of the screen</li>
+            <li>Scroll down the list and tap <strong>"Add to Home Screen"</strong></li>
+            <li>Tap <strong>Add</strong> (top right) &mdash; and look for the paw on your home screen!</li>
+        </ol>
+        <p class="note">Apple doesn't allow one-tap install buttons, so this little dance is how every iPhone app-website works.</p>
+    </div>
+
+    <a class="home-link" href="index.html">&#8592; Back to the home page</a>
+
+    <script>
+      (function () {
+        var bigBtn = document.getElementById('big-install-btn');
+        var androidCard = document.getElementById('android-card');
+        var iosCard = document.getElementById('ios-card');
+        var already = document.getElementById('already');
+        var deferredPrompt = null;
+
+        var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        var isStandalone = window.matchMedia('(display-mode: standalone)').matches
+                           || window.navigator.standalone === true;
+
+        if (isStandalone) {
+          already.style.display = 'block';
+        } else if (isIOS) {
+          iosCard.style.display = 'block';
+        } else {
+          androidCard.style.display = 'block';
+        }
+
+        window.addEventListener('beforeinstallprompt', function (e) {
+          e.preventDefault();
+          deferredPrompt = e;
+          bigBtn.style.display = 'inline-block';
+        });
+
+        bigBtn.addEventListener('click', function () {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function () {
+            deferredPrompt = null;
+            bigBtn.style.display = 'none';
+          });
+        });
+
+        window.addEventListener('appinstalled', function () {
+          androidCard.style.display = 'none';
+          iosCard.style.display = 'none';
+          already.style.display = 'block';
+        });
+
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('./sw.js');
+        }
+      })();
+    </script>
+</body>
+</html>

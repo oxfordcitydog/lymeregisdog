@@ -18,6 +18,14 @@
     <meta name="twitter:card" content="summary">
     <meta name="google-site-verification" content="oVwqASm1i4WZ7QEkwgLtLoRWa3gey-be8YsA3aNMHjI" />
     <style>
+        <link rel="manifest" href="manifest.json">
+<script>
+         /* new bit code */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log('Service Worker Registered'));
+  }
+</script> /* new bit code */
         /* Base Styling */
         body {
             background-color: #E3F2FD;

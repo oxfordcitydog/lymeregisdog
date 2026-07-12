@@ -212,29 +212,7 @@
     
   
 
-<script>
-  let deferredPrompt;
-  const installBtn = document.getElementById('installApp');
 
-  window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent mobile browsers from showing their own default prompt automatically
-    e.preventDefault();
-    deferredPrompt = e;
-    // Show your custom download button instead
-    installBtn.style.display = 'inline-block';
-  });
-
-  installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        installBtn.style.display = 'none';
-      }
-      deferredPrompt = null;
-    }
-  });
-</script>
     
 
     <div class="fixed-title">LymeRegisDog.Com</div>

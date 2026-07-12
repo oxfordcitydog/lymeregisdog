@@ -209,6 +209,36 @@
     </style>
 </head>
 <body>
+    /* new bit body */
+    <!-- The Install Button -->
+<button id="installApp" style="display: none; padding: 12px 24px; background-color: #0056b3; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 20px 0;">
+  Download Mobile App
+</button>
+
+<script>
+  let deferredPrompt;
+  const installBtn = document.getElementById('installApp');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent mobile browsers from showing their own default prompt automatically
+    e.preventDefault();
+    deferredPrompt = e;
+    // Show your custom download button instead
+    installBtn.style.display = 'inline-block';
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        installBtn.style.display = 'none';
+      }
+      deferredPrompt = null;
+    }
+  });
+</script>
+    /* end new bit body */
 
     <div class="fixed-title">LymeRegisDog.Com</div>
 

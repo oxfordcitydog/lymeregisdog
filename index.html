@@ -16,12 +16,16 @@
     <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
     <meta name="twitter:card" content="summary">
     <meta name="google-site-verification" content="oVwqASm1i4WZ7QEkwgLtLoRWa3gey-be8YsA3aNMHjI" />
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1976D2">
     <script>
+      // the old site app helper (service worker) is retired - this tidies it
+      // away and empties its saved copies, so visitors always get fresh pages
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js')
-          .then(() => console.log('Service Worker Registered'));
+        navigator.serviceWorker.getRegistrations()
+          .then(function (regs) { regs.forEach(function (r) { r.unregister(); }); });
+        if (window.caches) {
+          caches.keys().then(function (keys) { keys.forEach(function (k) { caches.delete(k); }); });
+        }
       }
     </script>
     <style>
@@ -246,15 +250,6 @@
                 </svg>
                 <span>Dog Halo</span>
             </a>
-            <a href="app.html" class="nav-item">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="7" y="2" width="10" height="20" rx="2.5"></rect>
-                    <line x1="10.5" y1="19" x2="13.5" y2="19"></line>
-                    <path d="M12 7 v6"></path>
-                    <path d="M9.5 10.5 L 12 13 L 14.5 10.5"></path>
-                </svg>
-                <span>Get the App</span>
-            </a>
         </div>
         <div class="paw-tracks">
             <div class="paw" id="back-left"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
@@ -263,55 +258,6 @@
             <div class="paw" id="front-right"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
         </div>
     </nav>
-
-    <!-- ============ GET THE APP ============ -->
-    <div id="install-area" style="text-align:center; margin: 20px auto;">
-      <button id="install-btn" style="display:none; background:#1976D2; color:#ffffff;
-          border:none; border-radius:24px; padding:12px 26px; font-size:1rem;
-          font-family:Arial, sans-serif; cursor:pointer;">
-        &#128241; Get the free Lyme Regis Dog app
-      </button>
-      <p id="ios-tip" style="display:none; max-width:400px; margin:10px auto; font-size:0.95rem;">
-        &#128241; To get the free app on your iPhone or iPad: tap the
-        <strong>Share</strong> button <span style="font-size:1.1rem;">&#x2B06;&#xFE0F;</span>
-        at the bottom of Safari, then choose <strong>&quot;Add to Home Screen&quot;</strong>.
-      </p>
-    </div>
-    <script>
-      (function () {
-        var installBtn = document.getElementById('install-btn');
-        var iosTip = document.getElementById('ios-tip');
-        var deferredPrompt = null;
-
-        window.addEventListener('beforeinstallprompt', function (e) {
-          e.preventDefault();
-          deferredPrompt = e;
-          installBtn.style.display = 'inline-block';
-        });
-
-        installBtn.addEventListener('click', function () {
-          if (!deferredPrompt) return;
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then(function () {
-            deferredPrompt = null;
-            installBtn.style.display = 'none';
-          });
-        });
-
-        window.addEventListener('appinstalled', function () {
-          installBtn.style.display = 'none';
-          iosTip.style.display = 'none';
-        });
-
-        var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-        var isStandalone = window.matchMedia('(display-mode: standalone)').matches
-                           || window.navigator.standalone === true;
-        if (isIOS && !isStandalone) {
-          iosTip.style.display = 'block';
-        }
-      })();
-    </script>
-    <!-- ============ END GET THE APP ============ -->
 
     <section class="social-container">
         <h3>Follow us on social media</h3>

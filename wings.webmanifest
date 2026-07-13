@@ -1,0 +1,16 @@
+{
+  "id": "/wings.html",
+  "name": "Angel Dogs",
+  "short_name": "Angel Dogs",
+  "description": "Point your camera at a dog and a halo appears above them. From lymeregisdog.com",
+  "start_url": "/wings.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#a8d8f0",
+  "theme_color": "#a8d8f0",
+  "icons": [
+    { "src": "angel-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "angel-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

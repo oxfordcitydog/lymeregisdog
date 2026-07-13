@@ -41,9 +41,17 @@
   }
   #installBtn {
     font-family: Verdana, sans-serif; font-size: 16px;
-    padding: 12px 28px; border: none; border-radius: 30px;
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 8px 26px 8px 10px; border: none; border-radius: 40px;
     background: #a8d8f0; color: #1a1a2e; cursor: pointer;
     margin-top: 18px;
+    box-shadow: 0 0 18px rgba(255, 233, 168, 0.4);
+  }
+  #installBtn:hover {
+    box-shadow: 0 0 26px rgba(255, 233, 168, 0.75);
+  }
+  #installBtn img {
+    width: 52px; height: 52px; border-radius: 50%; display: block;
   }
   #installMsg {
     display: none; color: #a8d8f0; font-size: 15px;
@@ -98,7 +106,7 @@
      and a fiery devil one, for the dogs who rolled in something.
      Approved by Oak of Lyme Regis, who is of course an angel.</p>
   <button id="startBtn">Start the angel dogs</button>
-  <button id="installBtn">Get the free Angel Dogs app</button>
+  <button id="installBtn"><img src="angel-192.png" alt="">Get the free Angel Dogs app</button>
   <p id="iosHint">To keep Angel Dogs on your iPhone:
      tap the Share button (the square with an arrow, at the
      bottom of Safari), then choose "Add to Home Screen".</p>

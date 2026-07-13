@@ -43,7 +43,11 @@
     font-family: Verdana, sans-serif; font-size: 16px;
     padding: 12px 28px; border: none; border-radius: 30px;
     background: #a8d8f0; color: #1a1a2e; cursor: pointer;
-    margin-top: 18px; display: none;
+    margin-top: 18px;
+  }
+  #installMsg {
+    display: none; color: #a8d8f0; font-size: 15px;
+    line-height: 1.6; margin: 18px 0 0 0; max-width: 420px;
   }
   #iosHint {
     display: none; color: #a8d8f0; font-size: 15px;
@@ -78,12 +82,12 @@
 </style>
 </head>
 <body>
- 
+
 <video id="cam" autoplay muted playsinline></video>
 <canvas id="paint"></canvas>
- 
+
 <div id="brand">lymeregisdog.com</div>
- 
+
 <div id="welcome">
   <h1>Angel Dogs</h1>
   <p class="site">from lymeregisdog.com</p>
@@ -98,15 +102,20 @@
   <p id="iosHint">To keep Angel Dogs on your iPhone:
      tap the Share button (the square with an arrow, at the
      bottom of Safari), then choose "Add to Home Screen".</p>
+  <p id="installMsg">It looks like Angel Dogs is already on this device -
+     look for Oak's icon on your home screen or with your other apps.
+     (On a computer, there may also be a small install icon at the
+     right-hand end of the address bar.) If you can't find it, open
+     this page in Chrome or Edge and tap the button again.</p>
   <p class="helplink"><a href="camerainstructions.html">New to this? Easy instructions for<br>your camera, and how to record a video</a></p>
 </div>
- 
+
 <div id="status" style="display:none"></div>
 <div id="controls">
   <button id="flipBtn">Flip camera</button>
   <button id="styleBtn">Style: angel</button>
 </div>
- 
+
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2/dist/coco-ssd.min.js"></script>
 <script>
@@ -117,44 +126,54 @@ const statusBox = document.getElementById('status');
 const controls = document.getElementById('controls');
 const flipBtn = document.getElementById('flipBtn');
 const styleBtn = document.getElementById('styleBtn');
- 
+
 let style = 'angel';          // 'angel' or 'devil' - the style button swaps
 let detector = null;
 let facing = 'environment';   // back camera first; flip button swaps
 let stream = null;
 let smoothDogs = [];          // remembered dog positions so the wings glide, not jitter
 const FURRY = new Set(['dog', 'cat', 'horse', 'sheep', 'cow', 'bear', 'teddy bear']);
- 
+
 // ---- the app install button ----
-// on Android and PC the browser tells us installing is possible,
-// and we show a real button that pops the install box.
-// iPhones never allow that, so they get friendly instructions instead.
+// the button is always visible, because humans don't look in browser
+// menus. clicking it does the best thing this device allows:
+// - Android and PC Chrome/Edge: pops the real install box
+// - iPhone: shows the add-to-home-screen instructions
+// - already installed or unsupported: a friendly note explains
 let installEvt = null;
 const installBtn = document.getElementById('installBtn');
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  installEvt = e;
-  installBtn.style.display = 'inline-block';
-});
-installBtn.addEventListener('click', () => {
-  if (installEvt) installEvt.prompt();
-});
-// once the app is installed, the button's job is done - hide it
-window.addEventListener('appinstalled', () => {
-  installBtn.style.display = 'none';
-});
+const installMsg = document.getElementById('installMsg');
+const iosHint = document.getElementById('iosHint');
 const isiOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches
                      || navigator.standalone === true;
-if (isiOS && !isStandalone) {
-  document.getElementById('iosHint').style.display = 'block';
+if (isStandalone) {
+  // already open as the app - the button's work is done
+  installBtn.style.display = 'none';
 }
- 
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  installEvt = e;
+});
+installBtn.addEventListener('click', () => {
+  if (installEvt) { installEvt.prompt(); return; }
+  if (isiOS) { iosHint.style.display = 'block'; return; }
+  installMsg.style.display = 'block';
+});
+// once the app is installed, celebrate and tidy up
+window.addEventListener('appinstalled', () => {
+  installEvt = null;
+  installBtn.style.display = 'none';
+  iosHint.style.display = 'none';
+  installMsg.textContent = 'Done! Angel Dogs is now on your device - look for the icon of Oak.';
+  installMsg.style.display = 'block';
+});
+
 function say(msg) {
   statusBox.style.display = msg ? 'block' : 'none';
   statusBox.textContent = msg;
 }
- 
+
 async function openCamera() {
   if (stream) stream.getTracks().forEach(t => t.stop());
   cam.srcObject = null;
@@ -178,7 +197,7 @@ async function openCamera() {
   paint.height = cam.videoHeight;
   document.body.classList.toggle('mirrored', facing === 'user');
 }
- 
+
 async function start() {
   document.getElementById('welcome').remove();
   try {
@@ -200,17 +219,17 @@ async function start() {
   setTimeout(() => say(''), 6000);
   loop();
 }
- 
+
 flipBtn.addEventListener('click', async () => {
   facing = (facing === 'environment') ? 'user' : 'environment';
   try { await openCamera(); } catch (e) { say('could not flip the camera'); }
 });
- 
+
 styleBtn.addEventListener('click', () => {
   style = (style === 'angel') ? 'devil' : 'angel';
   styleBtn.textContent = 'Style: ' + style;
 });
- 
+
 async function loop() {
   if (detector && cam.readyState >= 2) {
     let found = [];
@@ -233,7 +252,7 @@ async function loop() {
   }
   requestAnimationFrame(loop);
 }
- 
+
 // glide each dog's remembered box toward its newest position, so the
 // wings follow the dog smoothly instead of twitching frame to frame
 function smoothBoxes(fresh) {
@@ -264,7 +283,7 @@ function smoothBoxes(fresh) {
   }
   smoothDogs = next.slice(0, 6);
 }
- 
+
 // how much two boxes overlap, as a share of the smaller one (0 to 1)
 function overlap(a, b) {
   const x1 = Math.max(a[0], b[0]);
@@ -276,7 +295,7 @@ function overlap(a, b) {
   const smaller = Math.min(a[2] * a[3], b[2] * b[3]);
   return inter / smaller;
 }
- 
+
 function dogMeasure(box) {
   // one handy size number for a dog, however big it looks on screen,
   // capped so a close-up dog does not get wings bigger than the screen.
@@ -284,7 +303,7 @@ function dogMeasure(box) {
   const m = Math.min(box[2], box[3]) * 0.38;
   return Math.min(m, paint.width * 0.11, paint.height * 0.11);
 }
- 
+
 // one lovely halo hovering above the dog - over the head when we can
 // find it, over the middle when we can't. gold for angels, black fire
 // for the ones who rolled in something
@@ -302,7 +321,7 @@ function drawDogHalo(s, t) {
   s.hy += (hy - s.hy) * 0.2;
   drawHalo(s.hx, s.hy, m * 1.5, t);
 }
- 
+
 // Jane's rule: the highest part of a dog is its head, and tails don't
 // count because tails are long and thin. we learn the dog's fur colour
 // from the middle of its box, find how high the fur reaches in each
@@ -356,7 +375,7 @@ function findHead(box, source) {
     };
   } catch (e) { return null; }
 }
- 
+
 // a proper halo: a glowing ring seen at a tilt, with a bright front rim
 // and little sparkles twinkling around it. gold for angels; for devils,
 // a black ring with a fiery red glow and drifting embers
@@ -410,15 +429,9 @@ function drawHalo(hx, topY, w, t) {
   }
   ctx.restore();
 }
- 
+
 document.getElementById('startBtn').addEventListener('click', start);
 </script>
- 
+
 </body>
 </html>
- 
-
-
-
-
-

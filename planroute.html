@@ -1,1 +1,22 @@
 
+let walk = {
+
+    dogName: dogName,
+
+    walkName: walkName,
+
+    location: location,
+
+    notes: notes,
+
+    distance: distance,
+
+    route: routePoints
+
+};
+
+let walks = JSON.parse(localStorage.getItem("dogWalks")) || [];
+
+walks.push(walk);
+
+localStorage.setItem("dogWalks", JSON.stringify(walks));

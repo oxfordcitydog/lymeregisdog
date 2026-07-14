@@ -1,1 +1,155 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Dog Walks | LymeRegisDog</title>
+
+<style>
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f4f4;
+    margin:0;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    color:#1f4f2c;
+}
+
+#walkList{
+    max-width:900px;
+    margin:auto;
+}
+
+.walkCard{
+    background:white;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.walkCard h2{
+    margin-top:0;
+    color:#2e6d3d;
+}
+
+button{
+    padding:10px 18px;
+    margin-right:10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.openBtn{
+    background:#4CAF50;
+    color:white;
+}
+
+.deleteBtn{
+    background:#cc3333;
+    color:white;
+}
+
+.empty{
+    text-align:center;
+    font-size:20px;
+    color:#666;
+    margin-top:50px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🐾 My Dog Walks</h1>
+
+<div id="walkList"></div>
+
+<script>
+
+let walks = JSON.parse(localStorage.getItem("dogWalks")) || [];
+
+const walkList = document.getElementById("walkList");
+
+function displayWalks(){
+
+    walkList.innerHTML="";
+
+    if(walks.length===0){
+
+        walkList.innerHTML=
+        '<div class="empty">No walks saved yet.<br><br>Go to Plan Route and create your first walk! 🐶</div>';
+
+        return;
+    }
+
+    walks.forEach((walk,index)=>{
+
+        const card=document.createElement("div");
+        card.className="walkCard";
+
+        card.innerHTML=`
+
+        <h2>🐶 ${walk.dogName || "Unknown Dog"}</h2>
+
+        <p><strong>🐾 Walk:</strong> ${walk.walkName}</p>
+
+        <p><strong>📍 Location:</strong> ${walk.location || "-"}</p>
+
+        <p><strong>📝 Notes:</strong> ${walk.notes || "-"}</p>
+
+        <p><strong>📏 Distance:</strong> ${walk.distance || "Unknown"}</p>
+
+        <button class="openBtn" onclick="openWalk(${index})">
+        🗺️ Open Walk
+        </button>
+
+        <button class="deleteBtn" onclick="deleteWalk(${index})">
+        🗑 Delete
+        </button>
+
+        `;
+
+        walkList.appendChild(card);
+
+    });
+
+}
+
+function deleteWalk(index){
+
+    if(confirm("Delete this walk?")){
+
+        walks.splice(index,1);
+
+        localStorage.setItem("dogWalks",JSON.stringify(walks));
+
+        displayWalks();
+
+    }
+
+}
+
+function openWalk(index){
+
+    localStorage.setItem("selectedWalk",JSON.stringify(walks[index]));
+
+    window.location.href="planroute.html";
+
+}
+
+displayWalks();
+
+</script>
+
+</body>
+</html>

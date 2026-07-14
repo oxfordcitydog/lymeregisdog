@@ -18,15 +18,6 @@
     <meta name="twitter:card" content="summary">
 
     <link rel="stylesheet" href="style.css">
-    <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations()
-      .then(function (regs) { regs.forEach(function (r) { r.unregister(); }); });
-    if (window.caches) {
-      caches.keys().then(function (keys) { keys.forEach(function (k) { caches.delete(k); }); });
-    }
-  }
-</script>
 </head>
 <body>
 
@@ -49,7 +40,9 @@
             <a href="submit.html" class="action-btn">🐾Add your review Here!</a>
         </div>
 
-     <div class="section-content">
+        <iframe src="map.html?cat=Beaches" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no"></iframe>
+
+        <div class="section-content">
             <h2>All Dog-Friendly Beaches</h2>
             <div id="listing"><p>Loading reviews&hellip;</p></div>
         </div>

@@ -1,1 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#16223f">
+<meta name="description" content="The Halo Gallery — short films of the angel dogs of Lyme Regis (plus the odd sheep and horse), wearing their halos. Starring Oak the black Labrador.">
+<title>The Halo Gallery — Angel Dogs of Lyme Regis</title>
 
+<!-- Two lightweight font families: Fraunces for headings, Karla for everything else -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Karla:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   HALO GALLERY — dusk sky, one spotlight, a halo of video "beads"
+   Tweak the whole look from these variables.
+   ========================================================================== */
+:root{
+  /* sky */
+  --sky-deep:   #16223f;   /* page background, bottom of sky            */
+  --sky-mid:    #27395f;   /* upper sky                                  */
+  --sky-haze:   #8fb8de;   /* soft blue haze (echoes wings.html blue)    */
+
+  /* halo golds */
+  --gold:        #f5c86b;
+  --gold-bright: #ffe9b8;
+  --gold-deep:   #c9973c;
+
+  /* text */
+  --ink:     #f6f0e4;      /* warm ivory                                 */
+  --ink-dim: #b9c4d8;      /* soft blue-grey for secondary text          */
+
+  /* shape + rhythm */
+  --frame-radius: 26px;    /* corner rounding on the spotlight player    */
+  --bead-size: 64px;       /* diameter of a video bead on the halo       */
+  --space: clamp(16px, 3vw, 32px);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  font-family:"Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size:1.06rem;
+  line-height:1.6;
+  background:
+    radial-gradient(120% 60% at 50% 108%, rgba(143,184,222,.28), transparent 60%),
+    linear-gradient(to bottom, var(--sky-mid), var(--sky-deep) 55%);
+  background-attachment:fixed;
+  overflow-x:hidden;
+}
+
+/* --- a scattering of stars, drawn with two cheap gradient layers ------- */
+.sky-stars{
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff8, transparent 100%),
+    radial-gradient(1px 1px   at 28% 42%, #fff6, transparent 100%),
+    radial-gradient(2px 2px   at 41% 12%, #ffe9b866, transparent 100%),
+    radial-gradient(1px 1px   at 57% 30%, #fff7, transparent 100%),
+    radial-gradient(1.5px 1.5px at 70% 8%,  #fff5, transparent 100%),
+    radial-gradient(1px 1px   at 83% 36%, #ffe9b855, transparent 100%),
+    radial-gradient(2px 2px   at 92% 16%, #fff6, transparent 100%),
+    radial-gradient(1px 1px   at 8%  64%, #fff4, transparent 100%),
+    radial-gradient(1.5px 1.5px at 90% 70%, #fff4, transparent 100%);
+  animation:twinkle 6s ease-in-out infinite alternate;
+}
+@keyframes twinkle{ from{opacity:.55;} to{opacity:1;} }
+
+/* --- breadcrumb --------------------------------------------------------- */
+.crumbs{
+  padding: calc(var(--space) * .8) var(--space);
+  font-size:.95rem;
+}
+.crumbs ol{
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-wrap:wrap; align-items:center; gap:.5em;
+}
+.crumbs a{
+  color:var(--sky-haze);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  padding-bottom:1px;
+  transition:color .2s, border-color .2s;
+}
+.crumbs a:hover{ color:var(--gold-bright); border-color:var(--gold-bright); }
+.crumbs li + li::before{
+  content:"›";
+  margin-right:.5em;
+  color:var(--ink-dim);
+}
+.crumbs [aria-current="page"]{ color:var(--ink); }
+
+/* --- header -------------------------------------------------------------- */
+.masthead{
+  text-align:center;
+  padding: calc(var(--space) * .5) var(--space) 0;
+  max-width:44rem;
+  margin:0 auto;
+}
+.masthead h1{
+  font-family:"Fraunces", Georgia, serif;
+  font-weight:600;
+  font-style:italic;
+  font-size:clamp(2.2rem, 6vw, 3.4rem);
+  line-height:1.1;
+  margin:.1em 0 .3em;
+  background:linear-gradient(100deg, var(--gold-bright), var(--gold) 55%, var(--gold-deep));
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent;
+  text-shadow:0 0 40px rgba(245,200,107,.25);
+}
+.masthead p{
+  color:var(--ink-dim);
+  margin:0 auto;
+  max-width:34rem;
+}
+
+/* ==========================================================================
+   THE CONSTELLATION: halo ring + beads above, spotlight player below
+   ========================================================================== */
+.constellation{
+  max-width:52rem;
+  margin:0 auto;
+  padding: 0 var(--space) calc(var(--space) * 2);
+}
+
+/* --- the halo: an elliptical ring the video beads sit on ---------------- */
+.halo{
+  position:relative;
+  height:clamp(150px, 24vw, 210px);
+  margin: calc(var(--space) * 1.2) auto calc(var(--bead-size) * -0.35);
+  max-width:640px;
+  z-index:2;
+}
+.halo svg{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  overflow:visible;
+}
+.halo .ring{
+  fill:none;
+  stroke:url(#haloGradient);
+  stroke-width:7;
+  filter:url(#haloGlow);
+}
+.halo-float{ animation:haloFloat 7s ease-in-out infinite; }
+@keyframes haloFloat{
+  0%,100%{ transform:translateY(0); }
+  50%    { transform:translateY(-8px); }
+}
+
+/* --- video beads set into the halo -------------------------------------- */
+.bead{
+  position:absolute;
+  /* JS supplies --bx / --by as percentages along the ellipse */
+  left:var(--bx); top:var(--by);
+  transform:translate(-50%,-50%);
+  width:var(--bead-size); height:var(--bead-size);
+  padding:0; border:none; cursor:pointer;
+  border-radius:50%;
+  background:var(--sky-deep);
+  box-shadow:
+    0 0 0 3px var(--gold-deep),
+    0 0 18px rgba(245,200,107,.35),
+    0 6px 18px rgba(0,0,0,.45);
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+}
+.bead img{
+  width:100%; height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+}
+.bead:hover{ transform:translate(-50%,-50%) scale(1.14); }
+.bead.is-active{
+  transform:translate(-50%,-50%) scale(1.22);
+  box-shadow:
+    0 0 0 3px var(--gold-bright),
+    0 0 30px rgba(255,233,184,.75),
+    0 6px 20px rgba(0,0,0,.5);
+}
+.bead .bead-name{
+  position:absolute; left:50%; top:calc(100% + 6px);
+  transform:translateX(-50%);
+  font-size:.78rem; font-weight:600;
+  color:var(--gold-bright);
+  white-space:nowrap;
+  opacity:0; transition:opacity .25s;
+  pointer-events:none;
+  text-shadow:0 1px 6px rgba(0,0,0,.8);
+}
+.bead:hover .bead-name,
+.bead:focus-visible .bead-name,
+.bead.is-active .bead-name{ opacity:1; }
+
+/* --- the spotlight player ------------------------------------------------ */
+.spotlight{
+  position:relative;
+  z-index:1;
+  display:flex; flex-direction:column; align-items:center;
+}
+.player-frame{
+  position:relative;
+  width:min(340px, 84vw, calc(70vh * 9 / 16)); /* vertical 9:16, never taller than 70vh */
+  aspect-ratio:9 / 16;                          /* reserves space: zero layout shift     */
+  border-radius:var(--frame-radius);
+  overflow:hidden;
+  background:#0d1526;
+  box-shadow:
+    0 0 0 1px rgba(245,200,107,.55),
+    0 0 60px rgba(245,200,107,.18),
+    0 30px 60px rgba(0,0,0,.55);
+  transition:opacity .3s;
+}
+.player-frame.is-switching{ opacity:0; }
+
+.player-frame iframe{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  border:0; display:block;
+}
+
+/* poster shown before the visitor presses play (no iframe loads until then) */
+.poster{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  padding:0; border:none; cursor:pointer;
+  background:#0d1526;
+}
+.poster img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:.9;
+}
+.poster::after{ /* gentle vignette so the play halo reads clearly */
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(60% 45% at 50% 52%, transparent, rgba(13,21,38,.55));
+}
+.play-halo{
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  width:84px; height:84px;
+  border-radius:50%;
+  display:grid; place-items:center;
+  background:rgba(22,34,63,.55);
+  border:2px solid var(--gold);
+  box-shadow:0 0 34px rgba(245,200,107,.55), inset 0 0 18px rgba(245,200,107,.25);
+  transition:transform .3s, box-shadow .3s;
+  z-index:1;
+}
+.play-halo svg{ margin-left:5px; }
+.poster:hover .play-halo{
+  transform:translate(-50%,-50%) scale(1.08);
+  box-shadow:0 0 50px rgba(255,233,184,.8), inset 0 0 22px rgba(245,200,107,.4);
+}
+
+/* caption beneath the spotlight */
+.spot-caption{
+  text-align:center;
+  margin-top:calc(var(--space) * .9);
+  max-width:26rem;
+}
+.spot-caption h2{
+  font-family:"Fraunces", Georgia, serif;
+  font-style:italic; font-weight:600;
+  font-size:1.7rem;
+  margin:0 0 .25em;
+  color:var(--gold-bright);
+}
+.spot-caption p{ margin:0; color:var(--ink-dim); }
+
+/* --- footer -------------------------------------------------------------- */
+.gallery-foot{
+  text-align:center;
+  padding: var(--space) var(--space) calc(var(--space) * 2);
+  color:var(--ink-dim);
+  font-size:.95rem;
+}
+.gallery-foot a{ color:var(--sky-haze); }
+.gallery-foot a:hover{ color:var(--gold-bright); }
+
+/* --- accessibility & motion ---------------------------------------------- */
+:focus-visible{
+  outline:3px solid var(--gold-bright);
+  outline-offset:3px;
+  border-radius:8px;
+}
+.bead:focus-visible, .poster:focus-visible{ outline-offset:5px; }
+
+@media (prefers-reduced-motion: reduce){
+  .halo-float, .sky-stars{ animation:none; }
+  *{ transition-duration:.01ms !important; }
+}
+
+/* --- small screens: beads become a neat row under a smaller halo --------- */
+@media (max-width: 560px){
+  .halo{ height:110px; margin-bottom:calc(var(--space) * 1.4); }
+  .bead{
+    position:static;
+    transform:none;
+    width:56px; height:56px;
+  }
+  .bead:hover{ transform:scale(1.1); }
+  .bead.is-active{ transform:scale(1.15); }
+  .bead-row{
+    position:absolute; left:0; right:0; bottom:-34px;
+    display:flex; justify-content:center; gap:18px;
+  }
+  .bead .bead-name{ display:none; }
+}
+</style>
+</head>
+
+<body>
+<div class="sky-stars" aria-hidden="true"></div>
+
+<!-- Breadcrumb: back to home and to the Angel Dogs page -->
+<nav class="crumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="wings.html">Angel Dogs</a></li>
+    <li><span aria-current="page">Halo Gallery</span></li>
+  </ol>
+</nav>
+
+<header class="masthead">
+  <h1>The Halo Gallery</h1>
+  <p>Short films of the angel dogs of Lyme Regis, halos and all —
+     though the halo occasionally lands on sheep, and once on a horse.
+     Each golden bead on the ring is a video: tap one to bring it into the light.</p>
+</header>
+
+<main class="constellation">
+
+  <!-- The halo ring. The video beads are added into .bead-row by the script. -->
+  <div class="halo halo-float">
+    <svg viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="haloGradient" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"  stop-color="#c9973c"/>
+          <stop offset="45%" stop-color="#ffe9b8"/>
+          <stop offset="100%" stop-color="#f5c86b"/>
+        </linearGradient>
+        <filter id="haloGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <ellipse class="ring" cx="300" cy="112" rx="270" ry="80"/>
+    </svg>
+    <div class="bead-row" id="beadRow" role="group" aria-label="Choose a video"></div>
+  </div>
+
+  <!-- The spotlight: one vertical player, wearing the halo above -->
+  <section class="spotlight" aria-label="Video spotlight">
+    <div class="player-frame" id="playerFrame"></div>
+    <div class="spot-caption" aria-live="polite">
+      <h2 id="spotTitle"></h2>
+      <p id="spotNote"></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="gallery-foot">
+  <p>Filmed with the free <a href="wings.html">Angel Dogs</a> app —
+     point your camera at a dog and a halo appears.</p>
+</footer>
+
+<script>
+/* ==========================================================================
+   THE VIDEO LIST — this is the only bit you ever need to edit.
+
+   To add a new video, copy one of the blocks below and paste in:
+     url:   any YouTube link (Shorts, watch, or youtu.be — all fine)
+     title: the dog's name, shown under the spotlight
+     note:  a short caption line
+   New videos automatically get a bead on the halo. The FIRST entry
+   in the list is the one shown in the spotlight when the page opens.
+   ========================================================================== */
+const HALO_VIDEOS = [
+  {
+    url:   "https://youtube.com/shorts/ye3egfgYrk4",
+    title: "Oak",
+    note:  "The black Labrador of Lyme Regis — and the original angel. She approves of everything below."
+  },
+  {
+    url:   "https://youtube.com/shorts/PIYsSqHV-FI",
+    title: "The angelic flock",
+    note:  "Some very well-behaved sheep, glowing accordingly."
+  },
+  {
+    url:   "https://youtube.com/shorts/ELE4lRIMhQA",
+    title: "A saintly horse",
+    note:  "It turns out the app isn't fussy — even a horse can earn its halo."
+  }
+];
+
+/* ==========================================================================
+   Everything below just makes the gallery work — no need to touch it.
+   ========================================================================== */
+
+/** Pull the 11-character video ID out of any style of YouTube link. */
+function videoId(url){
+  const m = url.match(/(?:shorts\/|watch\?v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{6,})/);
+  return m ? m[1] : url; // if a bare ID was pasted, use it as-is
+}
+
+/** Privacy-friendly embed URL (youtube-nocookie, tidy player). */
+function embedSrc(id, autoplay){
+  return "https://www.youtube-nocookie.com/embed/" + id
+       + "?rel=0&playsinline=1&modestbranding=1"
+       + (autoplay ? "&autoplay=1" : "");
+}
+
+/** YouTube's own thumbnail for the video. */
+function thumbSrc(id){
+  return "https://i.ytimg.com/vi/" + id + "/hqdefault.jpg";
+}
+
+const beadRow     = document.getElementById("beadRow");
+const playerFrame = document.getElementById("playerFrame");
+const spotTitle   = document.getElementById("spotTitle");
+const spotNote    = document.getElementById("spotNote");
+
+let activeIndex = 0;
+
+/* --- place one bead per video along the halo's ellipse ------------------ */
+function buildBeads(){
+  const n = HALO_VIDEOS.length;
+  HALO_VIDEOS.forEach((video, i) => {
+    // spread beads along the front of the ring, from upper-left to upper-right
+    const deg = (n === 1) ? 90 : 155 - i * (130 / (n - 1));
+    const rad = deg * Math.PI / 180;
+    const x = 50 + 45 * Math.cos(rad);        // ellipse rx ≈ 45% of the box
+    const y = 56 - 44 * Math.sin(rad);        // ellipse ry ≈ 44% of the box
+
+    const id   = videoId(video.url);
+    const bead = document.createElement("button");
+    bead.className = "bead";
+    bead.type = "button";
+    bead.style.setProperty("--bx", x + "%");
+    bead.style.setProperty("--by", y + "%");
+    bead.setAttribute("aria-label", "Play: " + video.title);
+    bead.innerHTML =
+      '<img src="' + thumbSrc(id) + '" alt="" loading="lazy">' +
+      '<span class="bead-name">' + video.title + "</span>";
+    bead.addEventListener("click", () => setSpotlight(i, true));
+    beadRow.appendChild(bead);
+  });
+}
+
+/* --- show a poster (no iframe yet) or the playing iframe ----------------- */
+function renderPoster(video, id){
+  playerFrame.innerHTML =
+    '<button class="poster" type="button" aria-label="Play the video of ' + video.title + '">' +
+      '<img src="' + thumbSrc(id) + '" alt="" loading="lazy">' +
+      '<span class="play-halo" aria-hidden="true">' +
+        '<svg width="30" height="34" viewBox="0 0 30 34">' +
+          '<path d="M2 2 L28 17 L2 32 Z" fill="#ffe9b8"/>' +
+        "</svg>" +
+      "</span>" +
+    "</button>";
+  playerFrame.querySelector(".poster")
+             .addEventListener("click", () => mountIframe(video, id));
+}
+
+function mountIframe(video, id){
+  playerFrame.innerHTML =
+    '<iframe src="' + embedSrc(id, true) + '"' +
+    ' title="' + video.title + ' — Halo Gallery"' +
+    ' loading="lazy" allowfullscreen' +
+    ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">' +
+    "</iframe>";
+}
+
+/* --- move a chosen dog into the spotlight -------------------------------- */
+function setSpotlight(i, play){
+  const video = HALO_VIDEOS[i];
+  const id    = videoId(video.url);
+  activeIndex = i;
+
+  playerFrame.classList.add("is-switching");
+  setTimeout(() => {
+    play ? mountIframe(video, id) : renderPoster(video, id);
+    playerFrame.classList.remove("is-switching");
+  }, 220);
+
+  spotTitle.textContent = video.title;
+  spotNote.textContent  = video.note;
+
+  document.querySelectorAll(".bead").forEach((b, j) => {
+    b.classList.toggle("is-active", j === i);
+    b.setAttribute("aria-pressed", j === i ? "true" : "false");
+  });
+}
+
+/* --- lights up ------------------------------------------------------------ */
+buildBeads();
+setSpotlight(0, false);   // Oak opens the gallery, poster-first (fast load)
+</script>
+</body>
+</html>

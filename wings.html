@@ -204,6 +204,7 @@
 <div id="controls">
   <button id="flipBtn">Flip camera</button>
   <button id="styleBtn">Style: angel</button>
+  <button id="snapBtn">📸 Photo</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4/dist/tf.min.js"></script>
@@ -318,6 +319,65 @@ flipBtn.addEventListener('click', async () => {
 styleBtn.addEventListener('click', () => {
   style = (style === 'angel') ? 'devil' : 'angel';
   styleBtn.textContent = 'Style: ' + style;
+});
+
+// ---- photo mode ----
+// captures the current camera frame with the halos drawn on top,
+// stamps a small lymeregisdog.com watermark, then offers the phone's
+// own share sheet (so it can go straight to Photos, WhatsApp, etc).
+// on computers, or if sharing isn't available, it downloads instead.
+const snapBtn = document.getElementById('snapBtn');
+const snap = document.createElement('canvas');
+snapBtn.addEventListener('click', () => {
+  if (!cam.videoWidth) { say('the camera is not ready yet'); return; }
+  const W = cam.videoWidth, H = cam.videoHeight;
+  snap.width = W; snap.height = H;
+  const sctx = snap.getContext('2d');
+
+  // draw the camera frame and the halos, mirrored if the selfie
+  // camera is in use, so the photo matches what was on screen
+  sctx.save();
+  if (facing === 'user') { sctx.translate(W, 0); sctx.scale(-1, 1); }
+  sctx.drawImage(cam, 0, 0, W, H);
+  sctx.drawImage(paint, 0, 0, W, H);
+  sctx.restore();
+
+  // the watermark: a soft pill bottom-centre, gold text to match
+  const fs = Math.max(16, Math.round(W * 0.032));
+  sctx.font = fs + 'px Verdana, sans-serif';
+  const label = 'lymeregisdog.com';
+  const tw = sctx.measureText(label).width;
+  const pad = fs * 0.7;
+  const bx = (W - tw) / 2 - pad, by = H - fs * 2.6;
+  sctx.fillStyle = 'rgba(20, 20, 40, 0.55)';
+  sctx.beginPath();
+  sctx.roundRect(bx, by, tw + pad * 2, fs * 1.8, fs);
+  sctx.fill();
+  sctx.fillStyle = '#ffe9a8';
+  sctx.textBaseline = 'middle';
+  sctx.fillText(label, bx + pad, by + fs * 0.95);
+
+  snap.toBlob(async (blob) => {
+    const file = new File([blob], 'angel-dog.png', { type: 'image/png' });
+    // phones: open the share sheet so it can be saved or sent anywhere
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: 'Angel Dogs',
+                                text: 'An angel dog from lymeregisdog.com' });
+        return;
+      } catch (e) {
+        if (e.name === 'AbortError') return;  // they changed their mind
+      }
+    }
+    // computers (or older phones): just download the photo
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'angel-dog.png';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    say('photo saved!');
+    setTimeout(() => say(''), 3000);
+  }, 'image/png');
 });
 
 async function loop() {

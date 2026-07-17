@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="manifest" href="wings.webmanifest">
-<link rel="apple-touch-icon" href="angel-180.png">
+<link rel="manifest" href="wings.webmanifest?v=2">
+<link rel="apple-touch-icon" href="angel-180.png?v=2">
 <meta name="theme-color" content="#a8d8f0">
 <title>Angel Dogs - lymeregisdog.com</title>
 <style>
@@ -173,15 +173,17 @@
      and a fiery devil one, for the dogs who rolled in something.
      Approved by Oak of Lyme Regis, who is of course an angel.</p>
   <button id="startBtn">Start the angel dogs</button>
-  <button id="installBtn"><img src="angel-192.png" alt="">Get the free Angel Dogs app</button>
+  <button id="installBtn"><img src="angel-192.png?v=2" alt="">Get the free Angel Dogs app</button>
   <p id="iosHint">To keep Angel Dogs on your iPhone:
      tap the Share button (the square with an arrow, at the
      bottom of Safari), then choose "Add to Home Screen".</p>
-  <p id="installMsg">It looks like Angel Dogs is already on this device -
-     look for Oak's icon on your home screen or with your other apps.
-     (On a computer, there may also be a small install icon at the
-     right-hand end of the address bar.) If you can't find it, open
-     this page in Chrome or Edge and tap the button again.</p>
+  <p id="installMsg">Your browser isn't offering the automatic install
+     right now. This is normal for a little while after deleting the app -
+     close your browser completely, reopen this page, and try again.
+     You can also install it by hand any time: tap the three-dot menu
+     (top right of Chrome), then choose "Add to Home screen" or
+     "Install app". On a computer, look for a small install icon at the
+     right-hand end of the address bar.</p>
   <p class="helplink"><a href="camerainstructions.html">New to this? Easy instructions for<br>your camera, and how to record a video</a></p>
 
   <!-- ==================================================================
@@ -230,7 +232,7 @@ const FURRY = new Set(['dog', 'cat', 'horse', 'sheep', 'cow', 'bear', 'teddy bea
 // menus. clicking it does the best thing this device allows:
 // - Android and PC Chrome/Edge: pops the real install box
 // - iPhone: shows the add-to-home-screen instructions
-// - already installed or unsupported: a friendly note explains
+// - no install prompt available: honest instructions for doing it by hand
 let installEvt = null;
 const installBtn = document.getElementById('installBtn');
 const installMsg = document.getElementById('installMsg');
@@ -245,6 +247,7 @@ if (isStandalone) {
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   installEvt = e;
+  installMsg.style.display = 'none';   // the real prompt is ready - hide any old advice
 });
 installBtn.addEventListener('click', () => {
   if (installEvt) { installEvt.prompt(); return; }

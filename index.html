@@ -188,6 +188,32 @@
         .leaderboard-list li:last-child { border-bottom: none; }
         .leaderboard-rank { font-weight: bold; color: #1976D2; width: 24px; }
         .leaderboard-count { margin-left: auto; color: #666; font-size: 0.9rem; }
+        /* Site Footer */
+        .site-footer {
+            max-width: 700px;
+            margin: 40px auto 0 auto;
+            padding: 30px 20px 40px 20px;
+            border-top: 1px solid #BBDEFB;
+            font-size: 0.85rem;
+            color: #555555;
+            text-align: center;
+        }
+        .site-footer img {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 10px;
+        }
+        .site-footer .footer-description {
+            max-width: 450px;
+            margin: 0 auto 12px auto;
+        }
+        .site-footer .footer-copyright {
+            font-weight: bold;
+            margin: 0 0 6px 0;
+        }
+        .site-footer a {
+            color: #1976D2;
+        }
     </style>
 </head>
 <body>
@@ -308,22 +334,21 @@
             </ol>
         </section>
         <p style="font-size: 0.85rem; color: #555555; margin-top: 30px; line-height: 1.5;">
-            <strong>Please Note:</strong> Legal Disclaimer & Safety Notice: Lyme Regis Dog was created by Jane Yates as a community-sharing project.
-            Jane Yates takes no responsibility or liability for any misinformation, personal injury, or damages arising from the use of this website.
-            All reviews, opinions, and location details are submitted directly by the public.
-            Jane Yates explicitly disclaims any liability for harmful, defamatory, or negative reviews posted by community members regarding local businesses;
-            these views belong solely to the submitting user.
-            Jane Yates will remove any potentially harmful information or negative reviews when they are spotted or upon request.
-            Local terrain, cliff edges, coastal tides, and business rules can change rapidly. Please always obey local signage, keep your dog safe,
-            and use this guide entirely at your own risk. 
-            This heat guide is provided for general information only and should not be relied upon as professional or veterinary advice. 
-            Weather and ground temperatures can vary significantly depending on location, surface type, shade, and time of day. 
-            Always check the pavement temperature yourself (for example, with the back of your hand for several seconds) and use your own judgement before walking your dog. 
-            If in doubt, wait until it is cooler. <strong>LymeRegisDog.com</strong> accepts no liability for any injury, loss, or damage resulting from the use of this information. </p>
-            <strong> <footer>
-  <p>2026 Jane Yates. All rights reserved.</p>
-</footer></strong>
+            <strong>Please Note:</strong> All reviews and location details on this site are submitted by the public.
+            Local terrain, cliff edges, coastal tides, and business rules can change rapidly.
+            Please always obey local signage, keep your dog safe, and use this guide entirely at your own risk.
+            For the full legal disclaimer and safety notice, please see our
+            <a href="legal-stuff.html" style="color: #1976D2;">Legal &amp; Copyright page</a>.
+        </p>
     </main>
+
+    <footer class="site-footer">
+        <img src="angel-192.png" alt="Lyme Regis Dog logo">
+        <p class="footer-description">Lyme Regis Dog is a free community-sharing project: dog-friendly walks, beaches, cafes and more around Lyme Regis, reviewed by the dogs (and their humans) who know them best.</p>
+        <p class="footer-copyright">&copy; 2026 Jane Yates &middot; LymeRegisDog.com &middot; All rights reserved.</p>
+        <p><a href="legal-stuff.html">Licence, Legal Disclaimer &amp; Safety Notice</a></p>
+    </footer>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const navItems = document.querySelectorAll(".nav-item");
@@ -398,8 +423,22 @@
             cafes: 'cafes.html', accommodation: 'accommodation.html', services: 'services.html'
         };
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1_-NajtwAbXLgtZZ_Os98aFK39NIFEu7mKdVmFyXFk2je23448Y71W8Uejz-1FNV38XOM3vueQpJ/pub?output=tsv';
-        fetch(csvUrl)
-            .then(res => res.text())
+        let loadAttempts = 0;
+        function showLoadError() {
+            document.getElementById('recent-list').innerHTML =
+                '<p>Couldn\'t load the latest reviews right now &mdash; please check your internet connection.<br>' +
+                '<button onclick="loadAttempts = 0; loadReviews();" style="margin-top:10px; padding:8px 18px; border:1px solid #1976D2; background:#FFFFFF; color:#1976D2; border-radius:6px; cursor:pointer; font-size:0.9rem;">Try again</button></p>';
+            document.getElementById('leaderboard-list').innerHTML = '<li>Couldn\'t load the leaderboard right now.</li>';
+        }
+        function loadReviews() {
+        loadAttempts++;
+        document.getElementById('recent-list').innerHTML = '<p>Loading latest reviews&hellip;</p>';
+        document.getElementById('leaderboard-list').innerHTML = '<li>Loading&hellip;</li>';
+        fetch(csvUrl, { cache: 'no-store' })
+            .then(res => {
+                if (!res.ok) { throw new Error('Bad response: ' + res.status); }
+                return res.text();
+            })
             .then(data => {
                 const lines = data.split(/\r?\n/).filter(l => l.trim());
                 const rows = lines.slice(1).map(line => line.split('\t')).filter(cols => cols.length >= 8);
@@ -452,13 +491,15 @@
                 }
             })
             .catch(err => {
-                console.error("Error loading recent reviews:", err);
-                document.getElementById('recent-list').innerHTML = '<p>Couldn\'t load recent reviews right now.</p>';
-                document.getElementById('leaderboard-list').innerHTML = '<li>Couldn\'t load leaderboard right now.</li>';
+                console.error("Error loading recent reviews (attempt " + loadAttempts + "):", err);
+                if (loadAttempts < 3) {
+                    setTimeout(loadReviews, 2000);
+                } else {
+                    showLoadError();
+                }
             });
-        <footer>
-  <p> 2026 Jane Yates. All rights reserved.</p>
-</footer>
+        }
+        loadReviews();
     </script>
 </body>
 </html>

@@ -62,9 +62,13 @@
     line-height: 1.6; margin: 18px 0 0 0; max-width: 420px;
   }
   #iosHint {
-    display: none; color: #a8d8f0; font-size: 15px;
-    line-height: 1.6; margin: 18px 0 0 0; max-width: 420px;
+    display: none; color: #1a1a2e; font-size: 17px;
+    line-height: 1.7; margin: 18px 0 0 0; max-width: 420px;
+    background: #ffe9a8; border-radius: 16px; padding: 16px 20px;
+    box-shadow: 0 0 22px rgba(255, 233, 168, 0.6);
+    text-align: left;
   }
+  #iosHint strong { font-size: 18px; }
   #status {
     position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%);
     background: rgba(20, 20, 40, 0.85); color: #ffe9a8;
@@ -174,9 +178,15 @@
      Approved by Oak of Lyme Regis, who is of course an angel.</p>
   <button id="startBtn">Start the angel dogs</button>
   <button id="installBtn"><img src="angel-192.png?v=2" alt="">Get the free Angel Dogs app</button>
-  <p id="iosHint">To keep Angel Dogs on your iPhone:
-     tap the Share button (the square with an arrow, at the
-     bottom of Safari), then choose "Add to Home Screen".</p>
+  <p id="iosHint"><strong>To put Angel Dogs on your iPhone:</strong><br>
+     iPhones don't allow one-tap installs, so it's done like this:<br>
+     1. Tap the <strong>Share</strong> button — the square with an
+     arrow pointing up. In Safari it's at the bottom of the screen;
+     in Chrome it's at the top, next to the address bar.<br>
+     2. Scroll down the list and tap
+     <strong>"Add to Home Screen"</strong>.<br>
+     3. Tap <strong>Add</strong>. Oak's icon will appear on your
+     home screen, and it opens as the full app.</p>
   <p id="installMsg">Your browser isn't offering the automatic install
      right now. This is normal for a little while after deleting the app -
      close your browser completely, reopen this page, and try again.
@@ -251,8 +261,13 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 installBtn.addEventListener('click', () => {
   if (installEvt) { installEvt.prompt(); return; }
-  if (isiOS) { iosHint.style.display = 'block'; return; }
+  if (isiOS) {
+    iosHint.style.display = 'block';
+    iosHint.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
   installMsg.style.display = 'block';
+  installMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 // once the app is installed, celebrate and tidy up
 window.addEventListener('appinstalled', () => {

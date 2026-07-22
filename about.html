@@ -8,19 +8,136 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Lyme Regis Dog</title>
-    <meta name="description" content="The story behind Lyme Regis Dog, a community-run guide to dog-friendly walks, beaches, shops, cafes, accommodation and services around Lyme Regis.">
-    <meta property="og:title" content="About - Lyme Regis Dog">
-    <meta property="og:description" content="The story behind Lyme Regis Dog, a community-run guide to dog-friendly walks, beaches, shops, cafes, accommodation and services around Lyme Regis.">
+    <title>About Lyme Regis Dog | Jane &amp; Oak, and Why This Site Exists</title>
+    <meta name="description" content="Lyme Regis Dog is a free, independent community site run by Jane Yates and her senior black Labrador, Oak. No adverts, nothing for sale, every review checked by a real person. The story behind the site.">
+    <link rel="canonical" href="https://lymeregisdog.com/about.html">
+    <meta name="author" content="Jane Yates">
+    <meta property="og:title" content="About Lyme Regis Dog | Jane &amp; Oak, and Why This Site Exists">
+    <meta property="og:description" content="A free, independent community site run by Jane Yates and her senior black Labrador, Oak. No adverts, nothing for sale, every review checked by a real person.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lymeregisdog.com/about.html">
     <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
+    <meta property="og:site_name" content="Lyme Regis Dog">
+    <meta property="og:locale" content="en_GB">
     <meta name="twitter:card" content="summary">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+      .about-body { margin-top: 1rem; }
+      .about-body h2 { margin-top: 2rem; }
+      .signature { font-style: italic; margin-top: 1.5rem; }
+      .promise {
+        background: #eef7fa;
+        border: 1px solid #cfe6ee;
+        border-radius: 10px;
+        padding: 1rem 1.2rem;
+        margin: 1.6rem 0;
+      }
+      .promise ul { margin: .6rem 0 0; padding-left: 1.2rem; }
+      .promise li { margin-bottom: .45rem; }
+      .elsewhere {
+        border-left: 4px solid #2b7a8c;
+        padding: .2rem 0 .2rem 1rem;
+        margin: 1.6rem 0;
+      }
+      .about-body details {
+        border-bottom: 1px solid #ddd;
+        padding: .7rem 0;
+      }
+      .about-body summary { cursor: pointer; font-weight: 700; }
+      .about-body details p { margin: .6rem 0 .2rem; }
+      .updated { font-size: .9rem; color: #666; margin-top: 2rem; }
+    </style>
+
+    <!-- Structured data: tells search engines who runs this site, where it operates,
+         and which social accounts and other sites belong to the same person. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://lymeregisdog.com/#website",
+          "url": "https://lymeregisdog.com/",
+          "name": "Lyme Regis Dog",
+          "description": "A free community site of dog-friendly walks, beaches, cafés, shops, accommodation and services in and around Lyme Regis, Dorset.",
+          "inLanguage": "en-GB",
+          "publisher": { "@id": "https://lymeregisdog.com/#organisation" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://lymeregisdog.com/#organisation",
+          "name": "Lyme Regis Dog",
+          "url": "https://lymeregisdog.com/",
+          "logo": "https://lymeregisdog.com/web-app-manifest-512x512.png",
+          "description": "An independent, non-commercial community review site for dog owners in the Lyme Regis area. No advertising and no paid listings.",
+          "foundingDate": "2025-11",
+          "founder": { "@id": "https://lymeregisdog.com/#jane" },
+          "areaServed": {
+            "@type": "Place",
+            "name": "Lyme Regis, Dorset and the surrounding area",
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 50.7256,
+              "longitude": -2.9366
+            }
+          },
+          "sameAs": [
+            "https://www.youtube.com/@oxfordcitydog",
+            "https://www.tiktok.com/@lymeregisdog",
+            "https://www.instagram.com/lymeregisdog",
+            "https://www.facebook.com/lymeregisdog",
+            "https://www.pinterest.com/lymeregisdog",
+            "https://x.com/lymeregisdog"
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://lymeregisdog.com/#jane",
+          "name": "Jane Yates",
+          "description": "Writer, artist and founder of Lyme Regis Dog. Previously ran the community review site Oxford City Dog. Author of science fiction novels.",
+          "jobTitle": "Founder and editor",
+          "knowsAbout": [
+            "Dog-friendly walks in Lyme Regis",
+            "Dog-friendly beaches on the Jurassic Coast",
+            "Dorset coast path walking with dogs",
+            "Community review websites"
+          ],
+          "homeLocation": {
+            "@type": "Place",
+            "name": "Lyme Regis, Dorset, England"
+          },
+          "url": "https://lymeregisdog.com/about.html",
+          "sameAs": [
+            "https://janeyates.co.uk",
+            "https://www.youtube.com/@oxfordcitydog",
+            "https://www.tiktok.com/@lymeregisdog"
+          ],
+          "owns": {
+            "@type": "Product",
+            "name": "Oak",
+            "description": "Senior black Labrador and co-founder of Lyme Regis Dog."
+          }
+        },
+        {
+          "@type": "AboutPage",
+          "@id": "https://lymeregisdog.com/about.html",
+          "name": "About Lyme Regis Dog",
+          "isPartOf": { "@id": "https://lymeregisdog.com/#website" },
+          "about": { "@id": "https://lymeregisdog.com/#organisation" },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lymeregisdog.com/" },
+              { "@type": "ListItem", "position": 2, "name": "About", "item": "https://lymeregisdog.com/about.html" }
+            ]
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-
     <div class="breadcrumb-bar">
         <a href="index.html">🐾 Home</a>
         <span class="breadcrumb-sep">&gt;</span>
@@ -33,38 +150,128 @@
     </header>
 
     <div class="content-panel">
-        <div class="section-content" style="text-align:left;">
-            <p>Hi, we're Jane and Oak &mdash; a mature lady who loves exploring (but consistently gets lost) and her senior black Labrador.</p>
+        <div class="section-content about-body">
 
-            <p>We moved to Lyme Regis from Oxford City in November 2025, and one of the first things we wanted was a simple way to find dog-friendly walks, beaches, shops, cafes, accommodation and services nearby. That's exactly why this site exists.</p>
+            <p>Hi, we're <strong>Jane and Oak</strong> — a mature lady who loves exploring (but consistently gets
+            lost) and her senior black Labrador.</p>
 
-            <p>Before this, I used to run a similar community review site back in Oxford called oxfordcitydog.com. When we moved, I switched all of that site's social media over to Lyme Regis Dog instead &mdash; so if you follow us anywhere, that history is why the accounts look the way they do.</p>
+            <p>We moved to Lyme Regis from Oxford in November 2025, and one of the first things we wanted was a
+            simple way to find dog-friendly walks, beaches, shops, cafés, accommodation and services nearby.
+            That's exactly why this site exists.</p>
 
-            <p>This site is different from most directories you'll find online: I'm not trying to sell you anything. There are no pop-up ads, and there never will be. I personally review every single entry as it comes in &mdash; it's just me, a real human, checking things before they go live.</p>
+            <p>Before this, I ran a similar community review site back in Oxford called <strong>oxfordcitydog.com</strong>.
+            When we moved, I switched all of that site's social media over to Lyme Regis Dog instead — so if you
+            follow us anywhere, that history is why the accounts look the way they do.</p>
 
-            <p>Found something wrong, out of date, or a review that shouldn't be here? Get in touch via the social links below and I'll sort it.</p>
+            <h2>What makes this different</h2>
 
-            <p>Above all, this site is about community first &mdash; real people and their dogs, sharing the places they genuinely love. If you've found somewhere special, please <a href="submit.html">add it to the map</a>.</p>
+            <p>This site is not like most directories you'll find online: I'm not trying to sell you anything.
+            There are no pop-up ads, and there never will be. I personally review every single entry as it comes
+            in — it's just me, a real human, checking things before they go live.</p>
 
-            <p>We're chuffed to say we've grown to over 1,000 followers on TikTok, and most of our YouTube videos &mdash; where Oak is very much the star &mdash; get around 1,000 views. If you enjoy what we're building here, please follow along and share us with other dog owners &mdash; it genuinely helps the community grow.</p>
+            <div class="promise">
+                <p><strong>Our promise, in plain terms:</strong></p>
+                <ul>
+                    <li><strong>No advertising</strong>, ever — no banners, no pop-ups, no sponsored posts.</li>
+                    <li><strong>No paid listings.</strong> No business can pay to appear here or to rank higher.
+                    We take no commission and no affiliate fees.</li>
+                    <li><strong>Everything is free to use</strong>, including our <a href="wings.html">Angel Dogs</a>
+                    camera app, the <a href="dogfriendlymap.html">walk mapper</a> and the
+                    <a href="Utilities.html">tide and heat checks</a>.</li>
+                    <li><strong>Every review is checked by a person</strong> — me — before it goes live.</li>
+                    <li><strong>Written from here.</strong> We walk these beaches and paths most days, with an
+                    elderly dog, in all weathers. If a route is hard work, we say so.</li>
+                </ul>
+            </div>
 
-            <p>Thank you!<br>Jane &amp; Oak 🐾</p>
+            <p>Found something wrong, out of date, or a review that shouldn't be here? Get in touch via the social
+            links below and I'll sort it. Local businesses are welcome to contact me too if a listing about you
+            needs correcting.</p>
 
-            <a href="submit.html" class="action-btn">🐾 Add your review Here!</a>
+            <h2>A bit more about me</h2>
+
+            <p>I'm a writer and an artist. I started a web design business in rural Wales in 1999, ran it for four
+            years, and later took a degree in Oxford — after being diagnosed as dyslexic fairly late in life.
+            I began writing for a local newspaper in my fifties and have since written several science fiction
+            novels. My art and books live over at
+            <a href="https://janeyates.co.uk" target="_blank" rel="noopener me">janeyates.co.uk</a>.</p>
+
+            <p>The technology side of this site is a long-running interest rather than a job. Our
+            <a href="wings.html">Angel Dogs</a> camera — which spots a dog through your phone and floats a halo
+            above it — began as an idea I pitched publicly back in 2015, when I was told it couldn't be built yet.
+            It runs in a browser now, for free, and Oak was its first model.</p>
+
+            <div class="elsewhere">
+                <h2 style="margin-top:.4rem">Elsewhere</h2>
+                <p><strong>Art and books:</strong>
+                <a href="https://janeyates.co.uk" target="_blank" rel="noopener me">janeyates.co.uk</a> — my
+                paintings and science fiction novels.</p>
+                <p><strong>Video:</strong> Oak stars on our YouTube channel and TikTok, where most videos reach
+                around a thousand people. Links are on the <a href="index.html">home page</a>.</p>
+            </div>
+
+            <h2>Community first</h2>
+
+            <p>Above all, this site is about community — real people and their dogs, sharing the places they
+            genuinely love. If you've found somewhere special, please
+            <a href="submit.html">add it to the map</a>.</p>
+
+            <p>We're chuffed to say we've grown to over 1,000 followers on TikTok, and most of our YouTube videos
+            — where Oak is very much the star — get around 1,000 views. If you enjoy what we're building here,
+            please follow along and share us with other dog owners. It genuinely helps the community grow.</p>
+
+            <h2>Questions people ask</h2>
+
+            <details>
+                <summary>Who runs Lyme Regis Dog?</summary>
+                <p>Jane Yates, a writer and artist living in Lyme Regis, together with Oak, a senior black
+                Labrador. It is not a company or a directory business — it's one person and one dog, checking
+                every entry by hand.</p>
+            </details>
+
+            <details>
+                <summary>Is it free? How is it funded?</summary>
+                <p>Entirely free, and unfunded. There is no advertising, no commission, no affiliate income and
+                no paid listings. It costs very little to run and I'd rather keep it independent.</p>
+            </details>
+
+            <details>
+                <summary>Can my business pay to be listed or featured?</summary>
+                <p>No — and that's deliberate. Anyone can be added by a member of the community, free, and no
+                amount of money moves anything up the page. It's the only way the reviews stay worth reading.</p>
+            </details>
+
+            <details>
+                <summary>How do I add a place or correct a listing?</summary>
+                <p>Use the <a href="submit.html">add a review</a> form for new places. For corrections or to
+                report a review, message us on any of our social accounts and I'll deal with it personally.</p>
+            </details>
+
+            <details>
+                <summary>What happened to Oxford City Dog?</summary>
+                <p>It was the same idea, in Oxford, before we moved in November 2025. The social accounts came
+                with us and became Lyme Regis Dog, which is why some of them still carry the old name.</p>
+            </details>
+
+            <p class="signature">Thank you!<br>Jane &amp; Oak 🐾</p>
+
+            <p><a href="submit.html" class="action-btn">🐾 Add your review Here!</a></p>
+
+            <h2>Explore the site</h2>
+            <p><a href="walks.html">Dog-friendly walks</a> ·
+            <a href="beaches.html">beaches</a> ·
+            <a href="cafes.html">cafés</a> ·
+            <a href="shops.html">shops</a> ·
+            <a href="accommodation.html">accommodation</a> ·
+            <a href="services.html">vets and services</a> ·
+            <a href="Utilities.html">dog utilities</a> ·
+            <a href="dogfriendlymap.html">walk mapper</a> ·
+            <a href="wings.html">Angel Dogs camera</a></p>
+
+            <p class="updated">Lyme Regis Dog is an independent community site, founded November 2025 and run
+            from Lyme Regis, Dorset. Last updated: July 2026.</p>
+
         </div>
     </div>
-
-    <section class="social-container">
-        <h3>Follow &amp; Share</h3>
-        <div class="social-links">
-            <a href="https://www.youtube.com/@Lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><polygon points="10 9 15 12 10 15"/></svg><span>YouTube</span></a>
-            <a href="https://www.tiktok.com/@lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg><span>TikTok</span></a>
-            <a href="https://www.facebook.com/Lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><span>Facebook</span></a>
-            <a href="https://www.instagram.com/lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg><span>Instagram</span></a>
-            <a href="https://uk.pinterest.com/lymeRegisdog/" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 10a4 4 0 1 1 4 4c-1.5 0-3-1-3-3"/></svg><span>Pinterest</span></a>
-            <a href="https://x.com/lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg><span>X</span></a>
-        </div>
-    </section>
-
 </body>
 </html>

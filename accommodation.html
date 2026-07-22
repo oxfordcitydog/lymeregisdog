@@ -8,19 +8,115 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog-Friendly Accommodation - Lyme Regis Dog</title>
-    <meta name="description" content="Discover community-reviewed dog-friendly accommodation in the Lyme Regis area, mapped with what3words locations and local reviews.">
-    <meta property="og:title" content="Dog-Friendly Accommodation - Lyme Regis Dog">
-    <meta property="og:description" content="Discover community-reviewed dog-friendly accommodation in the Lyme Regis area, mapped with what3words locations and local reviews.">
+    <title>Dog-Friendly Accommodation in Lyme Regis | Honest Local Reviews</title>
+    <meta name="description" content="Dog-friendly places to stay in and around Lyme Regis, reviewed by dog owners who actually stayed. What to ask before booking, dog charges, hidden rules, and which parts of town suit an older dog. No adverts, no paid listings.">
+    <link rel="canonical" href="https://lymeregisdog.com/accommodation.html">
+    <meta property="og:title" content="Dog-Friendly Accommodation in Lyme Regis | Honest Local Reviews">
+    <meta property="og:description" content="Dog-friendly places to stay around Lyme Regis, reviewed by dog owners who actually stayed. What to ask before booking, and which parts of town suit an older dog.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lymeregisdog.com/accommodation.html">
     <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
+    <meta property="og:site_name" content="Lyme Regis Dog">
+    <meta property="og:locale" content="en_GB">
     <meta name="twitter:card" content="summary">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+      /* small additions for the written guide below the reviews */
+      .stay-guide { margin-top: 2rem; }
+      .stay-guide h2 { margin-top: 2rem; }
+      .stay-guide h3 { margin-bottom: .3rem; }
+      .stay-card {
+        border-left: 4px solid #2b7a8c;
+        padding: .2rem 0 .2rem 1rem;
+        margin: 1.6rem 0;
+      }
+      .stay-card .tagline { font-weight: 700; margin: .2rem 0 .6rem; color: #14682a; }
+      .stay-note {
+        background: #fdf6e3;
+        border: 1px solid #e8d9a8;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .live-link {
+        background: #eef7fa;
+        border: 1px solid #cfe6ee;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .ask-list li { margin-bottom: .55rem; }
+      .stay-guide details {
+        border-bottom: 1px solid #ddd;
+        padding: .7rem 0;
+      }
+      .stay-guide summary { cursor: pointer; font-weight: 700; }
+      .stay-guide details p { margin: .6rem 0 .2rem; }
+      .updated { font-size: .9rem; color: #666; margin-top: 2rem; }
+    </style>
+
+    <!-- Structured data: helps Google understand the page and show rich results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://lymeregisdog.com/accommodation.html",
+          "name": "Dog-Friendly Accommodation in Lyme Regis",
+          "description": "Dog-friendly places to stay in and around Lyme Regis, reviewed by dog owners, with practical advice on what to ask before booking.",
+          "isPartOf": { "@type": "WebSite", "name": "Lyme Regis Dog", "url": "https://lymeregisdog.com/" },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lymeregisdog.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Accommodation", "item": "https://lymeregisdog.com/accommodation.html" }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is there dog-friendly accommodation in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, a great deal of it. Lyme Regis has dog-friendly self-catering cottages, apartments, beach chalets, bed and breakfasts, pubs with rooms, campsites and caravan parks. Most self-catering properties accept one or two dogs, and many campsites nearby welcome dogs at no extra charge."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much do places charge for a dog in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Charges vary widely. Self-catering cottages commonly charge a per-dog, per-stay fee, while some bed and breakfasts and most campsites charge nothing. Always confirm the charge and the maximum number of dogs before booking, as these are often in the small print rather than the listing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I leave my dog alone in a holiday cottage in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Many holiday lets specifically prohibit leaving dogs unattended in the property, even briefly. This is one of the most common surprises for visitors, so check the terms before booking if you plan to eat out or visit somewhere that does not admit dogs."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where is the best place to stay in Lyme Regis with an older dog?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Lyme Regis is built on a steep hill, so accommodation near the seafront or along the flat Lim Valley side of town saves an older or arthritic dog a hard climb. Properties high above the town have the best views and the toughest walk home."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-
     <div class="breadcrumb-bar">
         <a href="index.html">🐾 Home</a>
         <span class="breadcrumb-sep">&gt;</span>
@@ -33,19 +129,165 @@
     </header>
 
     <div class="content-panel">
-
         <div class="section-content">
             <h2>Find the Perfect Stay</h2>
             <p>Use the map to find local campsites, caravan parks, hotels, and more that welcome your dog.</p>
             <a href="submit.html" class="action-btn">🐾 Add your review Here!</a>
         </div>
 
-        <iframe src="map.html?cat=accommodation" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no"></iframe>
+        <iframe src="map.html?cat=accommodation" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no" title="Map of dog-friendly accommodation in the Lyme Regis area"></iframe>
 
         <div class="section-content">
             <h2>All Dog-Friendly Accommodation</h2>
             <div id="listing"><p>Loading reviews&hellip;</p></div>
         </div>
+
+        <!-- ================= WRITTEN GUIDE (below the reviews) ================= -->
+        <div class="section-content stay-guide">
+
+            <div class="stay-note">
+                <p><strong>🐾 A note on how this page works.</strong> We are a community site run by local dog
+                owners. We take no advertising, no commission and no payment from anywhere listed — nobody can buy
+                a place on this map. Every entry above was added by someone who stayed there with their dog. That
+                is the whole point of it, and it is why we would rather give you good questions to ask than a
+                sponsored list.</p>
+            </div>
+
+            <h2>Staying in Lyme Regis with a dog</h2>
+
+            <p>Lyme Regis is well set up for dogs, and there is a lot of choice: self-catering cottages and
+            apartments in the town, beach chalets along the front, bed and breakfasts, pubs with rooms, and
+            campsites and caravan parks in the surrounding countryside. Three of the four beaches welcome dogs all
+            year round, most cafés and independent shops are relaxed about them, and the coast path runs straight
+            through — so once you are here, having a dog with you rarely limits what you can do.</p>
+
+            <p>The thing worth thinking hardest about is not <em>whether</em> a place takes dogs, but <em>where in
+            the town it sits</em>. Lyme Regis is built down the side of a very steep hill.</p>
+
+            <h2>Where to stay, and what the hill means</h2>
+
+            <div class="stay-card">
+                <h3>Down near the seafront</h3>
+                <p class="tagline">Easiest with a dog · beaches on the doorstep</p>
+                <p>Staying low means beach walks without a climb at either end, which matters enormously if your
+                dog is elderly, arthritic, or simply small. You are also within a flat stroll of Marine Parade's
+                cafés. The trade-offs are noise in high summer, tighter parking, and generally higher prices.</p>
+            </div>
+
+            <div class="stay-card">
+                <h3>Up in the town and above it</h3>
+                <p class="tagline">Better value and views · a genuine climb home</p>
+                <p>Properties up Broad Street and above have the views, the parking and often the better prices.
+                But every walk to the beach ends with the hill, and after a long day on the coast path that climb
+                is real. Fine for a fit dog, hard work for an old one.</p>
+            </div>
+
+            <div class="stay-card">
+                <h3>The Uplyme and Lim Valley side</h3>
+                <p class="tagline">Flat walking from the door · quieter</p>
+                <p>Staying towards Uplyme puts you on the flat Lim Valley path, the gentlest walking anywhere near
+                the town, with the river alongside. Quieter, greener, and a short drive or level walk into Lyme
+                itself. Our pick for anyone travelling with a dog who cannot manage hills.</p>
+            </div>
+
+            <div class="stay-card">
+                <h3>Campsites and caravan parks nearby</h3>
+                <p class="tagline">Usually the most dog-relaxed option</p>
+                <p>The countryside around Lyme Regis, Charmouth and Uplyme has campsites and caravan parks, and
+                these are often the easiest places of all with a dog — outdoor space, fewer rules about muddy
+                paws, and frequently no dog charge at all. Check whether dogs may be left in a caravan or awning,
+                as many sites say no, and expect livestock in neighbouring fields.</p>
+            </div>
+
+            <h2>What to ask before you book</h2>
+            <p>Most disappointments come from things that were technically in the terms and conditions. Worth
+            asking directly, by email, so you have it in writing:</p>
+            <ul class="ask-list">
+                <li><strong>How many dogs, and is there a charge?</strong> Usually per dog, per stay, and often
+                buried in the small print rather than the headline listing.</li>
+                <li><strong>Can the dog be left alone in the property?</strong> A great many holiday lets say no,
+                even for an hour. This one catches people out constantly — plan around it if you want to eat
+                somewhere that does not admit dogs.</li>
+                <li><strong>Which rooms are dogs allowed in?</strong> Some places mean "downstairs only" or "not
+                on the soft furnishings", which is fine if you know in advance and awkward if you do not.</li>
+                <li><strong>Is there enclosed outdoor space?</strong> A secure garden is worth a great deal,
+                especially with a young or bolting dog.</li>
+                <li><strong>Where is the parking, and how far is it from the door?</strong> On this hill, a
+                property described as "a short walk from the beach" may mean a short walk down and a long climb
+                up.</li>
+                <li><strong>Is there anywhere to wash a wet, sandy dog?</strong> An outside tap, a boot room or a
+                hosepipe transforms a week by the sea.</li>
+            </ul>
+
+            <div class="live-link">
+                <p><strong>🗺️ Planning the stay itself?</strong> Our <a href="beaches.html">beaches guide</a>
+                explains which beaches take dogs and when, <a href="walks.html">walks</a> covers routes from flat
+                to strenuous, <a href="cafes.html">cafés</a> and <a href="shops.html">shops</a> cover the town,
+                and the <a href="Utilities.html">Dog Utilities page</a> gives live tides and a heat check for the
+                day you arrive.</p>
+            </div>
+
+            <h2>Arriving without a car</h2>
+            <p>It is perfectly possible. Axminster is the nearest railway station, roughly five miles away, with
+            the <strong>X51 and X53 bus services</strong> connecting Lyme Regis to Axminster, Bridport and
+            Dorchester. Dogs generally travel free on local buses at the driver's discretion, and on trains under
+            the usual national rules. Timetables are on
+            <a href="https://www.travelinesw.com/" target="_blank" rel="noopener">Traveline South West</a>.
+            Parking information for those who do drive is on the
+            <a href="https://www.dorsetcouncil.gov.uk/parking-roads-and-travel/parking" target="_blank" rel="noopener">Dorset Council parking pages</a>,
+            and general visitor information from
+            <a href="https://www.lymeregistowncouncil.gov.uk/" target="_blank" rel="noopener">Lyme Regis Town Council</a>.</p>
+
+            <h2>Common questions</h2>
+
+            <details>
+                <summary>Is there much dog-friendly accommodation in Lyme Regis?</summary>
+                <p>Plenty — cottages, apartments, beach chalets, B&amp;Bs, pubs with rooms, campsites and caravan
+                parks. Most self-catering places take one or two dogs. The map above shows where people have
+                actually stayed and what they thought.</p>
+            </details>
+
+            <details>
+                <summary>What will I be charged for the dog?</summary>
+                <p>It varies a lot. Self-catering commonly charges a fee per dog per stay; many campsites charge
+                nothing. Always confirm before booking rather than on arrival.</p>
+            </details>
+
+            <details>
+                <summary>Can I leave my dog in the property while I go out?</summary>
+                <p>Often not. Many holiday lets prohibit leaving dogs unattended at all. Check first — it shapes
+                how you plan evenings, since not everywhere in town admits dogs.</p>
+            </details>
+
+            <details>
+                <summary>Which part of town is best with an older dog?</summary>
+                <p>Near the seafront, or over towards Uplyme and the Lim Valley where the walking is flat. Avoid
+                anywhere high above the town unless you are happy doing that climb several times a day.</p>
+            </details>
+
+            <details>
+                <summary>Are the beaches dog-friendly all year?</summary>
+                <p>Three of the four are. Front Beach, the sandy one in the middle of town, is closed to dogs from
+                1 May to 30 September. Full details on our <a href="beaches.html">beaches page</a>.</p>
+            </details>
+
+            <h2>Stayed somewhere good? Tell the next person</h2>
+            <p>This site takes no adverts and no commission, so the only way this page gets better is people
+            adding what they found. If a place looked after you and your dog properly — or if something in the
+            small print caught you out — please <a href="submit.html">add a review</a>. It is the most useful
+            thing you can do for the next dog owner planning a trip here.</p>
+
+            <p>You might also like our <a href="walks.html">dog-friendly walks</a>,
+            <a href="beaches.html">beaches</a>, <a href="cafes.html">cafés</a>,
+            <a href="shops.html">shops</a>, the
+            <a href="dogfriendlymap.html">Dog-Friendly Walk Mapper</a> for planning routes, and
+            <a href="wings.html">Angel Dogs</a> — our free camera that gives your dog a halo.</p>
+
+            <p class="updated">Dog policies, charges and ownership change. Always confirm directly with the
+            property before booking. Last reviewed: July 2026.</p>
+
+        </div>
+        <!-- ================= END WRITTEN GUIDE ================= -->
 
     </div>
 

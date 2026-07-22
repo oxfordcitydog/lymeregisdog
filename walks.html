@@ -8,19 +8,117 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog-Friendly Walks - Lyme Regis Dog</title>
-    <meta name="description" content="Discover community-reviewed dog-friendly walks in the Lyme Regis area, mapped with what3words locations and local reviews.">
-    <meta property="og:title" content="Dog-Friendly Walks - Lyme Regis Dog">
-    <meta property="og:description" content="Discover community-reviewed dog-friendly walks in the Lyme Regis area, mapped with what3words locations and local reviews.">
+    <title>Dog-Friendly Walks in Lyme Regis | Routes, Hills &amp; Local Reviews</title>
+    <meta name="description" content="Dog walks in and around Lyme Regis, reviewed by local dog owners. The Lim Valley, Undercliffs, Ware Cliff, Golden Cap and the Cobb — with notes on hills, stiles, livestock, parking and which routes suit an older dog.">
+    <link rel="canonical" href="https://lymeregisdog.com/walks.html">
+    <meta property="og:title" content="Dog-Friendly Walks in Lyme Regis | Routes, Hills &amp; Local Reviews">
+    <meta property="og:description" content="Dog walks in and around Lyme Regis, reviewed by local dog owners — with notes on hills, stiles, livestock, parking and which routes suit an older dog.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lymeregisdog.com/walks.html">
     <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
+    <meta property="og:site_name" content="Lyme Regis Dog">
+    <meta property="og:locale" content="en_GB">
     <meta name="twitter:card" content="summary">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+      /* small additions for the written guide below the reviews */
+      .walk-guide { margin-top: 2rem; }
+      .walk-guide h2 { margin-top: 2rem; }
+      .walk-guide h3 { margin-bottom: .3rem; }
+      .walk-card {
+        border-left: 4px solid #2b7a8c;
+        padding: .2rem 0 .2rem 1rem;
+        margin: 1.6rem 0;
+      }
+      .walk-card .tagline { font-weight: 700; margin: .2rem 0 .6rem; }
+      .easy { color: #14682a; }
+      .moderate { color: #a8620a; }
+      .hard { color: #9c2b2b; }
+      .walk-note {
+        background: #fdf6e3;
+        border: 1px solid #e8d9a8;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .live-link {
+        background: #eef7fa;
+        border: 1px solid #cfe6ee;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .walk-guide details {
+        border-bottom: 1px solid #ddd;
+        padding: .7rem 0;
+      }
+      .walk-guide summary { cursor: pointer; font-weight: 700; }
+      .walk-guide details p { margin: .6rem 0 .2rem; }
+      .updated { font-size: .9rem; color: #666; margin-top: 2rem; }
+    </style>
+
+    <!-- Structured data: helps Google understand the page and show rich results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://lymeregisdog.com/walks.html",
+          "name": "Dog-Friendly Walks in Lyme Regis",
+          "description": "Dog walks in and around Lyme Regis reviewed by local dog owners, with notes on terrain, livestock, parking and accessibility.",
+          "isPartOf": { "@type": "WebSite", "name": "Lyme Regis Dog", "url": "https://lymeregisdog.com/" },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lymeregisdog.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Walks", "item": "https://lymeregisdog.com/walks.html" }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Where can I walk my dog in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Popular dog walks include the Lim Valley path from Lyme Regis to Uplyme, Langmoor and Lister Gardens above the seafront, Ware Cliff towards the Undercliffs, the South West Coast Path in both directions, and the beaches at Monmouth, Church Cliff and East Cliff. The Lim Valley is the flattest and easiest route."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is there a flat dog walk in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Lim Valley path towards Uplyme is the flattest walk in Lyme Regis, following the river on a mostly level surfaced path. It is the best choice for older dogs, buggies and anyone who would rather avoid the town's steep hills."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can dogs go off lead on walks near Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "On many inland paths and the dog-friendly beaches, yes, provided your dog is under close control. Leads are required through the town, along Marine Parade, the harbour and the Cobb, and on any field with livestock or ground-nesting birds."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are there sheep on walks around Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Many footpaths inland from Lyme Regis and Uplyme cross grazing land with sheep and cattle. Dogs must be on a lead around livestock. Cattle with calves can be a particular risk, and advice is to let go of the lead if a herd approaches rather than being pulled over."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-
     <div class="breadcrumb-bar">
         <a href="index.html">🐾 Home</a>
         <span class="breadcrumb-sep">&gt;</span>
@@ -33,19 +131,176 @@
     </header>
 
     <div class="content-panel">
-
         <div class="section-content">
             <h2>Explore Local Walks</h2>
             <p>Zoom in and out to click on any paw print on the map below to view community reviews.</p>
             <a href="submit.html" class="action-btn">🐾Add your review Here!</a>
         </div>
 
-        <iframe src="map.html?cat=Walks" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no"></iframe>
+        <iframe src="map.html?cat=Walks" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no" title="Map of dog-friendly walks in the Lyme Regis area"></iframe>
 
         <div class="section-content">
             <h2>All Dog-Friendly Walks</h2>
             <div id="listing"><p>Loading reviews&hellip;</p></div>
         </div>
+
+        <!-- ================= WRITTEN GUIDE (below the reviews, as requested) ================= -->
+        <div class="section-content walk-guide">
+
+            <div class="live-link">
+                <p><strong>🐾 Planning a walk today?</strong> Our
+                <a href="Utilities.html">Dog Utilities page</a> has a <em>too hot to walk?</em> check that
+                estimates pavement temperature and suggests the coolest hours, plus today's tide times if your
+                route drops down to the shore. You can also draw and save your own route on the
+                <a href="dogfriendlymap.html">Dog-Friendly Walk Mapper</a>, marking water stops as you go.</p>
+            </div>
+
+            <h2>Walking a dog in Lyme Regis: what to expect</h2>
+
+            <p>Lyme Regis is a wonderful place to walk a dog and an honestly demanding one. The town is built on
+            a hillside, so almost every route out of the centre goes either steeply up or steeply down, and the
+            walk you enjoy on the way out is the climb you have to do on the way back. Away from the town you have
+            river valley paths, ancient landslip woodland, open clifftop and some of the finest coast path in
+            England.</p>
+
+            <p>The walks below are the ones we come back to, written from walking them regularly with an elderly
+            black Labrador — so where a route is hard work, it says so.</p>
+
+            <div class="walk-card">
+                <h3>The Lim Valley path — Lyme Regis to Uplyme</h3>
+                <p class="tagline easy">Easy · about 3 miles there and back · mostly flat</p>
+                <p>The kindest walk in Lyme Regis and the one we recommend first. The path follows the River Lim
+                inland from the town up to the neighbouring village of Uplyme, on a mostly level, largely surfaced
+                route through trees and old mill sites. Shade in summer, water alongside for most of it, and no
+                serious climbing.</p>
+                <p>Best for: older dogs, hot days, anyone who has already done the hills once today. There are
+                pubs at the Uplyme end if you want a halfway stop.</p>
+            </div>
+
+            <div class="walk-card">
+                <h3>Langmoor and Lister Gardens</h3>
+                <p class="tagline easy">Easy · 20–40 minutes · paths and steps</p>
+                <p>The terraced gardens rising above the seafront, with winding paths, benches and panoramic views
+                across Lyme Bay, the Cobb and the beaches. A gentle option right in the middle of town, and a good
+                way to get from the seafront up to Broad Street without walking the road.</p>
+                <p>Best for: a short leg-stretch, wet days when the beach is unpleasant, and visitors who want the
+                view without the commitment. Leads on — it is a formal garden with plenty of people about.</p>
+            </div>
+
+            <div class="walk-card">
+                <h3>Ware Cliff and the edge of the Undercliffs</h3>
+                <p class="tagline moderate">Moderate · 1–2 hours · uneven ground, steady climb</p>
+                <p>Head west past Monmouth Beach and up onto Ware Cliff, where the coast path climbs towards the
+                Axmouth to Lyme Regis Undercliffs National Nature Reserve. This is a genuinely strange and
+                beautiful landscape — a wooded landslip, dense and jungly, formed when whole sections of cliff
+                slipped towards the sea.</p>
+                <p>Best for: dogs who like a proper walk and owners who want somewhere that feels remote within
+                twenty minutes of the town. Note that the full Undercliffs route to Axmouth is around seven miles
+                with no exit points once you commit, so treat it as a serious walk rather than an afternoon
+                stroll.</p>
+            </div>
+
+            <div class="walk-card">
+                <h3>The Cobb and the seafront</h3>
+                <p class="tagline easy">Easy · 30 minutes · flat, paved</p>
+                <p>The obvious one, and still lovely: along Marine Parade, out along the Cobb harbour wall, and
+                back. Flat, paved and manageable in any weather. Dogs must be on a lead the whole way — along
+                Marine Parade, Cart Road, the harbour, the Cobb itself and the sea walls.</p>
+                <p>Best for: evenings, gentle exercise, and dogs who like an audience. The Cobb is exposed in wind
+                and the upper wall has no railing, so keep small dogs close.</p>
+            </div>
+
+            <div class="walk-card">
+                <h3>East towards Charmouth and Golden Cap</h3>
+                <p class="tagline hard">Strenuous · half a day · steep, exposed</p>
+                <p>The coast path east climbs towards Charmouth and on to Golden Cap, the highest point on the
+                south coast of England. Superb views, hard work, and a proper day out rather than a walk.</p>
+                <p>Best for: fit dogs and fit owners. Carry water — there is none on the route — and remember
+                that if you drop down to the beach at any point, the tide can cut off the sand below Black Ven
+                and East Cliff. See our <a href="beaches.html">beaches page</a> for tide notes before you plan a
+                shoreline return.</p>
+            </div>
+
+            <div class="walk-note">
+                <p><strong>🐑 Livestock, and why it matters here.</strong> Many inland paths around Lyme Regis and
+                Uplyme cross grazing land. Dogs must be on a lead near sheep and cattle. If cattle move towards
+                you — most likely in spring when calves are about — the standard advice is to let go of the lead
+                and let your dog run rather than be dragged. Keep to marked footpaths, and shut gates behind you.</p>
+            </div>
+
+            <h2>Walking an older dog here</h2>
+            <p>If your dog is elderly or arthritic, the hills and the many flights of steps are the thing to plan
+            around, not the distance. The Lim Valley path is the best option by far — flat, shaded and soft
+            underfoot. Langmoor Gardens works if you approach from the top and walk down. What we would avoid on a
+            warm day: the long climb back up from Monmouth Beach, and the steps between Church Cliff and Charmouth
+            Road car park. Park at the top and walk down where you can.</p>
+
+            <h2>Getting there: parking and buses</h2>
+            <p>Where you park decides how much climbing you do. Charmouth Road is the main long-stay car park
+            above the town with steps down to the front; Holmbush sits high on the west side; Cobb Gate and
+            Monmouth Beach are closer to the water and fill early in summer. Charges and locations are on the
+            <a href="https://www.dorsetcouncil.gov.uk/parking-roads-and-travel/parking" target="_blank" rel="noopener">Dorset Council parking pages</a>,
+            and local facilities are listed by
+            <a href="https://www.lymeregistowncouncil.gov.uk/" target="_blank" rel="noopener">Lyme Regis Town Council</a>.</p>
+            <p>The <strong>X51 and X53 buses</strong> link Lyme Regis with Axminster, Bridport and Dorchester, and
+            Axminster is the nearest station, roughly five miles away. Dogs usually travel free at the driver's
+            discretion. Timetables:
+            <a href="https://www.travelinesw.com/" target="_blank" rel="noopener">Traveline South West</a>.
+            Route details for the coast path are published by the
+            <a href="https://www.southwestcoastpath.org.uk/" target="_blank" rel="noopener">South West Coast Path Association</a>.</p>
+
+            <h2>Common questions</h2>
+
+            <details>
+                <summary>Where is the best dog walk in Lyme Regis?</summary>
+                <p>For most dogs, the Lim Valley path to Uplyme — flat, shaded, water alongside, and no hills.
+                For a bigger walk, Ware Cliff and the edge of the Undercliffs. For a short one, Langmoor and
+                Lister Gardens.</p>
+            </details>
+
+            <details>
+                <summary>Is there a flat walk that avoids the hills?</summary>
+                <p>Yes, the Lim Valley path. It is the only substantial walk in the town that stays mostly level,
+                which makes it the standard choice for older dogs and anyone with mobility difficulties.</p>
+            </details>
+
+            <details>
+                <summary>Can my dog be off the lead?</summary>
+                <p>On many inland paths and on the dog-friendly beaches, yes, if they are under close control.
+                Leads are required through the town, along Marine Parade, the harbour and the Cobb, and around
+                any livestock.</p>
+            </details>
+
+            <details>
+                <summary>Are there dog bins on the walks?</summary>
+                <p>There are bins at the main beach accesses and along the seafront, but far fewer once you are
+                out on the coast path or up the Lim Valley. Carry bags and expect to bring waste back with you on
+                longer routes.</p>
+            </details>
+
+            <details>
+                <summary>Where can my dog get a drink?</summary>
+                <p>The Lim Valley path has the river alongside for much of its length. On clifftop and coast path
+                routes there is nothing, so carry water — Lyme Regis is exposed and hotter than it feels in a sea
+                breeze. Several cafés will fill a bowl on request; see our
+                <a href="cafes.html">dog-friendly cafés</a>.</p>
+            </details>
+
+            <h2>Add a walk you know</h2>
+            <p>This is a community site, run locally and free to use — no adverts, nothing for sale. If you have a
+            favourite route, please <a href="submit.html">add a review</a> so other dog owners can find it. You
+            might also like our <a href="beaches.html">dog-friendly beaches guide</a>, the
+            <a href="dogfriendlymap.html">Dog-Friendly Walk Mapper</a> for drawing your own routes, the
+            <a href="Utilities.html">Dog Utilities page</a> for tides and heat warnings, and
+            <a href="wings.html">Angel Dogs</a>, our free camera that gives your dog a halo.</p>
+
+            <p class="updated">Paths, access and livestock change with the seasons. Please follow signage and the
+            Countryside Code on the day. Coast path conditions can change after landslips — check the
+            <a href="https://www.southwestcoastpath.org.uk/" target="_blank" rel="noopener">South West Coast Path Association</a>
+            for diversions. Last reviewed: July 2026.</p>
+
+        </div>
+        <!-- ================= END WRITTEN GUIDE ================= -->
 
     </div>
 

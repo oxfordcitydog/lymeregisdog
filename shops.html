@@ -8,19 +8,114 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog-Friendly Shops - Lyme Regis Dog</title>
-    <meta name="description" content="Discover community-reviewed dog-friendly shops in the Lyme Regis area, mapped with what3words locations and local reviews.">
-    <meta property="og:title" content="Dog-Friendly Shops - Lyme Regis Dog">
-    <meta property="og:description" content="Discover community-reviewed dog-friendly shops in the Lyme Regis area, mapped with what3words locations and local reviews.">
+    <title>Dog-Friendly Shops in Lyme Regis | Where You Can Take Your Dog In</title>
+    <meta name="description" content="Which Lyme Regis shops welcome dogs inside, reviewed by local dog owners. Broad Street, the artisan quarter and the seafront — plus where to buy dog food, treats and kit, and what to do about the supermarkets.">
+    <link rel="canonical" href="https://lymeregisdog.com/shops.html">
+    <meta property="og:title" content="Dog-Friendly Shops in Lyme Regis | Where You Can Take Your Dog In">
+    <meta property="og:description" content="Which Lyme Regis shops welcome dogs inside, reviewed by local dog owners — plus where to buy dog food and kit, and what to do about the supermarkets.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lymeregisdog.com/shops.html">
     <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
+    <meta property="og:site_name" content="Lyme Regis Dog">
+    <meta property="og:locale" content="en_GB">
     <meta name="twitter:card" content="summary">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+      /* small additions for the written guide below the reviews */
+      .shop-guide { margin-top: 2rem; }
+      .shop-guide h2 { margin-top: 2rem; }
+      .shop-guide h3 { margin-bottom: .3rem; }
+      .shop-card {
+        border-left: 4px solid #2b7a8c;
+        padding: .2rem 0 .2rem 1rem;
+        margin: 1.6rem 0;
+      }
+      .shop-card .tagline { font-weight: 700; margin: .2rem 0 .6rem; color: #14682a; }
+      .shop-note {
+        background: #fdf6e3;
+        border: 1px solid #e8d9a8;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .live-link {
+        background: #eef7fa;
+        border: 1px solid #cfe6ee;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .shop-guide details {
+        border-bottom: 1px solid #ddd;
+        padding: .7rem 0;
+      }
+      .shop-guide summary { cursor: pointer; font-weight: 700; }
+      .shop-guide details p { margin: .6rem 0 .2rem; }
+      .updated { font-size: .9rem; color: #666; margin-top: 2rem; }
+    </style>
+
+    <!-- Structured data: helps Google understand the page and show rich results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://lymeregisdog.com/shops.html",
+          "name": "Dog-Friendly Shops in Lyme Regis",
+          "description": "Which shops in Lyme Regis welcome dogs inside, reviewed by local dog owners, with notes on narrow aisles, doorways and where to buy dog supplies.",
+          "isPartOf": { "@type": "WebSite", "name": "Lyme Regis Dog", "url": "https://lymeregisdog.com/" },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lymeregisdog.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Shops", "item": "https://lymeregisdog.com/shops.html" }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Can I take my dog into shops in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Most independent shops in Lyme Regis welcome dogs inside, and many keep a jar of treats by the till. The supermarkets are the main exception and admit assistance dogs only. Look for a water bowl outside the door, which is usually a reliable sign, or simply ask."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are dogs allowed in supermarkets in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. The supermarkets in Lyme Regis admit assistance dogs only. If you are shopping for food you will usually need someone to wait outside with your dog, or to plan your shop for a time when the town is quiet."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where can I buy dog food and supplies in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Pet supplies, food and dog kit are available in the town, and several general shops stock treats, poo bags, leads and toys. Community reviews on this page list what people have found and where."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is Lyme Regis easy to shop in with a dog?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Broadly yes, but the town is steep and the pavements on Broad Street are narrow, so a short lead helps. Many shop doorways are small and some have steps. Quieter times are early morning and outside the summer holidays."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-
     <div class="breadcrumb-bar">
         <a href="index.html">🐾 Home</a>
         <span class="breadcrumb-sep">&gt;</span>
@@ -33,19 +128,139 @@
     </header>
 
     <div class="content-panel">
-
         <div class="section-content">
             <h2>Shop Together</h2>
             <p>Zoom in and out to click on any paw print on the map below to view community reviews.</p>
             <a href="submit.html" class="action-btn">🐾Add your review Here!</a>
         </div>
 
-        <iframe src="map.html?cat=Shops" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no"></iframe>
+        <iframe src="map.html?cat=Shops" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no" title="Map of dog-friendly shops in the Lyme Regis area"></iframe>
 
         <div class="section-content">
             <h2>All Dog-Friendly Shops</h2>
             <div id="listing"><p>Loading reviews&hellip;</p></div>
         </div>
+
+        <!-- ================= WRITTEN GUIDE (below the reviews) ================= -->
+        <div class="section-content shop-guide">
+
+            <div class="live-link">
+                <p><strong>🛍️ Making a day of it?</strong> Check the
+                <a href="Utilities.html">Dog Utilities page</a> for today's tides and a <em>too hot to walk?</em>
+                warning before you park, then see our <a href="cafes.html">dog-friendly cafés</a> for somewhere to
+                stop, and <a href="beaches.html">beaches</a> or <a href="walks.html">walks</a> for afterwards.</p>
+            </div>
+
+            <h2>Shopping in Lyme Regis with a dog</h2>
+
+            <p>Lyme Regis is a town of small independent shops, and that is very good news if you have a dog with
+            you. Independents make their own rules, and here those rules are usually generous: a great many shops
+            in the town will happily have a dog inside, and a fair few keep a jar of biscuits behind the counter
+            for regulars. The reliable exception is the supermarkets, which admit assistance dogs only.</p>
+
+            <p>The practical difficulties here are rarely about permission. They are about the shape of the town.
+            Broad Street is steep and its pavements are narrow, several shops have a step or a tight doorway, and
+            the artisan quarter's lanes were built long before anyone considered a Labrador with a wagging tail
+            near a shelf of pottery. A short lead solves nearly all of it.</p>
+
+            <h2>What to expect, by area</h2>
+
+            <div class="shop-card">
+                <h3>Broad Street and the town centre</h3>
+                <p class="tagline">Best for: browsing, bookshops, gifts, everyday errands</p>
+                <p>The main run of shops, climbing the hill from the seafront. Mostly independents, mostly
+                welcoming, with a good mix of books, gifts, clothing and practical shops. The pavements are the
+                narrowest in town and busy in summer, so keep leads short and expect to pause a lot. There is a
+                steady stream of other dogs, which is either lovely or exhausting depending on your dog.</p>
+            </div>
+
+            <div class="shop-card">
+                <h3>The artisan quarter and the lanes</h3>
+                <p class="tagline">Best for: galleries, studios, handmade things</p>
+                <p>The smaller lanes hold studios, galleries and craft shops. Many welcome dogs, but these are
+                small spaces full of breakable and expensive things — worth a glance through the window first to
+                judge whether there is room to manoeuvre, and worth asking at the door.</p>
+            </div>
+
+            <div class="shop-card">
+                <h3>The seafront and Marine Parade</h3>
+                <p class="tagline">Best for: beach kit, ice cream, fossils, browsing between walks</p>
+                <p>Kiosks and shops along the front, with the advantage that most business happens at a hatch or
+                doorway, so there is rarely any question about bringing a dog. Handy for buying what you forgot
+                before hitting the beach. Remember dogs must be on a lead along Marine Parade and the harbour.</p>
+            </div>
+
+            <div class="shop-note">
+                <p><strong>🐾 The bowl test.</strong> The most reliable sign in this town is a water bowl outside
+                the door — a shop that puts one out has thought about dogs and will almost certainly let yours in.
+                Failing that, ask. In four years of asking, being refused is rare enough to be memorable.</p>
+            </div>
+
+            <h2>Buying for the dog</h2>
+            <p>Dog food, treats, poo bags, leads, toys and beach towels are all available in the town without
+            needing to drive to a retail park. Several general and hardware shops stock the basics, and the pet
+            supplies you would expect are here too. If you have run out of something specific, the community
+            reviews above are the fastest way to find who stocks what — and if you find something useful, please
+            add it, because the "where do I buy dog food in Lyme Regis?" question comes up constantly with
+            visitors.</p>
+
+            <h2>The supermarket problem</h2>
+            <p>The supermarkets admit assistance dogs only, which catches out a lot of visitors doing a holiday
+            food shop. Options: take turns waiting outside, shop early before the town wakes up, or use the
+            independents on Broad Street for the essentials instead, which is more expensive but considerably
+            more pleasant. Tying a dog up outside a shop is common practice here but not something we would
+            recommend for long, particularly in summer heat or with a nervous dog.</p>
+
+            <h2>Common questions</h2>
+
+            <details>
+                <summary>Can I take my dog into shops in Lyme Regis?</summary>
+                <p>Into most independent shops, yes — this is a notably dog-friendly town. Supermarkets are the
+                exception, admitting assistance dogs only. A water bowl by the door is a good sign; otherwise
+                just ask.</p>
+            </details>
+
+            <details>
+                <summary>Are dogs allowed in the supermarkets?</summary>
+                <p>No, assistance dogs only. Plan your food shop around that.</p>
+            </details>
+
+            <details>
+                <summary>Where do I buy dog food if I have run out?</summary>
+                <p>The town has pet supplies and several shops stocking food, treats and basics. Check the
+                community reviews above for current information, since stock and shops change.</p>
+            </details>
+
+            <details>
+                <summary>Is it manageable with a big or nervous dog?</summary>
+                <p>Manageable, with planning. Broad Street's pavements are narrow and busy in season, and shop
+                doorways are small. Early mornings and the shoulder seasons are far easier than August
+                afternoons.</p>
+            </details>
+
+            <details>
+                <summary>Is there anywhere to leave a dog while I shop?</summary>
+                <p>There are no dog crèches in the town. Most people take turns, or shop at quiet times. If you
+                do tie up outside, keep it brief, stay in sight, and never in direct summer sun — see the
+                <a href="Utilities.html">heat check on our Utilities page</a>.</p>
+            </details>
+
+            <h2>Tell us where you were welcomed</h2>
+            <p>This is a community site, run locally and free to use — no adverts, no paid listings, and no
+            business pays to appear here. Everything above comes from dog owners who actually went in. If a shop
+            made a fuss of your dog, or produced a biscuit from under the counter, please
+            <a href="submit.html">add a review</a> so other owners know where to go.</p>
+
+            <p>You might also like our <a href="cafes.html">dog-friendly cafés</a>,
+            <a href="walks.html">walks</a>, <a href="beaches.html">beaches</a>,
+            the <a href="dogfriendlymap.html">Dog-Friendly Walk Mapper</a>, and
+            <a href="wings.html">Angel Dogs</a> — our free camera that gives your dog a halo.</p>
+
+            <p class="updated">Shops change hands and dog policies vary, particularly between summer and winter.
+            Please check on the day. Last reviewed: July 2026.</p>
+
+        </div>
+        <!-- ================= END WRITTEN GUIDE ================= -->
 
     </div>
 

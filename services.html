@@ -8,19 +8,122 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog-Friendly Services - Lyme Regis Dog</title>
-    <meta name="description" content="Discover community-reviewed dog-friendly services (vets, groomers and more) in the Lyme Regis area, mapped with what3words locations.">
-    <meta property="og:title" content="Dog-Friendly Services - Lyme Regis Dog">
-    <meta property="og:description" content="Discover community-reviewed dog-friendly services (vets, groomers and more) in the Lyme Regis area, mapped with what3words locations.">
+    <title>Vets, Groomers &amp; Dog Services in Lyme Regis | Local Reviews</title>
+    <meta name="description" content="Vets, out-of-hours emergency cover, groomers, dog walkers, sitters and trainers in the Lyme Regis area — reviewed by local dog owners. Includes what to do if your dog is injured on the beach or cut by a fossil ledge.">
+    <link rel="canonical" href="https://lymeregisdog.com/services.html">
+    <meta property="og:title" content="Vets, Groomers &amp; Dog Services in Lyme Regis | Local Reviews">
+    <meta property="og:description" content="Vets, emergency cover, groomers, walkers and sitters around Lyme Regis, reviewed by local dog owners — plus what to do if your dog is hurt on the beach.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lymeregisdog.com/services.html">
     <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
+    <meta property="og:site_name" content="Lyme Regis Dog">
+    <meta property="og:locale" content="en_GB">
     <meta name="twitter:card" content="summary">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+      /* small additions for the written guide below the reviews */
+      .serv-guide { margin-top: 2rem; }
+      .serv-guide h2 { margin-top: 2rem; }
+      .serv-guide h3 { margin-bottom: .3rem; }
+      .serv-card {
+        border-left: 4px solid #2b7a8c;
+        padding: .2rem 0 .2rem 1rem;
+        margin: 1.6rem 0;
+      }
+      .serv-card .tagline { font-weight: 700; margin: .2rem 0 .6rem; color: #14682a; }
+      .urgent {
+        background: #fdecec;
+        border: 2px solid #e0a3a3;
+        border-radius: 10px;
+        padding: 1.1rem 1.2rem;
+        margin: 1.5rem 0;
+      }
+      .urgent h2 { margin-top: 0; color: #9c2b2b; }
+      .serv-note {
+        background: #fdf6e3;
+        border: 1px solid #e8d9a8;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .live-link {
+        background: #eef7fa;
+        border: 1px solid #cfe6ee;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .serv-guide details {
+        border-bottom: 1px solid #ddd;
+        padding: .7rem 0;
+      }
+      .serv-guide summary { cursor: pointer; font-weight: 700; }
+      .serv-guide details p { margin: .6rem 0 .2rem; }
+      .updated { font-size: .9rem; color: #666; margin-top: 2rem; }
+    </style>
+
+    <!-- Structured data: helps Google understand the page and show rich results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://lymeregisdog.com/services.html",
+          "name": "Dog Services in Lyme Regis: Vets, Groomers and More",
+          "description": "Vets, emergency cover, groomers, dog walkers, sitters and trainers in the Lyme Regis area, reviewed by local dog owners.",
+          "isPartOf": { "@type": "WebSite", "name": "Lyme Regis Dog", "url": "https://lymeregisdog.com/" },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lymeregisdog.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://lymeregisdog.com/services.html" }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is there a vet in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "There is veterinary provision in and around Lyme Regis, with further practices in Axminster, Charmouth and Bridport. Out-of-hours emergency cover is often handled by a different practice some distance away, so if you are visiting it is worth finding out before you need it. Community listings on this page show what local dog owners use."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What do I do if my dog is injured on the beach in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Phone a vet before travelling so they can prepare, and check whether the practice or its out-of-hours partner is the one to attend. Cut pads from fossil ledges and rocks are the most common beach injury here. Apply pressure with a clean cloth, keep the dog still, and carry it off the beach if you can rather than letting it walk on the wound."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are there dog groomers in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, there are groomers in Lyme Regis and the surrounding villages, including Uplyme, Charmouth and Axminster. Salt water, sand and clay from the Jurassic Coast are hard on coats, so many local dogs are groomed more often than they might be inland. Book ahead in the summer season."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I find a dog walker or sitter in Lyme Regis while on holiday?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Local dog walkers, sitters and daycare services operate in the Lyme Regis area and some will take holiday bookings, which is useful because many holiday cottages do not allow dogs to be left alone. Book well ahead in peak season, as local capacity is limited."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-
     <div class="breadcrumb-bar">
         <a href="index.html">🐾 Home</a>
         <span class="breadcrumb-sep">&gt;</span>
@@ -33,19 +136,154 @@
     </header>
 
     <div class="content-panel">
-
         <div class="section-content">
             <h2>Vets, Groomers, and More</h2>
             <p>Zoom in and out to click on any paw print on the map below to view community reviews.</p>
             <a href="submit.html" class="action-btn">🐾 Add your review Here!</a>
         </div>
 
-        <iframe src="map.html?cat=services" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no"></iframe>
+        <iframe src="map.html?cat=services" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no" title="Map of dog services in the Lyme Regis area"></iframe>
 
         <div class="section-content">
             <h2>All Dog-Friendly Services</h2>
             <div id="listing"><p>Loading reviews&hellip;</p></div>
         </div>
+
+        <!-- ================= WRITTEN GUIDE (below the reviews) ================= -->
+        <div class="section-content serv-guide">
+
+            <div class="urgent">
+                <h2>If your dog needs a vet now</h2>
+                <p><strong>Phone before you travel.</strong> Ring the practice first, whatever the hour. They will
+                tell you whether to come to them or to their out-of-hours partner, and they can prepare for you
+                arriving. Turning up unannounced at a closed surgery costs time you may not have.</p>
+                <p><strong>If you are visiting the area,</strong> the practice nearest your holiday cottage may not
+                be the one covering nights and weekends — out-of-hours cover is often provided by a partner
+                practice some miles away, in Axminster, Bridport or beyond. Worth establishing on day one of a
+                holiday rather than at ten o'clock at night.</p>
+                <p><strong>Know where you are.</strong> If you are on the coast path or a beach and need to
+                describe your location, a what3words reference is the quickest way to be found — the same system
+                we use for the paw prints on the map above.</p>
+                <p><strong>In a coastal emergency</strong> — a dog cut off by the tide, or fallen from a cliff
+                path — call <strong>999 and ask for the Coastguard</strong>. Please do not go after a dog onto the
+                shore below a rising tide or down a cliff. People drown doing this. The Coastguard would far
+                rather rescue your dog than both of you.</p>
+            </div>
+
+            <h2>Dog services around Lyme Regis</h2>
+
+            <p>For a town of this size, Lyme Regis is reasonably well served, and what is not here is generally
+            within a short drive — Uplyme, Charmouth, Axminster and Bridport all add to the options. The listings
+            above come from local dog owners rather than from directories, so they reflect who people actually use
+            and trust.</p>
+
+            <div class="serv-card">
+                <h3>Vets and out-of-hours cover</h3>
+                <p class="tagline">Find out where yours is before you need it</p>
+                <p>The single most useful thing a visitor can do is note down the nearest practice and its
+                out-of-hours arrangement on arrival. Residents: it is worth knowing your practice's emergency
+                partner too, because it is rarely the same building and rarely close by.</p>
+            </div>
+
+            <div class="serv-card">
+                <h3>Groomers</h3>
+                <p class="tagline">Salt, sand and Jurassic clay are hard on a coat</p>
+                <p>Dogs here get saltier and muddier than most. Sea water dries the coat and skin, sand works its
+                way into everything, and the blue clay along this coast stains and sets. Local groomers are used
+                to all of it. In summer, book ahead — capacity is limited and the visitor population multiplies.</p>
+            </div>
+
+            <div class="serv-card">
+                <h3>Dog walkers, sitters and daycare</h3>
+                <p class="tagline">Especially useful if your holiday let says "no dogs left alone"</p>
+                <p>A number of local walkers and sitters operate in the area, and some take holiday bookings. This
+                is genuinely worth knowing about, because many holiday cottages prohibit leaving a dog unattended
+                in the property — a sitter or daycare place can be the difference between eating out one evening
+                and not. Peak-season availability goes early.</p>
+            </div>
+
+            <div class="serv-card">
+                <h3>Trainers and behaviourists</h3>
+                <p class="tagline">Recall near livestock and cliff edges matters more here</p>
+                <p>Worth mentioning because of where we live. Solid recall is not a nicety on a coast path with
+                unfenced cliff edges and sheep in the fields either side. Local trainers know this terrain.</p>
+            </div>
+
+            <div class="serv-note">
+                <p><strong>🐾 Two hazards particular to this coast.</strong> First, <em>cut pads</em> — the fossil
+                ledges at Monmouth and the rocks at East Cliff are sharp, and pad injuries are the commonest thing
+                that spoils a holiday here. Second, <em>the cliffs themselves</em>: Black Ven and the Undercliffs
+                are actively unstable, and dogs do not understand edges. Keep to the path, keep away from the
+                cliff base, and see our <a href="beaches.html">beaches guide</a> for tide warnings.</p>
+            </div>
+
+            <div class="live-link">
+                <p><strong>🌡️ Before you set out today:</strong> the
+                <a href="Utilities.html">Dog Utilities page</a> shows a <em>too hot to walk?</em> check with
+                estimated pavement temperature and today's tide times. Heatstroke and burnt pads are both
+                avoidable, and both put dogs in front of a vet every summer.</p>
+            </div>
+
+            <h2>Registering with a vet if you have just moved here</h2>
+            <p>If you are new to the area, register with a practice before you need one, and take your dog's
+            vaccination and medical history with you. Ask specifically about the out-of-hours arrangement, whether
+            they run their own emergency service or use a partner, and how far away that is. Check too whether
+            your pet insurance requires you to use particular practices. It is a dull twenty minutes that pays for
+            itself the first time something goes wrong.</p>
+
+            <h2>Common questions</h2>
+
+            <details>
+                <summary>Is there a vet in Lyme Regis?</summary>
+                <p>There is veterinary provision locally, with more practices in Axminster, Charmouth and Bridport.
+                The listings above show what local owners use. Always ring first — out-of-hours cover may be
+                elsewhere.</p>
+            </details>
+
+            <details>
+                <summary>What if my dog is hurt on the beach?</summary>
+                <p>Phone a vet before travelling so they can prepare. Cut pads are the most common beach injury
+                here: apply pressure with a clean cloth, keep your dog still, and carry it off the beach rather
+                than letting it walk on the wound if you can manage it.</p>
+            </details>
+
+            <details>
+                <summary>My dog is cut off by the tide — what do I do?</summary>
+                <p>Call 999 and ask for the Coastguard. Do not go down after them. This coast catches people out
+                every year, and the Coastguard would rather come for the dog than for both of you.</p>
+            </details>
+
+            <details>
+                <summary>Are there groomers nearby?</summary>
+                <p>Yes, in Lyme Regis and the surrounding villages. Book ahead in summer. Sea salt and Jurassic
+                clay mean local dogs generally need grooming more often than inland ones.</p>
+            </details>
+
+            <details>
+                <summary>Can I get a dog walker or sitter while on holiday?</summary>
+                <p>Often yes, and it is worth arranging in advance — particularly as many holiday cottages do not
+                allow dogs to be left alone in the property. Local capacity is small, so peak weeks book up.</p>
+            </details>
+
+            <h2>Add a service you rate</h2>
+            <p>This is a community site, run locally and free to use — no adverts, no paid listings, and nobody
+            featured here has paid to be. If a vet, groomer, walker or sitter has looked after your dog well,
+            please <a href="submit.html">add a review</a>. Recommendations for this sort of thing are worth more
+            than any directory, and they are exactly what a worried visitor needs at nine o'clock on a Sunday
+            night.</p>
+
+            <p>You might also like our <a href="walks.html">dog-friendly walks</a>,
+            <a href="beaches.html">beaches</a>, <a href="cafes.html">cafés</a>,
+            <a href="shops.html">shops</a>, <a href="accommodation.html">accommodation</a>, the
+            <a href="dogfriendlymap.html">Dog-Friendly Walk Mapper</a>, and
+            <a href="wings.html">Angel Dogs</a> — our free camera that gives your dog a halo.</p>
+
+            <p class="updated">This page is general information from local dog owners, not veterinary advice. If
+            you are worried about your dog, contact a vet. Practices, opening hours and out-of-hours arrangements
+            change — always ring to confirm. Last reviewed: July 2026.</p>
+
+        </div>
+        <!-- ================= END WRITTEN GUIDE ================= -->
 
     </div>
 

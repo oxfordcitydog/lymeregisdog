@@ -8,19 +8,114 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog-Friendly Cafes - Lyme Regis Dog</title>
-    <meta name="description" content="Discover community-reviewed dog-friendly cafes in the Lyme Regis area, mapped with what3words locations and local reviews.">
-    <meta property="og:title" content="Dog-Friendly Cafes - Lyme Regis Dog">
-    <meta property="og:description" content="Discover community-reviewed dog-friendly cafes in the Lyme Regis area, mapped with what3words locations and local reviews.">
+    <title>Dog-Friendly Cafés in Lyme Regis | Where Dogs Are Really Welcome</title>
+    <meta name="description" content="Dog-friendly cafés, pubs and places to eat in Lyme Regis, reviewed by local dog owners. Which places bring a water bowl, which have shade or a warm corner, and what to expect with a wet, sandy dog.">
+    <link rel="canonical" href="https://lymeregisdog.com/cafes.html">
+    <meta property="og:title" content="Dog-Friendly Cafés in Lyme Regis | Where Dogs Are Really Welcome">
+    <meta property="og:description" content="Dog-friendly cafés and places to eat in Lyme Regis, reviewed by local dog owners — who brings a bowl, who has shade, and what to expect with a sandy dog.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lymeregisdog.com/cafes.html">
     <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
+    <meta property="og:site_name" content="Lyme Regis Dog">
+    <meta property="og:locale" content="en_GB">
     <meta name="twitter:card" content="summary">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+      /* small additions for the written guide below the reviews */
+      .cafe-guide { margin-top: 2rem; }
+      .cafe-guide h2 { margin-top: 2rem; }
+      .cafe-guide h3 { margin-bottom: .3rem; }
+      .cafe-card {
+        border-left: 4px solid #2b7a8c;
+        padding: .2rem 0 .2rem 1rem;
+        margin: 1.6rem 0;
+      }
+      .cafe-card .tagline { font-weight: 700; margin: .2rem 0 .6rem; color: #14682a; }
+      .cafe-note {
+        background: #fdf6e3;
+        border: 1px solid #e8d9a8;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .live-link {
+        background: #eef7fa;
+        border: 1px solid #cfe6ee;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .cafe-guide details {
+        border-bottom: 1px solid #ddd;
+        padding: .7rem 0;
+      }
+      .cafe-guide summary { cursor: pointer; font-weight: 700; }
+      .cafe-guide details p { margin: .6rem 0 .2rem; }
+      .updated { font-size: .9rem; color: #666; margin-top: 2rem; }
+    </style>
+
+    <!-- Structured data: helps Google understand the page and show rich results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://lymeregisdog.com/cafes.html",
+          "name": "Dog-Friendly Cafés in Lyme Regis",
+          "description": "Dog-friendly cafés and places to eat in Lyme Regis, reviewed by local dog owners, with notes on water bowls, shade, indoor space and access.",
+          "isPartOf": { "@type": "WebSite", "name": "Lyme Regis Dog", "url": "https://lymeregisdog.com/" },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lymeregisdog.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Cafés", "item": "https://lymeregisdog.com/cafes.html" }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Are cafés in Lyme Regis dog-friendly?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Many are. Most independent cafés, pubs and tea rooms in Lyme Regis welcome dogs, at least in outdoor seating areas, and a good number allow dogs inside as well. The main supermarkets do not admit dogs other than assistance dogs. Policies vary by season and by staff on the day, so it is always worth asking."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I take my dog inside a café in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Some cafés allow dogs throughout, some allow dogs in a bar or flagstone area but not in a carpeted dining room, and some are outdoor seating only. Businesses are legally allowed to admit dogs to areas where food is served, so it is their choice rather than a health rule. Ask at the door and you will rarely be refused."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Will cafés in Lyme Regis give my dog water?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Most will fill a bowl on request, and many put water out on the pavement in summer without being asked. Lyme Regis is hilly and exposed, so a dog arriving at a café has usually worked harder than its owner realises."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where can I sit outside with a dog in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The seafront along Marine Parade has the most outdoor tables, with sea views and space to tie a lead. Broad Street and the streets around the artisan quarter have smaller courtyards and sheltered corners that are better on windy days."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-
     <div class="breadcrumb-bar">
         <a href="index.html">🐾 Home</a>
         <span class="breadcrumb-sep">&gt;</span>
@@ -33,19 +128,135 @@
     </header>
 
     <div class="content-panel">
-
         <div class="section-content">
             <h2>Find a Cozy Spot</h2>
             <p>Zoom in and out to click on any paw print on the map below to view community reviews.</p>
             <a href="submit.html" class="action-btn">🐾 Add your review Here!</a>
         </div>
 
-        <iframe src="map.html?cat=Cafes" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no"></iframe>
+        <iframe src="map.html?cat=Cafes" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no" title="Map of dog-friendly cafés in the Lyme Regis area"></iframe>
 
         <div class="section-content">
             <h2>All Dog-Friendly Cafes</h2>
             <div id="listing"><p>Loading reviews&hellip;</p></div>
         </div>
+
+        <!-- ================= WRITTEN GUIDE (below the reviews) ================= -->
+        <div class="section-content cafe-guide">
+
+            <div class="live-link">
+                <p><strong>☕ Out walking now?</strong> Our <a href="Utilities.html">Dog Utilities page</a> shows
+                today's tides and a <em>too hot to walk?</em> check — useful for deciding whether to stop in the
+                shade before carrying on. Heading somewhere afterwards? See our
+                <a href="walks.html">dog-friendly walks</a> and
+                <a href="beaches.html">beaches</a>.</p>
+            </div>
+
+            <h2>Taking a dog for coffee in Lyme Regis</h2>
+
+            <p>Lyme Regis is a good town for this. It is small, largely independent, and used to visitors arriving
+            damp and sandy with a dog attached — so the welcome is generally warm rather than merely tolerated.
+            Most cafés, pubs and tea rooms here allow dogs in outdoor seating at minimum, and a great many are
+            happy to have them inside too. The main exceptions are the supermarkets, which admit assistance dogs
+            only.</p>
+
+            <p>What varies is not really <em>whether</em> dogs are allowed but <em>how</em> welcome they are, and
+            that is what our community reviews above are for. A place that keeps bowls by the door and doesn't
+            mind a wet Labrador on the flagstones is a different proposition from one that will grudgingly let you
+            sit at the furthest outside table in a gale.</p>
+
+            <h2>What to look for, by where you are</h2>
+
+            <div class="cafe-card">
+                <h3>Along the seafront and Marine Parade</h3>
+                <p class="tagline">Best for: sea views, outdoor tables, after-beach stops</p>
+                <p>The greatest concentration of outdoor seating, and the obvious stop after a beach walk. Tables
+                face the bay, there is usually room to settle a dog beside you, and staff here are the most used
+                to sandy paws. Downside: it is exposed. On a windy day the front can be genuinely unpleasant, and
+                in high summer the tables fill early.</p>
+            </div>
+
+            <div class="cafe-card">
+                <h3>Broad Street and the town centre</h3>
+                <p class="tagline">Best for: shelter, a warm corner, winter walks</p>
+                <p>Up the hill from the front, the town centre cafés and pubs offer more indoor options and a good
+                deal more shelter. Several old buildings here have flagstone floors and a fire in winter, which is
+                exactly what you want after a wet walk. Pavements are narrow, so a well-behaved dog under the
+                table is appreciated.</p>
+            </div>
+
+            <div class="cafe-card">
+                <h3>The harbour and Cobb end</h3>
+                <p class="tagline">Best for: a stop mid-walk, watching boats</p>
+                <p>Handy if you are walking the Cobb or heading to Monmouth Beach. Remember that dogs must be on a
+                lead along the harbour, the Cobb and the sea walls, so plan for a lead-on approach and departure.</p>
+            </div>
+
+            <div class="cafe-note">
+                <p><strong>🐾 A small local courtesy.</strong> Almost everywhere here will fill a water bowl if
+                you ask — you rarely need to carry water for the town itself, only for the walks. If a café goes
+                out of its way for your dog, the kindest thank-you is a review: please
+                <a href="submit.html">add it above</a> so other owners know, and tell the staff you have. Small
+                independent places notice.</p>
+            </div>
+
+            <h2>Making it easy for everyone</h2>
+            <p>A few things that keep dogs welcome in a town this size. Towel the worst of the sea off before you
+            go in — most café floors here have seen worse, but it is appreciated. Keep leads short in doorways and
+            on the narrow pavements of Broad Street. Ask before assuming an indoor room is fine, because some
+            places allow dogs in one part and not another. And in summer, choose shade over a sea view if your dog
+            is dark-coated; a black dog on hot paving is having a much worse time than you are.</p>
+
+            <h2>Common questions</h2>
+
+            <details>
+                <summary>Are cafés in Lyme Regis dog-friendly?</summary>
+                <p>Most independent cafés, pubs and tea rooms welcome dogs at least outside, and many allow them
+                indoors as well. Supermarkets are the main exception, admitting assistance dogs only. Policies do
+                vary with the season and with whoever is on shift, so it is always worth asking.</p>
+            </details>
+
+            <details>
+                <summary>Can dogs go inside where food is served?</summary>
+                <p>Yes — it is the business's choice, not a hygiene rule. Food premises are permitted to allow
+                dogs in customer areas. That is why one café says yes and the one next door says outside only.</p>
+            </details>
+
+            <details>
+                <summary>Will they give my dog water?</summary>
+                <p>Almost always, on request, and many put a bowl out in summer unprompted. Worth knowing after
+                the climb up from the beach.</p>
+            </details>
+
+            <details>
+                <summary>Is anywhere good with a wet or sandy dog?</summary>
+                <p>The seafront places are the most used to it, and anywhere with a flagstone or tiled floor is a
+                safer bet than a carpeted dining room. Check the reviews above — our community flags the genuinely
+                relaxed ones.</p>
+            </details>
+
+            <details>
+                <summary>Do any do something for the dog?</summary>
+                <p>Several places in town offer dog treats, and there is dog ice cream to be found on the front in
+                summer. Reviewers note these where they find them, so the list above is the place to look.</p>
+            </details>
+
+            <h2>Tell us where you were made welcome</h2>
+            <p>This is a community site, run locally and free to use — no adverts, no listings for sale, and no
+            payment from anywhere featured. Everything above comes from dog owners who actually went. If a café,
+            pub or tea room looked after you and your dog, please <a href="submit.html">add a review</a> so the
+            next person knows where to go.</p>
+
+            <p>You might also like our <a href="walks.html">dog-friendly walks</a>,
+            <a href="beaches.html">beaches</a>, <a href="shops.html">shops</a>,
+            <a href="dogfriendlymap.html">Dog-Friendly Walk Mapper</a>, and
+            <a href="wings.html">Angel Dogs</a> — our free camera that gives your dog a halo.</p>
+
+            <p class="updated">Dog policies are set by each business and can change, particularly between summer
+            and winter. Please check on the day. Last reviewed: July 2026.</p>
+
+        </div>
+        <!-- ================= END WRITTEN GUIDE ================= -->
 
     </div>
 

@@ -8,19 +8,116 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog-Friendly Beaches - Lyme Regis Dog</title>
-    <meta name="description" content="Discover community-reviewed dog-friendly beaches in the Lyme Regis area, plus seasonal dog restriction dates, mapped with what3words locations.">
-    <meta property="og:title" content="Dog-Friendly Beaches - Lyme Regis Dog">
-    <meta property="og:description" content="Discover community-reviewed dog-friendly beaches in the Lyme Regis area, plus seasonal dog restriction dates, mapped with what3words locations.">
+    <title>Dog-Friendly Beaches in Lyme Regis | Rules, Tides &amp; Reviews</title>
+    <meta name="description" content="Which Lyme Regis beaches allow dogs, and when. Front Beach seasonal ban dates, Monmouth, Church Cliff and East Cliff — with tide warnings, parking and community reviews from local dog owners.">
+    <link rel="canonical" href="https://lymeregisdog.com/beaches.html">
+    <meta property="og:title" content="Dog-Friendly Beaches in Lyme Regis | Rules, Tides &amp; Reviews">
+    <meta property="og:description" content="Which Lyme Regis beaches allow dogs, and when. Seasonal ban dates, tide warnings, parking and reviews from local dog owners.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lymeregisdog.com/beaches.html">
     <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
+    <meta property="og:site_name" content="Lyme Regis Dog">
+    <meta property="og:locale" content="en_GB">
     <meta name="twitter:card" content="summary">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+      /* small additions for the written guide below the map */
+      .beach-guide { margin-top: 2rem; }
+      .beach-guide h2 { margin-top: 2rem; }
+      .beach-guide h3 { margin-bottom: .3rem; }
+      .beach-card {
+        border-left: 4px solid #2b7a8c;
+        padding: .2rem 0 .2rem 1rem;
+        margin: 1.6rem 0;
+      }
+      .beach-card .tagline { font-weight: 700; margin: .2rem 0 .6rem; }
+      .yes { color: #14682a; }
+      .seasonal { color: #a8620a; }
+      .tide-note {
+        background: #fdf6e3;
+        border: 1px solid #e8d9a8;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .live-link {
+        background: #eef7fa;
+        border: 1px solid #cfe6ee;
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        margin: 1.5rem 0;
+      }
+      .beach-guide details {
+        border-bottom: 1px solid #ddd;
+        padding: .7rem 0;
+      }
+      .beach-guide summary { cursor: pointer; font-weight: 700; }
+      .beach-guide details p { margin: .6rem 0 .2rem; }
+      .updated { font-size: .9rem; color: #666; margin-top: 2rem; }
+    </style>
+
+    <!-- Structured data: helps Google understand the page and show rich results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://lymeregisdog.com/beaches.html",
+          "name": "Dog-Friendly Beaches in Lyme Regis",
+          "description": "Which Lyme Regis beaches allow dogs and when, with seasonal restriction dates, tide safety notes, parking and community reviews.",
+          "isPartOf": { "@type": "WebSite", "name": "Lyme Regis Dog", "url": "https://lymeregisdog.com/" },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lymeregisdog.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Beaches", "item": "https://lymeregisdog.com/beaches.html" }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Are dogs allowed on Lyme Regis beaches?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Dogs are welcome all year round on Monmouth Beach, Church Cliff Beach and East Cliff Beach. Front Beach, the main sandy beach in the town, has a seasonal ban from 1 May to 30 September, so dogs are allowed there from 1 October to 30 April."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which Lyme Regis beach is best for dogs in summer?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Monmouth Beach is the usual choice in summer. It is dog-friendly all year, it is long enough to find quiet space away from the crowds, and it leads west towards the Undercliffs and the South West Coast Path."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do dogs have to be on a lead in Lyme Regis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Dogs must be kept on a lead on Marine Parade, Cart Road, the harbour, the Cobb, the sea walls, slipways and the town car parks. On the dog-friendly beaches themselves dogs may be off lead, provided they are under control."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can you get cut off by the tide on Lyme Regis beaches?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. The sand at Church Cliff and East Cliff disappears quickly on a rising tide and walkers heading east towards Charmouth can be cut off. Always check the tide before setting out and plan your route back."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-
     <div class="breadcrumb-bar">
         <a href="index.html">🐾 Home</a>
         <span class="breadcrumb-sep">&gt;</span>
@@ -28,27 +125,166 @@
     </div>
 
     <header>
-        <h1>Dog-Friendly Beaches in the Lyme Regis Area </h1>
+        <h1>Dog-Friendly Beaches in the Lyme Regis Area</h1>
         <p>Zoom in or out to find more reviews. Multiple reviews are allowed for the same place.</p>
     </header>
 
     <div class="content-panel">
-
         <div class="section-content">
             <h2>Find a Beach</h2>
             <p>Zoom in and out to click on any paw print on the map below to view community reviews.</p>
             <a href="submit.html" class="action-btn">🐾Add your review Here!</a>
         </div>
 
-        <iframe src="map.html?cat=Beaches" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no"></iframe>
+        <iframe src="map.html?cat=Beaches" width="100%" height="605px" style="border:none; display:block; overflow:hidden;" scrolling="no" title="Map of dog-friendly beaches in the Lyme Regis area"></iframe>
 
         <div class="section-content">
             <h2>All Dog-Friendly Beaches</h2>
             <div id="listing"><p>Loading reviews&hellip;</p></div>
         </div>
 
+        <!-- ================= WRITTEN GUIDE (below the map, as requested) ================= -->
+        <div class="section-content beach-guide">
+
+            <div class="live-link">
+                <p><strong>🏖️ In a hurry?</strong> Our <a href="Utilities.html">Dog Utilities page</a> answers
+                <em>“can my dog go on the beach right now?”</em> for today's date, alongside the next high and low
+                tide and a <strong>too hot to walk?</strong> check that estimates pavement temperature. Worth a look
+                before you set off, especially in summer.</p>
+            </div>
+
+            <h2>Which Lyme Regis beaches allow dogs?</h2>
+
+            <p>Lyme Regis is a genuinely good place to bring a dog, but the rules are not the same on every beach,
+            and the one beach most visitors walk to first — the sandy one in the middle of town — is the one dogs
+            cannot use in summer. Three of the four beaches welcome dogs all year round. Here is the plain version,
+            written by someone who walks these beaches most mornings with a black Labrador.</p>
+
+            <div class="beach-card">
+                <h3>Monmouth Beach</h3>
+                <p class="tagline yes">Dogs welcome all year round</p>
+                <p>The long pebble beach west of the Cobb, and the one we use most in summer. It stretches for
+                about a mile, so even in August you can walk far enough along to find quiet space. The pebbles
+                give way to rocky ledges as you go west — this is the famous Ammonite Pavement, where fossil
+                spirals sit embedded in the rock. Beyond it the beach becomes the access point for the Undercliffs
+                National Nature Reserve and the South West Coast Path towards Axmouth.</p>
+                <p>Worth knowing: pebbles get hot, and the walk in from the car park is longer than it looks.
+                Leads are required on the slipways and sea walls getting there.</p>
+            </div>
+
+            <div class="beach-card">
+                <h3>Church Cliff Beach</h3>
+                <p class="tagline yes">Dogs welcome all year round</p>
+                <p>East of the town, reached along Gunn Cliff Walk and the Church Cliff walkway. Quieter than
+                Front Beach and popular with fossil hunters. Dogs must be on a lead near the sea wall above the
+                beach itself.</p>
+                <p>Worth knowing: this is a tide-dependent beach. The sand goes quickly as the water comes in.</p>
+            </div>
+
+            <div class="beach-card">
+                <h3>East Cliff Beach</h3>
+                <p class="tagline yes">Dogs welcome all year round</p>
+                <p>Further east again, continuing towards Charmouth, with big views back along the Jurassic Coast
+                towards Golden Cap. Excellent for fossil hunting and rock pools, and usually the emptiest of the
+                four. Reached via Church Cliff Walk, roughly ten minutes from Front Beach, with steps.</p>
+                <p>Worth knowing: the cliffs here are unstable — admire Black Ven from a distance and only pick up
+                fossils already loose on the beach. Check the tide before you commit to walking east.</p>
+            </div>
+
+            <div class="beach-card">
+                <h3>Front Beach (the main sandy beach)</h3>
+                <p class="tagline seasonal">Seasonal — no dogs 1 May to 30 September</p>
+                <p>The sandy beach on the promenade, beside the Cobb. This is the one with the seasonal ban:
+                dogs are not permitted between 1 May and 30 September, and are welcome from 1 October to
+                30 April. Out of season it is a lovely winter dog beach — actual sand rather than pebbles, easy
+                access, and cafés a few steps away.</p>
+                <p>Worth knowing: our <a href="Utilities.html">Utilities page</a> counts down the days until dogs
+                are welcome back, so you don't have to remember the date.</p>
+            </div>
+
+            <div class="tide-note">
+                <p><strong>🌊 A word about tides, because it matters here.</strong> The sand at Church Cliff and
+                East Cliff vanishes fast on a rising tide, and people walking east towards Charmouth do get cut
+                off — every year. Check the tide before you go, know when the water turns, and give yourself
+                more time coming back than you think you need. Tide predictions on our
+                <a href="Utilities.html">Utilities page</a> come from Open-Meteo and are estimates for planning
+                a walk, not for navigation. If you want to sketch out your route before you go, our
+                <a href="dogfriendlymap.html">Dog-Friendly Walk Mapper</a> lets you draw the path, mark water
+                stops, and save a link to share.</p>
+            </div>
+
+            <h2>Where dogs must be on a lead</h2>
+            <p>Away from the beaches themselves, dogs need to be on a lead along Marine Parade, Cart Road,
+            Bell Cliff, the harbour and the Cobb, the sea walls and slipways, Ozone Terrace, the entrance to
+            Cobb Road, the public car parks and boat park, Cobb Gate car park, Gunn Cliff Walk, the Church
+            Cliff walkway, and the steps up to Charmouth Road car park. In practice: lead on through the town
+            and along the front, off on the dog-friendly beaches once you are down there and your dog is
+            under control.</p>
+
+            <h2>Getting there: parking and buses</h2>
+            <p>Lyme Regis is steep, and where you park decides how much of a climb you and your dog face on the
+            way back. Charmouth Road car park is the main long-stay option above the town, with steps down to
+            the seafront. Holmbush is the other big one, up on the west side. Cobb Gate and Monmouth Beach car
+            parks are closer to the water and fill early in summer. Current charges and locations are on the
+            <a href="https://www.dorsetcouncil.gov.uk/parking-roads-and-travel/parking" target="_blank" rel="noopener">Dorset Council parking pages</a>,
+            and the town council lists local facilities at
+            <a href="https://www.lymeregistowncouncil.gov.uk/" target="_blank" rel="noopener">lymeregistowncouncil.gov.uk</a>.</p>
+            <p>If you would rather not drive in at all, the <strong>X51 and X53 bus services</strong> connect Lyme
+            Regis with Axminster, Bridport and Dorchester, and Axminster is the nearest railway station, about
+            five miles away. Dogs travel free on most local buses at the driver's discretion. Timetables are on
+            <a href="https://www.travelinesw.com/" target="_blank" rel="noopener">Traveline South West</a>.</p>
+
+            <h2>Common questions</h2>
+
+            <details>
+                <summary>Are dogs allowed on Lyme Regis beaches?</summary>
+                <p>On three of them, all year: Monmouth, Church Cliff and East Cliff. Front Beach, the sandy one
+                in the middle of town, is closed to dogs from 1 May to 30 September and open to them from
+                1 October to 30 April.</p>
+            </details>
+
+            <details>
+                <summary>Which beach is best with a dog in summer?</summary>
+                <p>Monmouth Beach. It is dog-friendly year round and long enough that you can walk away from the
+                crowds. Early morning or evening is kindest on hot days — the pebbles hold heat.</p>
+            </details>
+
+            <details>
+                <summary>Can my dog be off the lead?</summary>
+                <p>Yes on the dog-friendly beaches, provided they are under control. No along the promenade,
+                harbour, Cobb, sea walls and car parks, where leads are required.</p>
+            </details>
+
+            <details>
+                <summary>Is there anywhere to get water for a dog?</summary>
+                <p>Several cafés along the front will fill a bowl if you ask, and many put one outside in
+                summer. Our <a href="cafes.html">dog-friendly cafés page</a> has community reviews of who is
+                genuinely welcoming rather than merely tolerant.</p>
+            </details>
+
+            <details>
+                <summary>Can dogs go fossil hunting on the beach?</summary>
+                <p>Yes — Monmouth, Church Cliff and East Cliff are all fossil beaches and all dog-friendly.
+                Keep dogs away from the cliff bases, which are unstable, and watch paws on the sharper ledges.</p>
+            </details>
+
+            <h2>Add what you know</h2>
+            <p>This is a community site, run locally and free to use — no adverts, nothing for sale. If you have
+            walked a beach here with your dog, please
+            <a href="submit.html">add a review</a> so the next visitor knows what to expect. You might also like
+            our <a href="walks.html">dog-friendly walks</a>, our
+            <a href="dogfriendlymap.html">dog walk route planner</a>, and
+            <a href="wings.html">Angel Dogs</a>, our free camera that gives your dog a halo.</p>
+
+            <p class="updated">Beach restrictions are set by Lyme Regis Town Council and can change. Please check
+            current signage on the day, or the
+            <a href="https://www.lymeregistowncouncil.gov.uk/" target="_blank" rel="noopener">town council's dog control information</a>,
+            before you travel. Last reviewed: July 2026.</p>
+
+        </div>
+        <!-- ================= END WRITTEN GUIDE ================= -->
+
     </div>
-    
 
     <script src="category-listing.js" data-category="beaches"></script>
 </body>

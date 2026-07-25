@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shirts — Jane Yates Cyanotypes</title>
+<meta name="description" content="Wearable art: limited edition shirts printed with original cyanotype artworks by Jane Yates, made to order in the UK. £200 each including UK delivery.">
+<meta property="og:title" content="Shirts — Jane Yates Cyanotypes">
+<meta property="og:description" content="Wearable art editions: limited edition shirts printed with Jane Yates cyanotype artworks, made to order. £200 including UK delivery.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="jane14-wm.jpg">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="icon-512.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#08142e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#08142e;
+  --ink2:#0d1f42;
+  --ink3:#16305e;
+  --paper:#e9eef5;
+  --paper-dim:#a9b8ce;
+  --cyan:#7fb4d8;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--cyan);color:var(--ink)}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 5vw;
+  background:linear-gradient(to bottom,rgba(8,20,46,.92),rgba(8,20,46,0));
+}
+nav .wordmark{
+  font-family:var(--serif);font-size:1.3rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--paper);text-decoration:none;
+}
+nav ul{display:flex;gap:34px;list-style:none}
+nav a{color:var(--paper-dim);text-decoration:none;font-size:.78rem;
+  letter-spacing:.22em;text-transform:uppercase;transition:color .3s}
+nav a:hover,nav a:focus{color:#fff}
+@media(max-width:640px){nav{padding:14px 4vw}nav ul{gap:8px;flex-wrap:wrap;justify-content:flex-end;row-gap:8px}nav a{background:rgba(8,20,46,.62);padding:7px 12px;border-radius:999px;color:#fff;letter-spacing:.1em;white-space:nowrap;font-size:.72rem;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}}
+.shop-head{padding:150px 6vw 0;max-width:1200px;margin:0 auto}
+.section-head{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(1.9rem,4.5vw,3rem);letter-spacing:.04em;margin-bottom:14px;
+}
+.rule{width:64px;height:1px;background:var(--cyan);margin:0 0 34px;border:0}
+.lede{max-width:640px;color:var(--paper-dim);font-size:1.02rem}
+.shop-terms{max-width:640px;color:var(--paper-dim);font-size:.82rem;margin-top:18px}
+.shop-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:54px 30px;max-width:1200px;margin:64px auto 0;padding:0 6vw 110px;
+}
+@media(max-width:520px){.shop-grid{grid-template-columns:1fr 1fr;gap:40px 18px}}
+.item{display:flex;flex-direction:column}
+.item .frame{
+  background:var(--ink2);overflow:hidden;
+  box-shadow:0 14px 34px -16px rgba(0,0,0,.85);
+}
+.item .frame a{display:block}
+.item img{
+  width:100%;display:block;aspect-ratio:3/4;object-fit:cover;
+  transition:transform 1.1s cubic-bezier(.2,.6,.2,1),filter 1.1s;
+  filter:saturate(.96);
+}
+.item:hover img{transform:scale(1.035);filter:saturate(1.08)}
+.item .info{padding:14px 2px 0;display:flex;flex-direction:column;flex:1}
+.item .t{font-family:var(--serif);font-size:1.15rem;letter-spacing:.02em;line-height:1.35}
+.item .t a{color:inherit;text-decoration:none}
+.item .t a:hover{color:var(--cyan)}
+.item .n{font-size:.62rem;letter-spacing:.2em;color:var(--paper-dim);text-transform:uppercase;margin-top:2px}
+.item .size{font-size:.78rem;color:var(--paper-dim);margin-top:8px}
+.item .price{font-family:var(--serif);font-size:1.3rem;color:var(--paper);margin-top:8px}
+.item .price .ship{display:block;font-family:var(--sans);font-size:.68rem;letter-spacing:.04em;color:var(--paper-dim)}
+.item .actions{margin-top:16px}
+.btn{
+  display:inline-block;border:1px solid var(--cyan);color:var(--paper);
+  text-decoration:none;letter-spacing:.2em;text-transform:uppercase;
+  font-size:.7rem;padding:13px 26px;transition:background .35s,color .35s;
+}
+.btn:hover,.btn:focus{background:var(--cyan);color:var(--ink)}
+.detail-link{
+  display:inline-block;margin-top:12px;color:var(--paper-dim);text-decoration:none;
+  font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  border-bottom:1px solid rgba(169,184,206,.35);transition:color .3s,border-color .3s;
+}
+.detail-link:hover,.detail-link:focus{color:#fff;border-color:#fff}
+footer{
+  padding:40px 6vw 50px;text-align:center;color:var(--paper-dim);
+  font-size:.78rem;letter-spacing:.06em;
+}
+footer a{color:var(--paper-dim)}
+footer a:hover{color:var(--paper)}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+.thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.thumbs img{width:44px;height:44px;object-fit:cover;border-radius:4px;cursor:pointer;opacity:.7;transition:opacity .2s;border:1px solid rgba(8,20,46,.15)}
+.thumbs img:hover{opacity:1}
+</style>
+</head>
+<body>
+<nav aria-label="Main">
+  <a class="wordmark" href="index.html">Jane Yates</a>
+  <ul>
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="shop.html">Original Art</a></li>
+    <li><a href="tshirts.html">Shirts</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="enquiries.html">Contact</a></li>
+  </ul>
+</nav>
+<main>
+<header class="shop-head">
+  <h1 class="section-head">Shirts</h1>
+  <hr class="rule">
+  <p class="lede">Wearable art editions &mdash; shirts printed with artworks from <em>Blueprints of Technology</em>,
+    made to order in the UK and posted directly to you. Every design is a <strong>limited edition of five</strong> — once the five are worn, that design is retired.
+    Each is <strong>&pound;200 including UK delivery</strong> (UK addresses only).
+    Images below are low-resolution previews marked &ldquo;SAMPLE&rdquo;; the printed shirt carries the full artwork, no watermark. Prefer the real thing? Browse the <a href="shop.html">original prints</a>.</p>
+  <p class="shop-terms"><strong>How to order:</strong> press Buy, and when PayPal asks for a note, please include your
+    <strong>size (S, M, L, XL or 2XL)</strong> and your UK delivery address. Please choose &ldquo;goods and services&rdquo; when paying.
+    Each shirt is printed for you on demand, so please allow up to <strong>20 days</strong> for it to arrive in the post. The button shirt is a lightweight woven polyester (the fabric that makes all-over printing possible), printed, cut and sewn to order; the tees are soft organic cotton.
+    Made-to-order items can be returned within 14 days of delivery if faulty or not as described.</p>
+</header>
+<!-- oncontextmenu is a courtesy speed-bump only: it stops casual right-click saving.
+     Real protection is that these previews are low-resolution with SAMPLE baked into the pixels,
+     and the full-resolution artwork files are never uploaded to this site at all. -->
+<div class="shop-grid" id="shop-grid" oncontextmenu="return false"></div>
+</main>
+<footer>
+  &copy; <span id="yr"></span> Jane Yates &middot; Lyme Regis, UK &middot;
+  <a href="enquiries.html">Contact</a> &middot;
+  <a href="https://linktr.ee/janeyatesartist" rel="noopener">Linktree</a> &middot;
+  <a href="https://x.com/janeyatesartist" rel="noopener">X</a> &middot;
+  <a href="https://www.instagram.com/janeyatesartist" rel="noopener">Instagram</a> &middot;
+  <a href="https://uk.pinterest.com/JaneYatesArtist/" rel="noopener">Pinterest</a><br>
+  Also by Jane: <a href="https://lymeregisdog.com" rel="noopener">LymeRegisDog.com</a>
+</footer>
+<script>
+/* ------- FOR-SALE PIECES -------
+   Prices and details mirror the individual piece pages.
+   If a piece sells, delete its line here AND update its own page. */
+const items = [
+ {num:2, title:"Boom Box Button Shirt", size:"All-over print unisex shirt · woven polyester · sizes 2XS–6XL", price:200, ed:5, left:5, img:"shirt2-5.jpg", art:"cyanotypejane2.html", imgs:["shirt2-5.jpg","shirt2-1.jpg","shirt2-12.jpg","shirt2-6.jpg","shirt2-4.jpg","shirt2-7.jpg","shirt2-8.jpg","shirt2-9.jpg","shirt2-11.jpg","shirt2-15.jpg","shirt2-2.jpg","shirt2-3.jpg","shirt2-10.jpg","shirt2-13.jpg","shirt2-14.jpg"], alt:"All-over print unisex button shirt in a dense check pattern of repeated 1980s boom box cyanotypes, deep blue and cream, with a Jane Yates copyright watermark"},
+ {num:25, title:"Computer Parts Button Shirt", size:"All-over print unisex shirt · woven polyester · sizes 2XS–6XL", price:200, ed:5, left:5, img:"shirt25-3.jpg", art:"cyanotypejane25.html", imgs:["shirt25-3.jpg","shirt25-1.jpg","shirt25-8.jpg","shirt25-5.jpg","shirt25-6.jpg","shirt25-4.jpg","shirt25-10.jpg","shirt25-2.jpg","shirt25-7.jpg","shirt25-9.jpg"], alt:"All-over print unisex button shirt covered in a mirrored cyanotype pattern of salvaged computer parts in Prussian blue and cream, with a Jane Yates copyright watermark"},
+ {num:26, title:"Phone Keypads Button Shirt", size:"All-over print unisex shirt · woven polyester · sizes 2XS–6XL", price:200, ed:5, left:5, img:"shirt26-5.jpg", art:"cyanotypejane26.html", imgs:["shirt26-5.jpg","shirt26-1.jpg","shirt26-12.jpg","shirt26-7.jpg","shirt26-6.jpg","shirt26-4.jpg","shirt26-8.jpg","shirt26-11.jpg","shirt26-14.jpg","shirt26-2.jpg","shirt26-3.jpg","shirt26-10.jpg","shirt26-13.jpg","shirt26-9.jpg"], alt:"All-over print unisex button shirt covered in a cyanotype pattern of telephone keypad membranes glowing like tower-block windows at night, with a Jane Yates copyright watermark"},
+ {num:25, title:"Computer Parts Tee", size:"Unisex organic cotton T-shirt · sizes S–2XL", price:200, ed:5, left:5, img:"tee25-th.jpg", art:"cyanotypejane25.html", alt:"Preview of a T-shirt artwork: cyanotype collage of salvaged computer parts in deep Prussian blue, marked with a repeating SAMPLE watermark"},
+ {num:26, title:"Phone Keypads Tee",  size:"Unisex organic cotton T-shirt · sizes S–2XL", price:200, ed:5, left:5, img:"tee26-th.jpg", art:"cyanotypejane26.html", alt:"Preview of a T-shirt artwork: cyanotype of glowing telephone keypad membranes on midnight blue, marked with a repeating SAMPLE watermark"},
+];
+/* ------------------------------------------- */
+const grid = document.getElementById('shop-grid');
+items.forEach(w=>{
+  const page = w.art;
+  const el = document.createElement('div');
+  el.className = 'item';
+  el.innerHTML = `
+    <div class="frame">
+      <a href="${page}" aria-label="${w.title} — see the original artwork">
+        <img src="${w.img}" alt="${w.alt}" loading="lazy">
+      </a>
+    </div>
+    ${w.imgs ? `<div class="thumbs">${w.imgs.map((f,i)=>`<img src="${f}" alt="View ${i+1} of ${w.title}" loading="lazy" onclick="this.closest('.item').querySelector('.frame img').src=this.src">`).join('')}</div>` : ``}
+    <div class="info">
+      <span class="t"><a href="${page}">${w.title}</a></span>
+      <span class="n">Printed with artwork No. ${String(w.num).padStart(2,'0')}</span>
+      <span class="size">${w.size}</span>
+      <span class="price">&pound;${w.price}<span class="ship">Includes UK delivery</span></span>
+      <span class="size" style="letter-spacing:.04em">${w.left>0 ? `Limited edition of ${w.ed} — <strong>${w.left} of ${w.ed} remaining</strong>` : `Limited edition of ${w.ed} — <strong>sold out</strong>`}</span>
+      <div class="actions">
+        ${w.left>0 ? `<a class="btn" href="https://www.paypal.com/paypalme/janeyates1/${w.price}GBP" rel="noopener" target="_blank">Buy · &pound;${w.price}</a>` : `<span class="btn" style="opacity:.45;pointer-events:none">Sold out</span>`}<br>
+        <a class="detail-link" href="${page}">See the original artwork</a>
+      </div>
+    </div>`;
+  grid.appendChild(el);
+});
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

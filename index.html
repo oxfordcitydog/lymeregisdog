@@ -1,376 +1,506 @@
-<!DOCTYPE html>
-<html lang="en-GB">
+<!DOCTYPE html> 
+<html lang="en"> 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jane Yates &mdash; Cyanotypes</title>
-<meta name="description" content="Blueprints of Technology: original cyanotype prints by artist Jane Yates, sun-printed in Prussian blue from salvaged computer parts and obsolete technology. Unique A3 artworks for sale.">
-<meta property="og:title" content="Jane Yates &mdash; Cyanotypes">
-<meta property="og:description" content="Blueprints of Technology: cyanotype impressions using old computer parts. Original artworks by Jane Yates.">
-<meta property="og:type" content="website"> 
-<meta property="og:image" content="jane14-wm.jpg">
-<link rel="icon" href="favicon.ico" sizes="32x32">
-<link rel="icon" href="favicon-16.png" type="image/png" sizes="16x16">
-<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
-<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
-<link rel="icon" href="icon-512.png" type="image/png" sizes="512x512">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#08142e">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;900&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#08142e;          /* deepest prussian */
-  --ink2:#0d1f42;         /* panel blue */
-  --ink3:#16305e;         /* lifted blue */
-  --paper:#e9eef5;        /* cyanotype paper white */
-  --paper-dim:#a9b8ce;
-  --cyan:#7fb4d8;         /* pale process blue */
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'Inter',Arial,sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--ink);
-  color:var(--paper);
-  font-family:var(--sans);
-  font-weight:300;
-  line-height:1.7;
-  -webkit-font-smoothing:antialiased;
-}
-::selection{background:var(--cyan);color:var(--ink)}
-/* ---------- header ---------- */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:50;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:20px 5vw;
-  background:linear-gradient(to bottom,rgba(8,20,46,.92),rgba(8,20,46,0));
-}
-nav .wordmark{
-  font-family:var(--serif);font-size:1.3rem;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--paper);text-decoration:none;
-}
-nav ul{display:flex;gap:34px;list-style:none}
-nav a{color:var(--paper-dim);text-decoration:none;font-size:.78rem;
-  letter-spacing:.22em;text-transform:uppercase;transition:color .3s}
-nav a:hover,nav a:focus{color:#fff}
-@media(max-width:640px){nav{padding:14px 4vw}nav ul{gap:8px;flex-wrap:wrap;justify-content:flex-end;row-gap:8px}nav a{background:rgba(8,20,46,.62);padding:7px 12px;border-radius:999px;color:#fff;letter-spacing:.1em;white-space:nowrap;font-size:.72rem;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}}
-/* ---------- hero ---------- */
-.hero{
-  min-height:100svh;display:flex;flex-direction:column;
-  justify-content:center;align-items:center;text-align:center;
-  padding:0 6vw;position:relative;overflow:hidden;
-}
-.hero::before{ /* the cyanotype print itself, tinted to the site's ink blue, with the original glow screened on top */
-  content:"";position:absolute;inset:-20%;
-  background-image:
-    radial-gradient(ellipse 60% 45% at 50% 42%,rgba(127,180,216,.20),transparent 65%),
-    linear-gradient(var(--ink),var(--ink)),
-    url("jane14-wm.jpg");
-  background-blend-mode:screen,color,normal;
-  background-size:auto,cover,cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  background-attachment:fixed;
-  filter:contrast(1.08) brightness(.82);
-  pointer-events:none;
-}
-/* the big word: plain paper-white by default */
-.hero-word{
-  position:relative;
-  font-family:var(--sans);font-weight:900;
-  font-size:clamp(2.75rem,11.5vw,10rem);
-  letter-spacing:.01em;line-height:.92;
-  --mx:50%;--my:50%;
-} 
-.hw-base{display:block;color:var(--paper)}
-/* a second copy of the word, image-filled, revealed only in a spotlight that follows the cursor */
-.hw-reveal{
-  position:absolute;inset:0;
-  background-image:linear-gradient(var(--cyan),var(--cyan)),url("jane14-wm.jpg");
-  background-blend-mode:color;
-  background-size:cover;background-position:center;background-attachment:fixed;
-  filter:saturate(1.3) contrast(1.15) brightness(1.35);
-  -webkit-background-clip:text;background-clip:text;
-  color:transparent;-webkit-text-fill-color:transparent;
-  -webkit-mask-image:radial-gradient(circle 160px at var(--mx) var(--my),#000 55%,transparent 100%);
-  mask-image:radial-gradient(circle 160px at var(--mx) var(--my),#000 55%,transparent 100%);
-  pointer-events:none;opacity:0;transition:opacity .25s ease;
-}
-.hero-word.is-active .hw-reveal{opacity:1}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-.hero .sub{
-  margin-top:30px;font-family:var(--serif);font-style:italic;
-  font-size:clamp(1.05rem,2.4vw,1.55rem);color:var(--paper);position:relative;
-  display:inline-block;padding:10px 22px;border-radius:999px;
-  background:rgba(4,10,24,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  max-width:85vw;
-}
-@media(max-width:640px){
-  .hero::before{background-attachment:scroll;background-image:
-    radial-gradient(ellipse 60% 45% at 50% 42%,rgba(127,180,216,.20),transparent 65%),
-    linear-gradient(var(--ink),var(--ink)),
-    url("jane14-wm.jpg");}
-  .hw-reveal{display:none} /* no hover on touch - keep it plain and legible */
-}
-/* ---------- sections ---------- */
-section{padding:110px 6vw}
-.section-head{
-  font-family:var(--serif);font-weight:500;
-  font-size:clamp(1.9rem,4.5vw,3rem);letter-spacing:.04em;margin-bottom:14px;
-}
-.rule{width:64px;height:1px;background:var(--cyan);margin:0 0 44px;border:0}
-.lede{max-width:640px;color:var(--paper-dim);font-size:1.02rem}
-/* ---------- gallery ---------- */
-#work{padding-top:90px}
-.grid{
-  margin-top:56px;
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
-  gap:34px 22px;max-width:1200px;
-}
-figure.piece{cursor:pointer;opacity:0;transform:translateY(28px);
-  transition:opacity .9s ease,transform .9s ease}
-figure.piece.seen{opacity:1;transform:none}
-.piece .frame{
-  background:var(--ink2);overflow:hidden;
-  box-shadow:0 14px 34px -16px rgba(0,0,0,.85);
-}
-.piece img{
-  width:100%;display:block;aspect-ratio:3/4;object-fit:cover;
-  transition:transform 1.1s cubic-bezier(.2,.6,.2,1),filter 1.1s;
-  filter:saturate(.96);
-}
-.piece:hover img{transform:scale(1.035);filter:saturate(1.08)}
-.piece figcaption{padding:9px 2px 0}
-.piece .t{display:block;font-family:var(--serif);font-size:.82rem;letter-spacing:.02em;line-height:1.35}
-.piece .n{display:block;font-size:.58rem;letter-spacing:.2em;color:var(--paper-dim);margin-top:2px}
-.missing{
-  aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;
-  color:var(--paper-dim);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
-  border:1px dashed rgba(169,184,206,.35);text-align:center;padding:20px;
-}
-/* ---------- about ---------- */
-#about{background:var(--ink2)}
-.about-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;max-width:1150px;margin:0 auto}
-@media(max-width:860px){.about-wrap{grid-template-columns:1fr;gap:40px}}
-#about p{color:var(--paper-dim);margin-bottom:1.2em;max-width:60ch}
-#about p strong{color:var(--paper);font-weight:500}
-.fact{
-  border-left:1px solid var(--cyan);padding:6px 0 6px 22px;margin-bottom:30px;
-}
-.fact .f-t{font-family:var(--serif);font-size:1.25rem;color:var(--paper)}
-.fact .f-d{font-size:.85rem;color:var(--paper-dim)}
-/* ---------- process strip ---------- */
-#process{text-align:center}
-#process .lede{margin:0 auto}
-.steps{display:flex;justify-content:center;gap:6vw;margin-top:60px;flex-wrap:wrap}
-.step{max-width:230px}
-.step .num{
-  font-family:var(--serif);font-size:2.4rem;color:var(--cyan);font-style:italic;
-}
-.step h3{font-weight:400;font-size:.85rem;letter-spacing:.26em;
-  text-transform:uppercase;margin:8px 0 10px}
-.step p{font-size:.86rem;color:var(--paper-dim)}
-/* ---------- contact ---------- */
-#contact{text-align:center;padding-bottom:70px}
-#contact .section-head{margin-bottom:8px}
-#contact .lede{margin:0 auto 40px}
-.btn{
-  display:inline-block;border:1px solid var(--cyan);color:var(--paper);
-  text-decoration:none;letter-spacing:.24em;text-transform:uppercase;
-  font-size:.78rem;padding:17px 44px;transition:background .35s,color .35s;
-}
-.btn:hover,.btn:focus{background:var(--cyan);color:var(--ink)}
-.email-addr{font-family:var(--serif);font-size:clamp(1.4rem,3.5vw,2rem);color:var(--cyan);user-select:all}
-.socials{margin-top:30px;font-size:.85rem;letter-spacing:.08em;color:var(--paper-dim)}
-.socials a{color:var(--paper-dim);text-decoration:none;border-bottom:1px solid rgba(169,184,206,.35);transition:color .3s,border-color .3s}
-.socials a:hover,.socials a:focus{color:#fff;border-color:#fff}
-.socials span{margin:0 10px}
-footer{
-  padding:40px 6vw 50px;text-align:center;color:var(--paper-dim);
-  font-size:.78rem;letter-spacing:.06em;
-}
-footer a{color:var(--paper-dim)}
-footer a:hover{color:var(--paper)}
-.piece a{color:inherit;text-decoration:none;display:block}
-@media (prefers-reduced-motion: reduce){
-  *{animation:none!important;transition:none!important}
-  html{scroll-behavior:auto}
-  figure.piece{opacity:1;transform:none}
-}
-</style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Jane Yates \u2014 Cyanotypes",
-  "url": "https://janeyates.co.uk/",
-  "description": "Blueprints of Technology: original cyanotype prints made from salvaged computer parts and obsolete technology.",
-  "author": {
-    "@type": "Person",
-    "name": "Jane Yates",
-    "jobTitle": "Artist",
-    "url": "https://janeyates.co.uk/",
-    "sameAs": [
-      "https://x.com/janeyatesartist",
-      "https://www.instagram.com/janeyatesartist",
-      "https://uk.pinterest.com/JaneYatesArtist/"
-    ],
-    "knowsAbout": ["Cyanotype", "Printmaking", "Photograms", "Collage"]
-  }
-}
-</script>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="manifest" href="wings.webmanifest?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LymeRegisDog.Com</title>
+    <meta name="description" content="Community-reviewed dog-friendly walks, beaches, shops, cafes, accommodation and services in the Lyme Regis area, mapped with what3words locations.">
+    <meta property="og:title" content="Lyme Regis Dog">
+    <meta property="og:description" content="Community-reviewed dog-friendly walks, beaches, shops, cafes, accommodation and services in the Lyme Regis area, mapped with what3words locations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lymeregisdog.com/">
+    <meta property="og:image" content="https://lymeregisdog.com/web-app-manifest-512x512.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="google-site-verification" content="oVwqASm1i4WZ7QEkwgLtLoRWa3gey-be8YsA3aNMHjI" />
+    <meta name="theme-color" content="#1976D2">
+    <script>
+      // the old site app helper (service worker) is retired - this tidies it
+      // away and empties its saved copies, so visitors always get fresh pages
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations()
+          .then(function (regs) { regs.forEach(function (r) { r.unregister(); }); });
+        if (window.caches) {
+          caches.keys().then(function (keys) { keys.forEach(function (k) { caches.delete(k); }); });
+        }
+      }
+    </script>
+    <style>
+        /* Base Styling */
+        body {
+            background-color: #E3F2FD;
+            color: #000000;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            text-align: center;
+        }
+        /* Fixed Top Right Name */
+        .fixed-title {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 1.25rem;
+            font-weight: normal;
+            z-index: 1000;
+            text-transform: none;
+            letter-spacing: 1px;
+        }
+        /* Header and Intro */
+        header {
+            text-align: center;
+            padding: 80px 20px 40px 20px;
+        }
+        header h1 {
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            max-width: 500px;
+            margin: auto;
+            line-height: 1.15;
+        }
+        header p {
+            max-width: 400px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        /* Keep intro text and disclaimer at a readable width on wide screens */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        main > h2, main > p {
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Navigation Menu Container */
+        nav {
+            position: relative;
+            max-width: 850px;
+            margin: 0 auto 40px auto;
+            padding-bottom: 60px;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-item {
+            text-decoration: none;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            width: 120px;
+            text-align: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+        /* SVG Line Drawing Icons */
+        .nav-item svg {
+            width: 40px;
+            height: 40px;
+            stroke: black;
+            stroke-width: 2;
+            fill: none;
+            margin-bottom: 8px;
+            transition: filter 0.3s ease, stroke 0.3s ease;
+        }
+        .nav-item:hover svg, .nav-item.glowing svg {
+            filter: drop-shadow(0 0 10px #1976D2);
+            stroke: #1976D2;
+        }
+        .nav-item span {
+            font-size: 0.9rem;
+            font-weight: normal;
+            transition: color 0.3s ease;
+        }
+        .nav-item:hover span, .nav-item.glowing span {
+            color: #1976D2;
+        }
+        /* Wide Track Space for Paws */
+        .paw-tracks {
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            pointer-events: none;
+        }
+        .paw {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            left: 0;
+            opacity: 1;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .paw svg {
+            width: 100%;
+            height: 100%;
+            fill: black;
+            stroke: none;
+        }
+        /* Social Section Styles */
+        .social-container { text-align: center; max-width: 700px; margin: 0 auto 40px auto; padding: 25px 15px; }
+        .social-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+        .social-item { text-decoration: none; color: black; display: flex; flex-direction: column; align-items: center; width: 70px; }
+        .social-item svg { width: 30px; height: 30px; stroke: black; fill: none; margin-bottom: 5px; transition: 0.3s; }
+        .social-item:hover svg { filter: drop-shadow(0 0 8px #1976D2); stroke: #1976D2; }
+        .social-item span { font-size: 0.8rem; transition: 0.3s; }
+        .social-item:hover span { color: #1976D2; }
+        /* Mobile Adjustments */
+        @media (max-width: 700px) {
+            .nav-links{ display:grid; grid-template-columns:repeat(2,1fr); gap:30px 20px; justify-items:center; }
+            .nav-item{ width:100%; max-width:140px; }
+            .nav-item svg{ width:48px; height:48px; }
+            header h1{ font-size:2.2rem; }
+            header p{ font-size:1.2rem; }
+            .paw-tracks{ height:50px; }
+        }
+        @media (max-width: 500px) {
+            .nav-links { flex-wrap: wrap; gap: 15px; }
+            .nav-item { width: 40%; }
+            .fixed-title { position: static; text-align: center; margin-top: 10px; }
+            header { padding-top: 20px; }
+            .paw-tracks { display: none; }
+        }
+        /* Recently Added Section */
+        .recent-section { max-width: 900px; margin: 0 auto 40px auto; padding: 0 20px; }
+        .recent-section h3 { margin-bottom: 15px; }
+        .recent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+        .recent-card { background: #FFFFFF; border-radius: 8px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: left; }
+        .recent-card .recent-name { font-weight: bold; }
+        .recent-card .recent-category { font-size: 0.8rem; color: #1976D2; text-transform: uppercase; letter-spacing: 0.5px; }
+        .recent-card .recent-review { font-size: 0.9rem; color: #333; margin: 8px 0 0 0; }
+        .recent-card .recent-reviewer { font-size: 0.8rem; color: #1976D2; margin-top: 6px; }
+        /* Review count + Leaderboard */
+        .review-count { font-size: 1.1rem; font-weight: bold; color: #1976D2; margin-bottom: 20px; }
+        .leaderboard-list { text-align: left; max-width: 400px; margin: 0 auto; padding-left: 0; list-style: none; }
+        .leaderboard-list li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #E0E0E0; font-size: 1.05rem; }
+        .leaderboard-list li:last-child { border-bottom: none; }
+        .leaderboard-rank { font-weight: bold; color: #1976D2; width: 24px; }
+        .leaderboard-count { margin-left: auto; color: #666; font-size: 0.9rem; }
+        /* Site Footer */
+        .site-footer {
+            max-width: 700px;
+            margin: 40px auto 0 auto;
+            padding: 30px 20px 40px 20px;
+            border-top: 1px solid #BBDEFB;
+            font-size: 0.85rem;
+            color: #555555;
+            text-align: center;
+        }
+        .site-footer img {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 10px;
+        }
+        .site-footer .footer-description {
+            max-width: 450px;
+            margin: 0 auto 12px auto;
+        }
+        .site-footer .footer-copyright {
+            font-weight: bold;
+            margin: 0 0 6px 0;
+        }
+        .site-footer a {
+            color: #1976D2;
+        }
+    </style>
 </head>
 <body>
-<nav aria-label="Main">
-  <a class="wordmark" href="#top">Jane Yates</a>
-  <ul>
-    <li><a href="#work">Work</a></li>
-    <li><a href="shop.html">Original Art</a></li>
-    <li><a href="shirts.html">Shirts</a></li>
-    <li><a href="thecollagepage.html">Make A Collage</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="enquiries.html">Contact</a></li>
-  </ul>
-</nav>
-<header class="hero" id="top">
-  <h1 class="hero-word">
-    <span class="hw-base" aria-hidden="true">CYANOTYPES</span>
-    <span class="hw-reveal" aria-hidden="true">CYANOTYPES</span>
-    <span class="sr-only">Jane Yates &mdash; Cyanotypes</span>
-  </h1>
-  <p class="sub">Cyanotypes: Reclaiming the Discarded</p>
-</header>
-<main>
-<section id="work">
-  <h2 class="section-head">The Work</h2>
-  <hr class="rule">
-  <p class="lede">Obsolete computer components &mdash; circuit boards, cooling fans, heatsinks, phone shells, 35mm slides &mdash; laid on hand-coated paper and exposed to light. Each print is unique. Click any piece for its full details, measurements and price.</p>
-  <div class="grid" id="grid"></div>
-</section>
-<section id="about">
-  <div class="about-wrap">
-    <div>
-      <h2 class="section-head">About the Artist</h2>
-      <hr class="rule">
-      <p>I am a multidisciplinary artist whose practice explores the relationship between <strong>people, technology, heritage and community</strong>.
-        Working across illustration, cyanotype, digital media and public engagement, I combine traditional artistic processes with contemporary ideas
-        and emerging technologies.</p>
-      <p><strong>Blueprints of Technology</strong> was commissioned by the Oxford Internet Institute, University of Oxford. Using the
-        historic cyanotype process &mdash; one of photography's earliest techniques &mdash; and discarded digital hardware, the work transforms obsolete components into blueprint-like photographic prints, reflecting on technological change, networks and digital memory. The series is on display in the Institute's building in Oxford.</p>
-      <p>Alongside my practice I have worked with museums, universities and community organisations, creating projects that encourage participation, learning and conversation.</p>
-    </div>
-    <div>
-      <div class="fact">
-        <div class="f-t">Selected Commission</div>
-        <div class="f-d">Oxford Internet Institute, University of Oxford &mdash; 2025</div>
-      </div>
-      <div class="fact">
-        <div class="f-t">Artweeks Oxfordshire</div>
-        <div class="f-d">Open studios &amp; exhibitions &mdash; 2023&ndash;2024</div>
-      </div>
-      <div class="fact">
-        <div class="f-t">Westbury People's Gallery, Oxford</div>
-        <div class="f-d">John Wain illustration series</div>
-      </div>
-      <div class="fact">
-        <div class="f-t">Pitt Rivers Museum, Oxford</div>
-        <div class="f-d">Interactive museum app &amp; curated events</div>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="process">
-  <h2 class="section-head">The Cyanotype Process</h2>
-  <hr class="rule" style="margin-left:auto;margin-right:auto">
-  <p class="lede">Invented in 1842, the cyanotype is one of the oldest photographic printing processes &mdash; the original &ldquo;blueprint.&rdquo;</p>
-  <div class="steps">
-    <div class="step"><div class="num">i</div><h3>Coat</h3><p>Paper is hand-coated with ferric ammonium citrate and potassium ferricyanide &mdash; a light-sensitive iron solution &mdash; then dried in the dark.</p></div>
-    <div class="step"><div class="num">ii</div><h3>Compose</h3><p>Salvaged computer parts are arranged directly on the paper &mdash; every layout is a one-off.</p></div>
-    <div class="step"><div class="num">iii</div><h3>Expose</h3><p>UV light passes around and through the objects, drawing their shadows onto the paper.</p></div>
-    <div class="step"><div class="num">iv</div><h3>Wash</h3><p>Rinsing in water converts the chemistry to Prussian blue (ferric ferrocyanide). No two prints are ever the same.</p></div>
-  </div>
-</section>
-</main>
-<footer>
-  &copy; <span id="yr"></span> Jane Yates &middot; Lyme Regis, UK &middot;
-  <a href="enquiries.html">Contact</a> &middot;
-  <a href="https://x.com/janeyatesartist" rel="noopener">X</a> &middot;
-  <a href="https://www.instagram.com/janeyatesartist" rel="noopener">Instagram</a> &middot;
-  <a href="https://uk.pinterest.com/JaneYatesArtist/" rel="noopener">Pinterest</a><br>
-  Also by Jane: <a href="https://lymeregisdog.com" rel="noopener">LymeRegisDog.com</a>
-</footer>
-<script>
-/* ------- EDIT YOUR ARTWORK LIST HERE -------
-   file  = image filename inside the images/ folder
-   title = shown under the artwork (change these to your own titles!)
-   alt   = description for accessibility & search engines          */
-const works = [
- {file:"jane1-th.jpg",  title:"Circuit Glow",       alt:"Cyanotype photogram of perforated dot-matrix printer panels floating above soft, ghostly blurred shapes, sun-printed in deep Prussian blue from salvaged computer parts"},
- {file:"jane2-th.jpg",  title:"Static Bloom",       alt:"Glowing cyanotype sun print of a boom box control panel surrounded by a luminous pale-blue halo on deep Prussian blue"},
- {file:"jane3-th.jpg",  title:"Plugs and Circuits", alt:"Cyanotype photogram of paddle-shaped fan blades, a square circuit board and a coiled telephone cable arranged among phone shells, printed in Prussian blue"},
- {file:"jane4-th.jpg",  title:"Ring Cluster",       alt:"Cyanotype print of ring and gear shapes clustered around rectangular mechanical parts, white silhouettes of salvaged technology glowing on deep blue"},
- {file:"jane5-th.jpg",  title:"Frames and Film",    alt:"Cyanotype of telephone handsets, floppy disks, a coiled cable and framed film-strip squares, obsolete media sun-printed as white shadows on Prussian blue"},
- {file:"jane6-th.jpg",  title:"Perforated Halo",    alt:"Cyanotype photogram of perforated rectangles, dotted ovals and circular dot-patterned speaker discs glowing white on deep Prussian blue"},
- {file:"jane7-th.jpg",  title:"Blue Circuit",       alt:"Cyanotype with a pale blue accent circle among gear rings, an arrow shape and cassette-style rectangles, printed by sunlight from salvaged electronics"},
- {file:"jane8-th.jpg",  title:"Solar Corona",       alt:"Cyanotype sun print of a radiant sunburst disc beside a floppy disk, small spanners and a gear ring, white against deep Prussian blue"},
- {file:"jane9-th.jpg",  title:"Contact Sheet",      alt:"Cyanotype featuring a grid of small film contact prints above telephone shells, circles and a keyhole shape, analogue photography relics in blue and white"},
- {file:"jane10-th.jpg", title:"Gear and Handset",   alt:"Cyanotype photogram of a large square component with a circular gear, a telephone handset and a coiled ribbon cable in deep Prussian blue"},
- {file:"jane11-th.jpg", title:"carousel",     alt:"Cyanotype sun print of three circular slide-carousel apertures from an old projector, glowing like eclipses on deep Prussian blue"},
- {file:"jane12-th.jpg", title:"Perforated Rings",   alt:"Cyanotype of a perforated mesh panel, D-shaped ring components and a large vinyl-record-like disc, salvaged parts printed white on blue"},
- {file:"jane13-th.jpg", title:"Negative Frames",    alt:"Cyanotype grid of small film-negative frames beside a radiant sunburst disc, analogue photography remnants sun-printed in Prussian blue"},
- {file:"jane14-th.jpg", title:"Mesh and Glow",      alt:"Cyanotype photogram of a dotted mesh grille, a glowing rounded panel and interlocking ring shapes in white on deep Prussian blue"},
- {file:"jane15-th.jpg", title:"Pin Grid",           alt:"Cyanotype close-up of a dense processor pin-grid pattern beside circular components and a floppy disk, computer hardware printed in Prussian blue"},
- {file:"jane16-th.jpg", title:"Game Controller",    alt:"Cyanotype of a game controller silhouette with its D-pad cross beside a radiant sunburst disc, retro gaming hardware sun-printed on deep blue"},
- {file:"jane17-th.jpg", title:"The Game", alt:"Cyanotype of ring and washer shapes beside a perforated strip and saw-toothed edges, machine parts glowing white on Prussian blue"},
- {file:"jane18-th.jpg", title:"Cooling Fan",        alt:"Cyanotype of small cooling-fan blades, circuit-board squares and a dense perforated panel, salvaged computer parts sun-printed in deep blue"},
- {file:"jane19-th.jpg", title:"Circuit Face",       alt:"Cyanotype collage of cable loops, a circular gear cluster and a grid of dotted squares, old electronics printed by sunlight in Prussian blue"},
- {file:"jane20-th.jpg", title:"Elastomeric Keypad", alt:"Cyanotype of old office phone directory-card covers, their grids of number windows glowing like a tower block at night in deep Prussian blue"},
- {file:"jane21-th.jpg", title:"Blueprint Assembly", alt:"Dense cyanotype collage of speaker grilles, telephone shells and keyboard rows, layered like an engineering blueprint of obsolete technology"},
- {file:"jane22-th.jpg", title:" CPU Cooling Fan",         alt:"Cyanotype of multiple CPU cooling-fan blade discs linked by cable and wire shapes, computer hardware sun-printed white on deep blue"},
- {file:"jane23-th.jpg", title:"Memory Grid",        alt:"Landscape cyanotype of small rectangular memory-chip blocks repeating in a grid like RAM pins, glowing pale blue on a dark Prussian-blue ground"},
- {file:"jane24-th.jpg", title:"Office Phones",      alt:"Cyanotype of rows of office telephone keypads and handsets, their buttons glowing in grids like lit windows at night, in deep Prussian blue"},
- {file:"jane25-th.jpg", title:"Computer Parts",     alt:"Cyanotype collage of salvaged computer parts, brackets, mounting plates and fan housings overlapping as white silhouettes in deep Prussian blue"},
- {file:"jane26-th.jpg", title:"Phone Keypads",      alt:"Landscape cyanotype of rubber keypad membranes from old desk telephones, their glowing button grids repeated in rows on midnight blue"},
-];
-/* ------------------------------------------- */
-const grid = document.getElementById('grid');
-works.forEach((w,i)=>{
-  const fig = document.createElement('figure');
-  fig.className = 'piece';
-  fig.innerHTML = `
-    <a href="cyanotypejane${i+1}.html">
-      <div class="frame">
-        <img src="${w.file}" alt="${w.alt}" loading="lazy"
-             onerror="this.outerHTML='<div class=missing>${w.file}<br>add this photo to the site folder</div>'">
-      </div>
-      <figcaption>
-        <span class="t">${w.title}</span>
-        <span class="n">No. ${String(i+1).padStart(2,'0')}</span>
-      </figcaption>
-    </a>`;
-  grid.appendChild(fig);
-});
-/* reveal on scroll */
-const io = new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target)}
-}),{threshold:.12});
-document.querySelectorAll('.piece').forEach(p=>io.observe(p));
-document.getElementById('yr').textContent=new Date().getFullYear();
-/* hero word: cursor-follow spotlight reveal (desktop/mouse only) */
-const heroWord=document.querySelector('.hero-word');
-if(heroWord && window.matchMedia('(hover: hover) and (pointer: fine)').matches){
-  const setSpot=(x,y)=>{
-    const r=heroWord.getBoundingClientRect();
-    heroWord.style.setProperty('--mx',(x-r.left)+'px');
-    heroWord.style.setProperty('--my',(y-r.top)+'px');
-  };
-  heroWord.addEventListener('pointerenter',()=>heroWord.classList.add('is-active'));
-  heroWord.addEventListener('pointermove',e=>setSpot(e.clientX,e.clientY));
-  heroWord.addEventListener('pointerleave',()=>heroWord.classList.remove('is-active'));
-}
-</script>
+
+    <div class="fixed-title">LymeRegisDog.Com</div>
+    <header id="home">
+        <h1>Welcome to Lyme Regis Dog</h1>
+        <p>Discover the best community reviewed dog-friendly walks, beaches, shops, cafes and services for dogs in the Lyme Regis Area.</p>
+    </header>
+    <nav>
+        <div class="nav-links">
+            <a href="walks.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <g><path d="M 6,5 C 4.5,5 4,8 4.5,12 C 5,14.5 6,15 5.5,17 C 5,19 7.5,19 7.5,17 C 7,15 8,14.5 8.5,12 C 9,8 8.5,5 7,5 Z" /><line x1="5" y1="7" x2="8" y2="7" /><line x1="4.6" y1="9" x2="8.4" y2="9" /><line x1="4.6" y1="11" x2="8.4" y2="11" /><line x1="5.1" y1="13" x2="7.9" y2="13" /><line x1="5.8" y1="16" x2="7.2" y2="16" /><line x1="5.6" y1="17.5" x2="6.9" y2="17.5" /></g>
+                    <g transform="translate(10, 3)"><path d="M 6,5 C 4.5,5 4,8 4.5,12 C 5,14.5 6,15 5.5,17 C 5,19 7.5,19 7.5,17 C 7,15 8,14.5 8.5,12 C 9,8 8.5,5 7,5 Z" /><line x1="5" y1="7" x2="8" y2="7" /><line x1="4.6" y1="9" x2="8.4" y2="9" /><line x1="4.6" y1="11" x2="8.4" y2="11" /><line x1="5.1" y1="13" x2="7.9" y2="13" /><line x1="5.8" y1="16" x2="7.2" y2="16" /><line x1="5.6" y1="17.5" x2="6.9" y2="17.5" /></g>
+                </svg>
+                <span>Walks</span>
+            </a>
+            <a href="beaches.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 20h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01m3.99 0h.01"></path>
+                    <path d="M2 16c2.67-2 5.33-2 8 0s5.33 2 8 0 5.33-2 8 0"></path>
+                    <circle cx="12" cy="8" r="4"></circle>
+                </svg>
+                <span>Beaches</span>
+            </a>
+            <a href="shops.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-4h16l1 4M4 9v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M9 14h6v7H9zM3 9h18"/></svg>
+                <span>Shops</span>
+            </a>
+            <a href="cafes.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 8h1a4 4 0 1 1 0 8h-1" /><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" /><line x1="6" y1="2" x2="6" y2="4" /><line x1="10" y1="2" x2="10" y2="4" /><line x1="14" y1="2" x2="14" y2="4" />
+                </svg>
+                <span>Cafes</span>
+            </a>
+            <a href="accommodation.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 21h18"></path><path d="M12 3l-9 18"></path><path d="M12 3l9 18"></path><path d="M12 14l-4 7"></path><path d="M12 14l4 7"></path>
+                </svg>
+                <span>Accommodation</span>
+            </a>
+            <a href="services.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="8"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <span>Services</span>
+            </a>
+    <a href="Utilities.html" class="nav-item">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path>
+        <circle cx="12" cy="11" r="1.3"></circle>
+        <circle cx="9.7" cy="9.2" r="0.9"></circle>
+        <circle cx="14.3" cy="9.2" r="0.9"></circle>
+        <circle cx="10.2" cy="13" r="0.9"></circle>
+        <circle cx="13.8" cy="13" r="0.9"></circle>
+    </svg>
+    <span>Utilities</span>
+</a>
+<a href="about.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 21s-7-4.35-9.5-8.5C1 9 2.5 5.5 6 5c2-.3 3.5.7 6 3.5C14.5 5.7 16 4.7 18 5c3.5.5 5 4 3.5 7.5C19 16.65 12 21 12 21z"></path>
+                </svg>
+                <span>About</span>
+            </a>
+            <a href="wings.html" class="nav-item">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <ellipse cx="12" cy="4" rx="3.5" ry="1.3"></ellipse>
+                    <path d="M11 20 C 7 19 3.5 15 2.5 9.5 C 7 11 10 14 11 20 Z"></path>
+                    <path d="M13 20 C 17 19 20.5 15 21.5 9.5 C 17 11 14 14 13 20 Z"></path>
+                </svg>
+                <span>Dog Halo</span>
+            </a>
+            <a href="dogfriendlymap.html" class="nav-item">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 20c3-1 3-4 6-5s3-4 6-5" stroke-dasharray="1.5 3"></path>
+        <circle cx="3" cy="20" r="1.3" fill="black" stroke="none"></circle>
+        <path d="M15 4c-2.2 0-4 1.7-4 3.9 0 2.9 4 6.6 4 6.6s4-3.7 4-6.6C19 5.7 17.2 4 15 4z"></path>
+        <circle cx="15" cy="7.7" r="1.3"></circle>
+    </svg>
+    <span>Route Planner</span>
+</a>
+        </div>
+        <div class="paw-tracks">
+            <div class="paw" id="back-left"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="front-left"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="back-right"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+            <div class="paw" id="front-right"><svg viewBox="0 0 24 24"><path d="M12 2c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-6 3c-1.4 0-2.5 1.1-2.5 2.5S4.6 10 6 10s2.5-1.1 2.5-2.5S7.4 5 6 5zm12 0c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S19.4 5 18 5zm-1.5 8c-.6-1.5-2.1-2.5-3.8-2.5h-1.4c-1.7 0-3.2 1-3.8 2.5L5 19h14l-2.5-6z"/></svg></div>
+        </div>
+    </nav>
+
+    <section class="social-container">
+        <h3>Follow us on social media</h3>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@Lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><polygon points="10 9 15 12 10 15"/></svg><span>YouTube</span></a>
+            <a href="https://www.tiktok.com/@lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg><span>TikTok</span></a>
+            <a href="https://www.facebook.com/Lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><span>Facebook</span></a>
+            <a href="https://www.instagram.com/lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg><span>Instagram</span></a>
+            <a href="https://uk.pinterest.com/lymeRegisdog/" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 10a4 4 0 1 1 4 4c-1.5 0-3-1-3-3"/></svg><span>Pinterest</span></a>
+            <a href="https://x.com/lymeregisdog" target="_blank" rel="noopener" class="social-item"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg><span>X</span></a>
+        </div>
+    </section>
+    <main>
+        <h2>Select a category above to begin</h2>
+        <p>Explore our brand new, community-reviewed interactive maps! Select a category above to locate community favorites, read local feedback, or securely submit your own recommendations. Zoom in or out to find more reviews. Multiple reviews are allowed for the same place.</p>
+        <p class="review-count" id="review-count-line"></p>
+        <section class="recent-section">
+            <h3>🐾 Recently Added</h3>
+            <div class="recent-grid" id="recent-list">
+                <p>Loading latest reviews&hellip;</p>
+            </div>
+        </section>
+        <section class="recent-section">
+            <h3>🏆 Top Tail-Waggers</h3>
+            <p>The dogs who've left the most reviews so far.</p>
+            <ol class="leaderboard-list" id="leaderboard-list">
+                <li>Loading&hellip;</li>
+            </ol>
+        </section>
+        <p style="font-size: 0.85rem; color: #555555; margin-top: 30px; line-height: 1.5;">
+            <strong>Please Note:</strong> All reviews and location details on this site are submitted by the public.
+            Local terrain, cliff edges, coastal tides, and business rules can change rapidly.
+            Please always obey local signage, keep your dog safe, and use this guide entirely at your own risk.
+            For the full legal disclaimer and safety notice, please see our
+            <a href="legal-stuff.html" style="color: #1976D2;">Legal &amp; Copyright page</a>.
+        </p>
+    </main>
+
+    <footer class="site-footer">
+        <img src="angel-192.png" alt="Lyme Regis Dog logo">
+        <p class="footer-description">Lyme Regis Dog is a free community-sharing project: dog-friendly walks, beaches, cafes and more around Lyme Regis, reviewed by the dogs (and their humans) who know them best.</p>
+        <p class="footer-copyright">&copy; 2026 Jane Yates &middot; LymeRegisDog.com &middot; All rights reserved.</p>
+        <p><a href="legal-stuff.html">Licence, Legal Disclaimer &amp; Safety Notice</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const navItems = document.querySelectorAll(".nav-item");
+            const navContainer = document.querySelector("nav");
+            const bLeft = document.getElementById("back-left");
+            const fLeft = document.getElementById("front-left");
+            const bRight = document.getElementById("back-right");
+            const fRight = document.getElementById("front-right");
+            let lastX = 0;
+            let isMoving = false;
+            function animateGait(element) {
+                if (isMoving) return;
+                const elementRect = element.getBoundingClientRect();
+                const navRect = navContainer.getBoundingClientRect();
+                const targetCenter = elementRect.left - navRect.left + (elementRect.width / 2);
+                if (targetCenter === lastX) return;
+                isMoving = true;
+                const isMovingRight = targetCenter > lastX;
+                lastX = targetCenter;
+                navItems.forEach(item => item.classList.remove('glowing'));
+                element.classList.add('glowing');
+                const rotation = isMovingRight ? 95 : -85;
+                const topLaneY = 0;
+                const bottomLaneY = 20;
+                const flY = isMovingRight ? topLaneY : bottomLaneY;
+                const blY = isMovingRight ? topLaneY : bottomLaneY;
+                const frY = isMovingRight ? bottomLaneY : topLaneY;
+                const brY = isMovingRight ? bottomLaneY : topLaneY;
+                const leadX = isMovingRight ? 15 : -15;
+                const trailX = isMovingRight ? -15 : 15;
+                function takeStep(pawElement, targetX, targetY, delay) {
+                    setTimeout(() => {
+                        pawElement.style.opacity = "0";
+                        setTimeout(() => {
+                            pawElement.style.transform = `translateX(${targetX}px) translateY(${targetY}px) rotate(${rotation}deg)`;
+                            setTimeout(() => { pawElement.style.opacity = "1"; }, 40);
+                        }, 200);
+                    }, delay);
+                }
+                takeStep(bRight, targetCenter + trailX - 12, brY, 0);
+                takeStep(fRight, targetCenter + leadX - 12, frY, 150);
+                takeStep(bLeft, targetCenter + trailX - 12, blY, 300);
+                takeStep(fLeft, targetCenter + leadX - 12, flY, 450);
+                setTimeout(() => { isMoving = false; }, 750);
+            }
+            if (navItems.length > 0) {
+                const initialRect = navItems[0].getBoundingClientRect();
+                const navRect = navContainer.getBoundingClientRect();
+                const initialCenter = initialRect.left - navRect.left + (initialRect.width / 2);
+                lastX = initialCenter;
+                bRight.style.transform = `translateX(${initialCenter - 24}px) translateY(20px) rotate(95deg)`;
+                fRight.style.transform = `translateX(${initialCenter + 4}px) translateY(20px) rotate(95deg)`;
+                bLeft.style.transform = `translateX(${initialCenter - 24}px) translateY(0px) rotate(95deg)`;
+                fLeft.style.transform = `translateX(${initialCenter + 4}px) translateY(0px) rotate(95deg)`;
+            }
+            navItems.forEach(item => {
+                item.addEventListener("mouseenter", function() { animateGait(this); });
+                item.addEventListener("touchstart", function() { animateGait(this); });
+            });
+        });
+        // ---------------- RECENTLY ADDED ----------------
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+        const categoryPages = {
+            walks: 'walks.html', beaches: 'beaches.html', shops: 'shops.html',
+            cafes: 'cafes.html', accommodation: 'accommodation.html', services: 'services.html'
+        };
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1_-NajtwAbXLgtZZ_Os98aFK39NIFEu7mKdVmFyXFk2je23448Y71W8Uejz-1FNV38XOM3vueQpJ/pub?output=tsv';
+        let loadAttempts = 0;
+        function showLoadError() {
+            document.getElementById('recent-list').innerHTML =
+                '<p>Couldn\'t load the latest reviews right now &mdash; please check your internet connection.<br>' +
+                '<button onclick="loadAttempts = 0; loadReviews();" style="margin-top:10px; padding:8px 18px; border:1px solid #1976D2; background:#FFFFFF; color:#1976D2; border-radius:6px; cursor:pointer; font-size:0.9rem;">Try again</button></p>';
+            document.getElementById('leaderboard-list').innerHTML = '<li>Couldn\'t load the leaderboard right now.</li>';
+        }
+        function loadReviews() {
+        loadAttempts++;
+        document.getElementById('recent-list').innerHTML = '<p>Loading latest reviews&hellip;</p>';
+        document.getElementById('leaderboard-list').innerHTML = '<li>Loading&hellip;</li>';
+        fetch(csvUrl, { cache: 'no-store' })
+            .then(res => {
+                if (!res.ok) { throw new Error('Bad response: ' + res.status); }
+                return res.text();
+            })
+            .then(data => {
+                const lines = data.split(/\r?\n/).filter(l => l.trim());
+                const rows = lines.slice(1).map(line => line.split('\t')).filter(cols => cols.length >= 8);
+                document.getElementById('review-count-line').textContent =
+                    '🐾 ' + rows.length + ' community review' + (rows.length === 1 ? '' : 's') + ' and counting!';
+                const latest = rows.slice(-3).reverse();
+                const list = document.getElementById('recent-list');
+                if (latest.length === 0) {
+                    list.innerHTML = '<p>No reviews yet &mdash; be the first to add one!</p>';
+                } else {
+                    list.innerHTML = latest.map(cols => {
+                        const dogName = cols[0] || '';
+                        const category = (cols[1] || '').trim().toLowerCase();
+                        const name = cols[2] || '';
+                        const rating = cols[3] || '';
+                        const review = cols[5] || '';
+                        const page = categoryPages[category] || 'index.html';
+                        const reviewerLine = dogName
+                            ? '<div class="recent-reviewer">Reviewed by ' + escapeHtml(dogName) + '</div>'
+                            : '';
+                        return '<a class="recent-card" href="' + page + '" style="text-decoration:none; color:inherit; display:block;">' +
+                            '<div class="recent-category">' + escapeHtml(category) + '</div>' +
+                            '<div class="recent-name">' + escapeHtml(name) + '</div>' +
+                            '<p class="recent-review">' + escapeHtml(review) + '</p>' +
+                            '<div>' + escapeHtml(rating) + '/5 🐾</div>' +
+                            reviewerLine +
+                            '</a>';
+                    }).join('');
+                }
+                const tally = {};
+                rows.forEach(cols => {
+                    const dog = (cols[0] || '').trim();
+                    if (!dog) return;
+                    if (!tally[dog]) tally[dog] = { count: 0 };
+                    tally[dog].count++;
+                });
+                const leaderboard = Object.entries(tally)
+                    .sort((a, b) => b[1].count - a[1].count)
+                    .slice(0, 5);
+                const leaderboardList = document.getElementById('leaderboard-list');
+                if (leaderboard.length === 0) {
+                    leaderboardList.innerHTML = '<li>No reviews yet &mdash; be the first!</li>';
+                } else {
+                    leaderboardList.innerHTML = leaderboard.map((entry, i) => {
+                        const [dog, info] = entry;
+                        return '<li><span class="leaderboard-rank">' + (i + 1) + '.</span>' +
+                            '<span>' + escapeHtml(dog) + '</span>' +
+                            '<span class="leaderboard-count">' + info.count + ' review' + (info.count === 1 ? '' : 's') + '</span></li>';
+                    }).join('');
+                }
+            })
+            .catch(err => {
+                console.error("Error loading recent reviews (attempt " + loadAttempts + "):", err);
+                if (loadAttempts < 3) {
+                    setTimeout(loadReviews, 2000);
+                } else {
+                    showLoadError();
+                }
+            });
+        }
+        loadReviews();
+    </script>
 </body>
 </html>

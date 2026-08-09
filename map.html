@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -11,6 +12,7 @@
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; }
         #map { height: 100vh; width: 100%; }
         .paw-icon { font-size: 24px; }
+        .treasure-icon { font-size: 24px; }
         .leaflet-div-icon {
             background: transparent !important;
             border: none !important;
@@ -126,6 +128,87 @@
             })
             .catch(err => console.error("Error loading map data:", err));
 
+        // ---------------- TREASURE MARKERS (shows on every page, no category filter) ----------------
+        // Replace this with your published Sheet1 (treasures) TSV link
+        const treasureCsvUrl = 'YOUR_TREASURES_TSV_URL_HERE';
+
+        // Keeps each treasure's "answer" text ready to reveal on tap
+        const treasureAnswers = {};
+
+        fetch(treasureCsvUrl)
+            .then(res => res.text())
+            .then(data => {
+
+                const lines = data.split(/\r?\n/);
+
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+
+                    const cols = lines[i].split('\t');
+                    if (cols.length < 8) continue;
+
+                    // Column order: added by, name, clue, answer, w3w, lat, lng, ok
+                    const addedBy = (cols[0] || '').trim();
+                    const name    = cols[1] || '';
+                    const clue    = cols[2] || '';
+                    const answer  = cols[3] || '';
+                    const w3w     = (cols[4] || '').trim();
+                    const lat     = parseFloat(cols[5]);
+                    const lng     = parseFloat(cols[6]);
+                    const ok      = (cols[7] || '').trim().toLowerCase();
+
+                    if (ok !== 'yes' || isNaN(lat) || isNaN(lng)) continue;
+
+                    let w3wLine = '';
+                    if (w3w) {
+                        w3wLine = 'What3Words: <a href="https://what3words.com/' + encodeURIComponent(w3w) + '" target="_blank" rel="noopener">///' + escapeHtml(w3w) + '</a><br>';
+                    }
+
+                    let addedByLine = '';
+                    if (addedBy) {
+                        addedByLine = '<br><em>Added by ' + escapeHtml(addedBy) + '</em>';
+                    }
+
+                    const treasureIcon = L.divIcon({
+                        html: '🔍',
+                        className: 'treasure-icon'
+                    });
+
+                    const popupId = 'treasure-' + i;
+                    treasureAnswers[popupId] = answer;
+
+                    const popupHtml =
+                        '<div>' +
+                        '<strong>🔍 ' + escapeHtml(name) + '</strong><br>' +
+                        escapeHtml(clue) + '<br>' +
+                        w3wLine +
+                        '<button id="btn-' + popupId + '">I found it!</button>' +
+                        '<p id="ans-' + popupId + '" style="display:none; margin-top:6px;"></p>' +
+                        addedByLine +
+                        '</div>';
+
+                    const marker = L.marker([lat, lng], { icon: treasureIcon })
+                        .bindPopup(popupHtml);
+
+                    // Wires up the "I found it!" button each time this
+                    // marker's popup is opened
+                    marker.on('popupopen', function () {
+                        const btn = document.getElementById('btn-' + popupId);
+                        const ansEl = document.getElementById('ans-' + popupId);
+                        if (btn) {
+                            btn.addEventListener('click', function () {
+                                ansEl.textContent = treasureAnswers[popupId];
+                                ansEl.style.display = 'block';
+                                btn.style.display = 'none';
+                            });
+                        }
+                    });
+
+                    markers.addLayer(marker);
+                }
+            })
+            .catch(err => console.error("Error loading treasure data:", err));
+
         // ---------------- NEAR ME ----------------
         let youAreHereMarker = null;
         document.getElementById('locate-btn').addEventListener('click', () => {
@@ -150,3 +233,5 @@
     </script>
 </body>
 </html>
+
+  

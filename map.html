@@ -129,8 +129,8 @@
             .catch(err => console.error("Error loading map data:", err));
 
         // ---------------- TREASURE MARKERS (shows on every page, no category filter) ----------------
-        // Replace this with your published Sheet1 (treasures) TSV link
-        const treasureCsvUrl = 'YOUR_TREASURES_TSV_URL_HERE';
+        // Replace this with your published Form_Responses (treasures) TSV link
+        const treasureCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSQodcM67uP18nzsjC0iCJ9K742ELZYd3bWOeq4-Dk3eRqNM5663ijp5PRBizy2cBEyq7HiMPRJ7h1Z/pub?gid=254657333&single=true&output=tsv';
 
         // Keeps each treasure's "answer" text ready to reveal on tap
         const treasureAnswers = {};
@@ -145,17 +145,17 @@
                     if (!lines[i].trim()) continue;
 
                     const cols = lines[i].split('\t');
-                    if (cols.length < 8) continue;
+                    if (cols.length < 9) continue;
 
-                    // Column order: added by, name, clue, answer, w3w, lat, lng, ok
-                    const addedBy = (cols[0] || '').trim();
-                    const name    = cols[1] || '';
-                    const clue    = cols[2] || '';
-                    const answer  = cols[3] || '';
-                    const w3w     = (cols[4] || '').trim();
-                    const lat     = parseFloat(cols[5]);
-                    const lng     = parseFloat(cols[6]);
-                    const ok      = (cols[7] || '').trim().toLowerCase();
+                    // Column order: timestamp, added by, name, clue, answer, w3w, lat, lng, ok
+                    const addedBy = (cols[1] || '').trim();
+                    const name    = cols[2] || '';
+                    const clue    = cols[3] || '';
+                    const answer  = cols[4] || '';
+                    const w3w     = (cols[5] || '').trim();
+                    const lat     = parseFloat(cols[6]);
+                    const lng     = parseFloat(cols[7]);
+                    const ok      = (cols[8] || '').trim().toLowerCase();
 
                     if (ok !== 'yes' || isNaN(lat) || isNaN(lng)) continue;
 
@@ -233,5 +233,3 @@
     </script>
 </body>
 </html>
-
-  

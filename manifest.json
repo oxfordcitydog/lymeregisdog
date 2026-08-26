@@ -1,1 +1,14 @@
-
+{
+  "name": "Lyme Regis Webcam",
+  "short_name": "Webcam",
+  "description": "Live webcam from Lyme Regis Beach, Dorset",
+  "start_url": "/webcam.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b1c2c",
+  "theme_color": "#0b1c2c",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

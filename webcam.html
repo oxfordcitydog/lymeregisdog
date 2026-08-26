@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +15,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
 
 <!-- Android / desktop Chrome install -->
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="webcam-manifest.json">
 
 <style>
   html, body {
@@ -74,10 +73,6 @@
     cursor: pointer;
     border: none;
   }
-  .btn-primary {
-    background: #f5e3a8;
-    color: #1a1a1a;
-  }
   .btn-app {
     background: #a8d8f0;
     color: #0b1c2c;
@@ -95,16 +90,6 @@
     line-height: 1.5;
     color: #cfe4f2;
   }
-  .links {
-    margin-top: 26px;
-    font-size: 14px;
-  }
-  .links a {
-    color: #cfe4f2;
-  }
-  #already-installed {
-    display: none;
-  }
 </style>
 </head>
 <body>
@@ -121,77 +106,81 @@
     </iframe>
   </div>
 
-  <button id="install-btn" class="btn btn-app" style="display:none;">
+  <button id="install-btn" class="btn btn-app">
     <img src="icon-192.png" alt="">
     Get the Webcam shortcut
   </button>
 
   <p id="ios-note" class="install-note" style="display:none;">
-    To keep the webcam on your iPhone: tap the Share button
-    (the square with an arrow, at the bottom of Safari), then choose
-    "Add to Home Screen".
+    <strong>To put the Webcam on your iPhone:</strong><br>
+    iPhones don't allow one-tap installs, so it's done like this:<br>
+    1. Tap the <strong>Share</strong> button - the square with an
+    arrow pointing up. In Safari it's at the bottom of the screen.<br>
+    2. Scroll down the list and tap <strong>"Add to Home Screen"</strong>.<br>
+    3. Tap <strong>Add</strong>. The wave icon will appear on your
+    home screen, opening straight to this page.
   </p>
 
-  <p id="already-installed" class="install-note">
+  <p id="install-msg" class="install-note" style="display:none;">
+    Your browser isn't offering the automatic install right now. This is
+    normal for a little while after removing the shortcut - close your
+    browser completely, reopen this page, and try again. You can also
+    install it by hand any time: tap the three-dot menu (top right of
+    Chrome), then choose "Add to Home screen" or "Install app". On a
+    computer, look for a small install icon at the right-hand end of
+    the address bar.
+  </p>
+
+  <p id="already-installed" class="install-note" style="display:none;">
     It looks like the Webcam shortcut is already on this device -
     look for the wave icon on your home screen or with your other apps.
   </p>
-
-  <div class="links">
-    <a href="https://www.lymeregiswebcam.co.uk/" target="_blank" rel="noopener">
-      Open the full site at lymeregiswebcam.co.uk
-    </a>
-  </div>
 </main>
 
 <script>
-  // Detect if already installed / running as a standalone app
-  function isStandalone() {
-    return window.matchMedia('(display-mode: standalone)').matches ||
-           window.navigator.standalone === true;
-  }
-
   var installBtn = document.getElementById('install-btn');
   var iosNote = document.getElementById('ios-note');
+  var installMsg = document.getElementById('install-msg');
   var alreadyInstalled = document.getElementById('already-installed');
   var deferredPrompt = null;
 
   var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  var isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                      window.navigator.standalone === true;
 
-  if (isStandalone()) {
+  if (isStandalone) {
+    installBtn.style.display = 'none';
     alreadyInstalled.style.display = 'block';
-  } else {
-    alreadyInstalled.style.display = 'none';
-
-    if (isIOS) {
-      // iOS has no install prompt API - show the button, tapping it reveals instructions
-      installBtn.style.display = 'inline-flex';
-      installBtn.addEventListener('click', function () {
-        iosNote.style.display = 'block';
-      });
-    } else {
-      // Chrome / Edge / Android: wait for the real install prompt
-      window.addEventListener('beforeinstallprompt', function (e) {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = 'inline-flex';
-      });
-
-      installBtn.addEventListener('click', function () {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.finally(function () {
-            deferredPrompt = null;
-          });
-        } else {
-          iosNote.textContent = "Look for a small install icon at the right-hand end of your address bar, or open this page in Chrome or Edge to install it.";
-          iosNote.style.display = 'block';
-        }
-      });
-    }
   }
 
-  // Register the service worker so Chrome/Android treat this page as installable
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    installMsg.style.display = 'none';
+  });
+
+  installBtn.addEventListener('click', function () {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      return;
+    }
+    if (isIOS) {
+      iosNote.style.display = 'block';
+      iosNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    installMsg.style.display = 'block';
+    installMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  window.addEventListener('appinstalled', function () {
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+    iosNote.style.display = 'none';
+    installMsg.textContent = 'Done! The Webcam shortcut is now on your device.';
+    installMsg.style.display = 'block';
+  });
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('webcam-sw.js').catch(function () {});
   }

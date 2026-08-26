@@ -2,15 +2,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lyme Regis Live Webcam</title>
-    <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #000; }
-        iframe { width: 100%; height: 100%; border: none; }
-    </style>
+<meta charset="UTF-8">
+<title>Lyme Regis Live Webcam</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0b1c2c">
+
+<!-- iOS "Add to Home Screen" -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Webcam">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
+
+<!-- Android / desktop Chrome install -->
+<link rel="manifest" href="manifest.json">
+
+<style>
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    background: #0b1c2c;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    text-align: center;
+  }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 28px 20px 48px;
+  }
+  h1 {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    color: #a9c6dd;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    border-radius: 14px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  }
+  .video-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 340px;
+    box-sizing: border-box;
+    margin: 14px auto 0;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: #f5e3a8;
+    color: #1a1a1a;
+  }
+  .btn-app {
+    background: #a8d8f0;
+    color: #0b1c2c;
+  }
+  .btn-app img {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    display: block;
+  }
+  .install-note {
+    max-width: 340px;
+    margin: 14px auto 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #cfe4f2;
+  }
+  .links {
+    margin-top: 26px;
+    font-size: 14px;
+  }
+  .links a {
+    color: #cfe4f2;
+  }
+  #already-installed {
+    display: none;
+  }
+</style>
 </head>
 <body>
-    <iframe src="https://www.lymeregiswebcam.co.uk/" title="Lyme Regis Webcam"></iframe>
+<main>
+  <h1>🌊 Lyme Regis Live Webcam</h1>
+  <p class="subtitle">Live from the beach at Lyme Regis, Dorset</p>
+
+  <div class="video-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/VvnPS2R3-zo?autoplay=1&mute=1&modestbranding=1&rel=0"
+      title="Lyme Regis Live Webcam"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <button id="install-btn" class="btn btn-app" style="display:none;">
+    <img src="icon-192.png" alt="">
+    Get the Webcam shortcut
+  </button>
+
+  <p id="ios-note" class="install-note" style="display:none;">
+    To keep the webcam on your iPhone: tap the Share button
+    (the square with an arrow, at the bottom of Safari), then choose
+    "Add to Home Screen".
+  </p>
+
+  <p id="already-installed" class="install-note">
+    It looks like the Webcam shortcut is already on this device -
+    look for the wave icon on your home screen or with your other apps.
+  </p>
+
+  <div class="links">
+    <a href="https://www.lymeregiswebcam.co.uk/" target="_blank" rel="noopener">
+      Open the full site at lymeregiswebcam.co.uk
+    </a>
+  </div>
+</main>
+
+<script>
+  // Detect if already installed / running as a standalone app
+  function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true;
+  }
+
+  var installBtn = document.getElementById('install-btn');
+  var iosNote = document.getElementById('ios-note');
+  var alreadyInstalled = document.getElementById('already-installed');
+  var deferredPrompt = null;
+
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  if (isStandalone()) {
+    alreadyInstalled.style.display = 'block';
+  } else {
+    alreadyInstalled.style.display = 'none';
+
+    if (isIOS) {
+      // iOS has no install prompt API - show the button, tapping it reveals instructions
+      installBtn.style.display = 'inline-flex';
+      installBtn.addEventListener('click', function () {
+        iosNote.style.display = 'block';
+      });
+    } else {
+      // Chrome / Edge / Android: wait for the real install prompt
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = 'inline-flex';
+      });
+
+      installBtn.addEventListener('click', function () {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.finally(function () {
+            deferredPrompt = null;
+          });
+        } else {
+          iosNote.textContent = "Look for a small install icon at the right-hand end of your address bar, or open this page in Chrome or Edge to install it.";
+          iosNote.style.display = 'block';
+        }
+      });
+    }
+  }
+
+  // Register the service worker so Chrome/Android treat this page as installable
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('webcam-sw.js').catch(function () {});
+  }
+</script>
 </body>
 </html>

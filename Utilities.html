@@ -347,18 +347,95 @@
         </div>
       </section>
 
-      <!-- Dynamic Heat Safety & Pavement Checker -->
-      <section class="card">
-        <h2 class="card-title"><span>🌡️</span> Dynamic Pavement Heat Checker</h2>
-        <p class="card-subtitle">Estimate asphalt temperature from air temperature</p>
+  <!-- Dynamic Heat Safety & Pavement Checker -->
+<section class="card">
+  <h2 class="card-title"><span>🌡️</span> Dynamic Pavement Heat Checker</h2>
+  <p class="card-subtitle">Estimate asphalt temperature from air temperature</p>
 
-        <div class="calc-controls">
-          <div class="input-group">
-            <label for="tempSlider">Air Temperature:</label>
-            <span class="temp-badge" id="airTempDisplay">18°C</span>
-          </div>
-          <input type="range" id="tempSlider" min="10" max="35" value="18" step="1">
-        </div>
+  <div class="calc-controls">
+    <div class="input-group">
+      <label for="tempSlider">Air Temperature:</label>
+      <span class="temp-badge" id="airTempDisplay">18°C / 64°F</span>
+    </div>
+    <input type="range" id="tempSlider" min="10" max="35" value="18" step="1">
+  </div>
+
+  <div class="result-box" id="resultCard">
+    <div style="font-size: 0.85rem; color: #718096;">Estimated Pavement Surface:</div>
+    <div class="result-pavement" id="pavementTemp">~22°C / 72°F</div>
+    <div class="result-status" id="heatStatus">Safe Walk</div>
+    <p id="heatAdvice" style="margin-top: 8px; font-size: 0.88rem; color: #4a5568;">
+      Fine for most dogs — carry water for flat-faced, overweight, or senior dogs.
+    </p>
+  </div>
+
+  <div class="rule-box">
+    🐾 <strong>The 5-second rule:</strong> Press the back of your hand on the pavement for 5 seconds. If it's too hot for your hand, it's too hot for paws!
+  </div>
+</section>
+
+<!-- Interactive JavaScript for Dual-Unit Heat Calculator -->
+<script>
+  const slider = document.getElementById('tempSlider');
+  const airTempDisplay = document.getElementById('airTempDisplay');
+  const pavementTempDisplay = document.getElementById('pavementTemp');
+  const heatStatusDisplay = document.getElementById('heatStatus');
+  const heatAdviceDisplay = document.getElementById('heatAdvice');
+  const resultCard = document.getElementById('resultCard');
+
+  function toFahrenheit(celsius) {
+    return Math.round((celsius * 9 / 5) + 32);
+  }
+
+  function updateCalculator() {
+    const airC = parseInt(slider.value, 10);
+    const airF = toFahrenheit(airC);
+    airTempDisplay.textContent = airC + '°C / ' + airF + '°F';
+
+    let pavementC;
+    if (airC <= 15) {
+      pavementC = airC + 2;
+    } else if (airC <= 20) {
+      pavementC = airC + 4;
+    } else if (airC <= 25) {
+      pavementC = Math.round(airC * 1.5);
+    } else {
+      pavementC = Math.round(airC * 1.7);
+    }
+
+    const pavementF = toFahrenheit(pavementC);
+    pavementTempDisplay.textContent = '~' + pavementC + '°C / ' + pavementF + '°F';
+
+    if (pavementC < 25) {
+      resultCard.style.borderLeftColor = "#48bb78";
+      heatStatusDisplay.style.backgroundColor = "#c6f6d5";
+      heatStatusDisplay.style.color = "#22543d";
+      heatStatusDisplay.textContent = "Safe Walk";
+      heatAdviceDisplay.textContent = "Ground temperature is safe for regular dog walking.";
+    } else if (pavementC < 35) {
+      resultCard.style.borderLeftColor = "#ecc94b";
+      heatStatusDisplay.style.backgroundColor = "#fefcbf";
+      heatStatusDisplay.style.color = "#744210";
+      heatStatusDisplay.textContent = "Use Caution";
+      heatAdviceDisplay.textContent = "Pavement is getting warm. Stick to grassy paths, avoid long direct sun exposure, and carry water.";
+    } else if (pavementC < 48) {
+      resultCard.style.borderLeftColor = "#ed8936";
+      heatStatusDisplay.style.backgroundColor = "#feebc8";
+      heatStatusDisplay.style.color = "#7b341e";
+      heatStatusDisplay.textContent = "High Risk of Paw Burn";
+      heatAdviceDisplay.textContent = "Pavement can burn paw pads in minutes! Walk early in the morning or late evening only.";
+    } else {
+      resultCard.style.borderLeftColor = "#e53e3e";
+      heatStatusDisplay.style.backgroundColor = "#fed7d7";
+      heatStatusDisplay.style.color = "#742a2a";
+      heatStatusDisplay.textContent = "DANGER - Do Not Walk";
+      heatAdviceDisplay.textContent = "Extremely dangerous conditions! Paws will burn quickly. Keep dogs indoors or on shaded grass.";
+    }
+  }
+
+  slider.addEventListener('input', updateCalculator);
+  updateCalculator();
+</script>
 
         <div class="result-box" id="resultCard">
           <div style="font-size: 0.85rem; color: #718096;">Estimated Pavement Surface:</div>

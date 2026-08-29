@@ -1,22 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dog Walk Route Planner - Lyme Regis Dog</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-let walk = {
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f4f7f6;
+      color: #2d3748;
+      line-height: 1.6;
+      padding: 20px 16px;
+    }
 
-    dogName: dogName,
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-    walkName: walkName,
+    .top-nav {
+      background-color: #16697a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
 
-    location: location,
+    .top-nav a {
+      color: #ffffff;
+      text-decoration: none;
+    }
 
-    notes: notes,
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
 
-    distance: distance,
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
 
-    route: routePoints
+    header h1 {
+      color: #16697a;
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
 
-};
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 20px;
+    }
 
-let walks = JSON.parse(localStorage.getItem("dogWalks")) || [];
+    .form-group {
+      margin-bottom: 16px;
+    }
 
-walks.push(walk);
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #2d3748;
+    }
 
-localStorage.setItem("dogWalks", JSON.stringify(walks));
+    input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #16697a;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #11505d;
+    }
+
+    .saved-walks {
+      margin-top: 16px;
+    }
+
+    .walk-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <nav class="top-nav">
+      <a href="index.html">Home</a> &gt; <a href="Utilities.html">Utilities</a> &gt; Route Planner
+    </nav>
+
+    <header>
+      <h1>Dog Walk Route Planner</h1>
+      <p>Save and plan your favorite dog-friendly walking routes in and around Lyme Regis.</p>
+    </header>
+
+    <main class="card">
+      <form id="walkForm">
+        <div class="form-group">
+          <label for="dogName">Dog's Name</label>
+          <input type="text" id="dogName" placeholder="e.g. Oak" required>
+        </div>
+
+        <div class="form-group">
+          <label for="walkName">Walk Name</label>
+          <input type="text" id="walkName" placeholder="e.g. River Lim Path to Uplyme" required>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location / Starting Point</label>
+          <input type="text" id="location" placeholder="e.g. Town Mill, Lyme Regis">
+        </div>
+
+        <div class="form-group">
+          <label for="distance">Distance</label>
+          <input type="text" id="distance" placeholder="e.g. 1.5 miles">
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Route Notes & Accessibility</label>
+          <textarea id="notes" rows="3" placeholder="Shaded woodland path, shallow stream access, lead controls near roads..."></textarea>
+        </div>
+
+        <button type="submit">Save Walk Route</button>
+      </form>
+    </main>
+
+    <section class="card">
+      <h2>Saved Walks</h2>
+      <div id="walksList" class="saved-walks">
+        <p style="color: #718096;">No saved walks yet.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Correctly placed JavaScript inside <script> tags -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const walkForm = document.getElementById("walkForm");
+      const walksList = document.getElementById("walksList");
+
+      // Render existing saved walks from browser storage
+      displayWalks();
+
+      walkForm.addEventListener("submit", function(event) {
+        // Prevent form submission from reloading the web page
+        event.preventDefault();
+
+        // Collect values from the form inputs
+        const dogName = document.getElementById("dogName").value;
+        const walkName = document.getElementById("walkName").value;
+        const location = document.getElementById("location").value;
+        const distance = document.getElementById("distance").value;
+        const notes = document.getElementById("notes").value;
+        const routePoints = []; // Space for custom route points or map coordinates
+
+        // Construct walk object
+        let walk = {
+          dogName: dogName,
+          walkName: walkName,
+          location: location,
+          notes: notes,
+          distance: distance,
+          route: routePoints
+        };
+
+        // Fetch existing entries or initialize empty array
+        let walks = JSON.parse(localStorage.getItem("dogWalks")) || [];
+
+        // Save new item to array & local storage
+        walks.push(walk);
+        localStorage.setItem("dogWalks", JSON.stringify(walks));
+
+        // Reset form inputs and refresh display list
+        walkForm.reset();
+        displayWalks();
+      });
+
+      function displayWalks() {
+        let walks = JSON.parse(localStorage.getItem("dogWalks")) || [];
+
+        if (walks.length === 0) {
+          walksList.innerHTML = '<p style="color: #718096;">No saved walks yet.</p>';
+          return;
+        }
+
+        walksList.innerHTML = "";
+        walks.forEach(function(item) {
+          const div = document.createElement("div");
+          div.className = "walk-item";
+          div.innerHTML = `
+            <strong>${item.walkName}</strong> (${item.distance || 'N/A'})<br>
+            <small><strong>Dog:</strong> ${item.dogName} | <strong>Start:</strong> ${item.location}</small>
+            <p style="font-size: 0.9rem; margin-top: 6px;">${item.notes}</p>
+          `;
+          walksList.appendChild(div);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
